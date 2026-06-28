@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026년 호성이네 가족여행</title>
+  <style>
+    :root {
+      --navy:       #0F2447;
+      --navy-mid:   #1A3A6B;
+      --blue:       #4A7FA5;
+      --blue-light: #B8D4E8;
+      --ice:        #EBF2F9;
+      --amber:      #C97D2A;
+      --amber-lt:   #F5E8D4;
+      --green:      #3A7A57;
+      --green-lt:   #E4F2EB;
+      --purple:     #6B4FA0;
+      --snow:       #F6F8FB;
+      --white:      #FFFFFF;
+      --text:       #1C2B3A;
+      --muted:      #6B7C93;
+      --border:     #D8E4EE;
+      --shadow:     0 2px 12px rgba(15,36,71,.09);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;
+         background:var(--snow);color:var(--text);-webkit-font-smoothing:antialiased}
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;
+      background:linear-gradient(165deg,#07111F 0%,#0F2447 55%,#152F5E 100%);
+      min-height:250px;overflow:hidden;
+      display:flex;flex-direction:column;justify-content:center;
+      padding:44px 20px 48px;text-align:center;
+    }
+    .hero::after{
+      content:'';position:absolute;bottom:0;left:0;right:0;
+      height:44px;background:var(--snow);
+      border-radius:60% 60% 0 0/100% 100% 0 0;
+      transform:scaleX(1.06);
+    }
+    .snow-dot{
+      position:absolute;border-radius:50%;
+      background:rgba(255,255,255,.75);
+      animation:snowfall linear infinite;
+      pointer-events:none;
+    }
+    @keyframes snowfall{
+      0%{transform:translateY(-10px) translateX(0) rotate(0deg);opacity:0}
+      8%{opacity:1}
+      92%{opacity:.6}
+      100%{transform:translateY(260px) translateX(20px) rotate(360deg);opacity:0}
+    }
+    .hero-eyebrow{
+      font-size:11px;letter-spacing:3.5px;text-transform:uppercase;
+      color:var(--blue-light);margin-bottom:10px;position:relative;z-index:1;
+    }
+    .hero-title{
+      font-family:Georgia,'Times New Roman',serif;
+      font-size:38px;font-weight:normal;color:#fff;
+      line-height:1.1;margin-bottom:6px;
+      position:relative;z-index:1;
+      text-shadow:0 2px 20px rgba(0,0,0,.4);
+    }
+    .hero-sub{font-size:13px;color:var(--blue-light);margin-bottom:22px;position:relative;z-index:1}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
+    .hero-pill{
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+      color:#fff;font-size:12px;padding:5px 13px;border-radius:20px;
+      backdrop-filter:blur(4px);
+    }
+
+    /* ── TAB NAV ── */
+    .tab-nav{
+      position:sticky;top:0;z-index:100;
+      background:var(--white);border-bottom:1px solid var(--border);
+      display:flex;overflow-x:auto;scrollbar-width:none;
+      padding:0 10px;box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .tab-nav::-webkit-scrollbar{display:none}
+    .tab-btn{
+      flex-shrink:0;padding:13px 14px 11px;
+      background:none;border:none;border-bottom:3px solid transparent;
+      font-size:13px;font-weight:500;color:var(--muted);
+      cursor:pointer;white-space:nowrap;transition:all .18s;
+    }
+    .tab-btn.active{color:var(--navy);border-bottom-color:var(--amber);font-weight:700}
+    .tab-btn:hover:not(.active){color:var(--text)}
+
+    /* ── MAIN ── */
+    .main{max-width:680px;margin:0 auto;padding:20px 15px 70px}
+    .panel{display:none}
+    .panel.active{display:block}
+
+    .day-header{margin-bottom:18px;padding-top:2px}
+    .day-badge{
+      display:inline-block;background:var(--amber);color:#fff;
+      font-size:11px;font-weight:700;padding:3px 10px;
+      border-radius:4px;letter-spacing:.8px;margin-bottom:8px;
+    }
+    .day-title{font-size:18px;font-weight:700;color:var(--navy);line-height:1.45}
+
+    /* ── TIMELINE ── */
+    .timeline{display:flex;flex-direction:column;gap:10px}
+    .event{
+      background:var(--white);border-radius:12px;
+      box-shadow:var(--shadow);display:flex;overflow:hidden;
+    }
+    .bar{width:5px;flex-shrink:0}
+    .bar-blue{background:var(--blue)}
+    .bar-amber{background:var(--amber)}
+    .bar-green{background:var(--green)}
+    .bar-navy{background:var(--navy)}
+    .bar-purple{background:var(--purple)}
+    .bar-gray{background:#9BAAB8}
+
+    .ev-body{padding:13px 14px 13px 11px;flex:1}
+    .ev-top{display:flex;align-items:flex-start;gap:8px}
+    .ev-icon{font-size:19px;flex-shrink:0;line-height:1;margin-top:1px}
+    .ev-place{font-size:15px;font-weight:700;color:var(--text);line-height:1.3}
+    .ev-desc{font-size:13px;color:var(--muted);line-height:1.55;margin-top:4px;padding-left:27px}
+    .ev-desc strong{color:var(--text)}
+
+    .badge-row{padding-left:27px;margin-top:7px}
+    .cost-badge{
+      display:inline-block;font-size:11px;font-weight:600;
+      padding:3px 10px;border-radius:20px;
+      background:var(--ice);color:var(--navy-mid);
+    }
+    .cost-badge.free{background:var(--green-lt);color:var(--green)}
+    .cost-badge.extra{background:var(--amber-lt);color:var(--amber)}
+
+    /* ── SECTION DIVIDER ── */
+    .sec-div{
+      display:flex;align-items:center;gap:8px;
+      margin:20px 0 12px;font-size:11px;font-weight:700;
+      letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+    }
+    .sec-div::before,.sec-div::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    /* ── NOTE CARD ── */
+    .note{
+      background:var(--amber-lt);border-left:3px solid var(--amber);
+      border-radius:8px;padding:13px 14px;
+      font-size:13px;color:#7A4A15;line-height:1.6;margin-top:16px;
+    }
+    .note-blue{
+      background:var(--ice);border-left:3px solid var(--blue);color:var(--navy-mid);
+    }
+
+    /* ── BUDGET ── */
+    .bud-hero{
+      background:var(--navy);border-radius:16px;
+      padding:20px 20px 22px;margin-bottom:20px;
+      color:#fff;text-align:center;
+    }
+    .bud-lbl{font-size:11px;color:var(--blue-light);letter-spacing:1px;margin-bottom:6px}
+    .bud-total{font-family:Georgia,serif;font-size:34px;font-weight:700}
+    .bud-krw{font-size:12px;color:var(--blue-light);margin-top:3px}
+    .bud-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .bud-person{background:rgba(255,255,255,.12);border-radius:10px;padding:12px 14px}
+    .bud-pname{font-size:11px;color:var(--blue-light);margin-bottom:3px}
+    .bud-pamt{font-size:19px;font-weight:700}
+
+    .tbl-wrap{
+      overflow-x:auto;background:var(--white);
+      border-radius:12px;box-shadow:var(--shadow);margin-bottom:12px;
+    }
+    .bud-tbl{width:100%;border-collapse:collapse;min-width:460px}
+    .bud-tbl th{
+      background:var(--ice);font-size:12px;font-weight:700;
+      color:var(--navy);padding:10px 12px;text-align:right;
+      border-bottom:1px solid var(--border);
+    }
+    .bud-tbl th:first-child{text-align:left;min-width:160px}
+    .bud-tbl td{
+      font-size:13px;padding:9px 12px;text-align:right;
+      border-bottom:1px solid var(--border);color:var(--text);
+    }
+    .bud-tbl td:first-child{text-align:left}
+    .bud-tbl tr:last-child td{border-bottom:none}
+    .bud-tbl .tot td{font-weight:800;background:var(--ice);color:var(--navy);font-size:14px}
+    .bud-tbl .zero{color:var(--border)!important}
+    .bud-note{font-size:11.5px;color:var(--muted);line-height:1.65;padding:12px;
+      background:var(--amber-lt);border-radius:8px;border-left:3px solid var(--amber)}
+    .col-tot{font-weight:700;color:var(--amber)!important;text-align:right}
+    .col-krw{font-weight:700;color:var(--green)!important;text-align:right}
+    .bud-tbl th:nth-child(6){color:var(--amber)}
+    .bud-tbl th:nth-child(7){color:var(--green)}
+
+    /* ── TIPS ── */
+    .tips{display:flex;flex-direction:column;gap:11px}
+    .tip{
+      background:var(--white);border-radius:12px;
+      box-shadow:var(--shadow);padding:15px;
+      display:flex;gap:13px;align-items:flex-start;
+    }
+    .tip-ico{font-size:24px;flex-shrink:0}
+    .tip-lbl{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .tip-txt{font-size:13px;color:var(--muted);line-height:1.6}
+    .tip-txt strong{color:var(--text)}
+
+    /* ── TIME BADGE ── */
+    .ev-time{
+      display:inline-block;font-size:11px;font-weight:700;
+      color:var(--blue);background:var(--ice);
+      border:1px solid var(--blue-light);
+      padding:2px 9px;border-radius:20px;
+      margin-bottom:5px;letter-spacing:.4px;
+    }
+
+
+
+    /* ── SUB-TABS ── */
+    .day-hd-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .stab-bar{display:flex;gap:6px;flex-shrink:0}
+    .stab{
+      padding:5px 12px;border-radius:20px;
+      border:1.5px solid var(--border);background:var(--white);
+      font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;
+      transition:all .18s;white-space:nowrap;
+    }
+    .stab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+    .spanel{display:none}
+    .spanel.active{display:block}
+    .map-leg-sm{
+      display:flex;align-items:center;gap:8px;
+      font-size:12px;color:var(--muted);padding:10px 14px;
+      background:var(--white);border-radius:10px;box-shadow:var(--shadow);
+    }
+    .leg-dot{display:inline-block;width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+    /* ── HERO WEATHER ── */
+    .hero-wx{
+      position:relative;z-index:1;
+      display:inline-flex;align-items:center;gap:12px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:14px;padding:9px 20px;
+      margin-bottom:18px;
+      backdrop-filter:blur(6px);
+      color:#fff;
+    }
+    .hero-wx-icon{font-size:28px;line-height:1}
+    .hero-wx-temp{font-family:Georgia,serif;font-size:30px;font-weight:700;line-height:1;letter-spacing:-0.5px}
+    .hero-wx-info{display:flex;flex-direction:column;gap:2px;text-align:left}
+    .hero-wx-loc{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#B8D4E8}
+    .hero-wx-desc{font-size:12px;color:rgba(255,255,255,.8)}
+    .hero-wx-detail{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:380px){
+      .hero-title{font-size:30px}
+      .tab-btn{padding:13px 11px 11px;font-size:12px}
+    }
+
+    /* ── MAP PANEL ── */
+    .map-sel{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap}
+    .mday-btn{
+      flex:1;min-width:60px;padding:8px 4px;
+      background:var(--white);border:1px solid var(--border);
+      border-radius:10px;font-size:12px;font-weight:600;color:var(--muted);
+      cursor:pointer;transition:all .18s;text-align:center;
+    }
+    .mday-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+    #mapBox{
+      height:430px;border-radius:16px;overflow:hidden;
+      margin-bottom:14px;box-shadow:0 2px 16px rgba(15,36,71,.12);
+    }
+    .map-legend{
+      background:var(--white);border-radius:12px;
+      padding:14px 16px;box-shadow:var(--shadow);
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .leg-row{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text)}
+    .leg-line{width:32px;height:4px;border-radius:2px;flex-shrink:0}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-eyebrow">✈ 2026년 홋카이도 삿포로 오타루</div>
+  <h1 class="hero-title">호성이네 가족여행 🏔️</h1>
+  <p class="hero-sub">2026년 11월 28일 (토) — 12월 1일 (화) · 3박 4일</p>
+  <div class="hero-wx" id="heroWx">
+    <div class="hero-wx-icon" id="wxIcon">❄️</div>
+    <div class="hero-wx-temp" id="wxTemp">--°</div>
+    <div class="hero-wx-info">
+      <div class="hero-wx-loc">📍 삿포로 현재 날씨</div>
+      <div class="hero-wx-desc" id="wxDesc">불러오는 중...</div>
+      <div class="hero-wx-detail" id="wxDetail"></div>
+    </div>
+  </div>
+  <div class="hero-pills">
+    <span class="hero-pill">👨‍👩‍👧‍👦 4인 가족</span>
+    <span class="hero-pill">❄️ 초겨울 홋카이도</span>
+    <span class="hero-pill">🏨 이비스 스타일즈 삿포로</span>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active"  onclick="goTab('d1',this)">Day 1</button>
+  <button class="tab-btn"         onclick="goTab('d2',this)">Day 2 ⭐</button>
+  <button class="tab-btn"         onclick="goTab('d3',this)">Day 3 🌾</button>
+  <button class="tab-btn"         onclick="goTab('d4',this)">Day 4</button>
+  <button class="tab-btn"         onclick="goTab('budget',this)">💴 예산</button>
+  <button class="tab-btn"         onclick="goTab('tips',this)">💡 꿀팁</button>
+</nav>
+
+<main class="main">
+
+  <!-- ══════ DAY 1 ══════ -->
+  <section class="panel active" id="d1">
+    <div class="day-header">
+      <div class="day-hd-row">
+        <div class="day-badge">DAY 1 · 11/28 (토)</div>
+        <div class="stab-bar">
+          <button class="stab active" onclick="doStab('d1','sched',this)">📋 일정</button>
+          <button class="stab" onclick="doStab('d1','map',this)">🗺️ 지도</button>
+        </div>
+      </div>
+      <div class="day-title">출발 → 삿포로 도착 &amp; 시내 탐방</div>
+    </div>
+    <div class="spanel active" id="d1-sched">
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕑 14:30</div>
+          <div class="ev-top"><span class="ev-icon">✈️</span><span class="ev-place">김해공항 출발</span></div>
+          <div class="ev-desc">김해(PUS) → 신치토세(CTS)&nbsp; |&nbsp; <strong>14:30 출발</strong> · 약 2시간 30분 소요</div>
+          <div class="badge-row"><span class="cost-badge extra">항공권 별도</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕕 17:00 도착</div>
+          <div class="ev-top"><span class="ev-icon">🛬</span><span class="ev-place">신치토세공항 도착</span></div>
+          <div class="ev-desc">입국 심사 · 수하물 수취 (약 30~40분 소요) → <strong>17:00 신치토세 도착</strong></div>
+          <div class="badge-row"><span class="cost-badge extra">항공권 별도</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕕 17:40 출발</div>
+          <div class="ev-top"><span class="ev-icon">🚂</span><span class="ev-place">신치토세공항 → 삿포로역</span></div>
+          <div class="ev-desc">JR 쾌속 약 40분 → <strong>18:20 삿포로역 도착</strong>. IC카드(Suica/ICOCA) 추천 🎫</div>
+          <div class="badge-row"><span class="cost-badge">1,150엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-purple"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕕 18:00</div>
+          <div class="ev-top"><span class="ev-icon">🏨</span><span class="ev-place">이비스 스타일즈 삿포로 체크인</span></div>
+          <div class="ev-desc">스스키노 도보권 · <strong>1층 Lawson 편의점</strong> 매우 편리 · 야식·음료·우산 등 OK</div>
+          <div class="badge-row"><span class="cost-badge extra">숙박비 별도</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕖 19:00</div>
+          <div class="ev-top"><span class="ev-icon">🍺</span><span class="ev-place">저녁 — 스스키노</span></div>
+          <div class="ev-desc"><strong>징기스칸</strong> 또는 <strong>미소 라멘</strong>으로 첫날 저녁. 스스키노 골목 탐방</div>
+          <div class="badge-row"><span class="cost-badge">약 2,500엔/인</span></div>
+        </div>
+      </div>
+
+    </div>
+      </div>
+    <div class="spanel" id="d1-map">
+      <div id="d1-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
+      <div class="map-leg-sm">
+        <span class="leg-dot" style="background:#C97D2A"></span>
+        <span>Day 1 · 공항→삿포로 시내탐방</span>
+      </div>
+    </div>
+</section>
+
+  <!-- ══════ DAY 2 ══════ -->
+  <section class="panel" id="d2">
+    <div class="day-header">
+      <div class="day-hd-row">
+        <div class="day-badge">DAY 2 · 11/29 (일) ⭐</div>
+        <div class="stab-bar">
+          <button class="stab active" onclick="doStab('d2','sched',this)">📋 일정</button>
+          <button class="stab" onclick="doStab('d2','map',this)">🗺️ 지도</button>
+        </div>
+      </div>
+      <div class="day-title">오타루 당일치기</div>
+    </div>
+    <div class="spanel active" id="d2-sched">
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕖 07:30</div>
+          <div class="ev-top"><span class="ev-icon">🏪</span><span class="ev-place">편의점 아침 — Lawson / セイコーマート</span></div>
+          <div class="ev-desc">호텔 1층 Lawson 또는 세이코마트에서 아침 해결! <strong>꼭 먹어야 할 것</strong> → 온타마 계란덮밥 · 치킨 (갓 튀긴 것) · 오니기리 · 북해도 우유</div>
+          <div class="badge-row"><span class="cost-badge">약 500~800엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕗 08:30 출발</div>
+          <div class="ev-top"><span class="ev-icon">🚂</span><span class="ev-place">JR 삿포로 → 오타루 출발</span></div>
+          <div class="ev-desc">쾌속 약 35분 → <strong>09:05 오타루역 도착</strong>. IC카드 사용 추천</div>
+          <div class="badge-row"><span class="cost-badge">640엔/인 (왕복 1,280엔)</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕘 09:10</div>
+          <div class="ev-top"><span class="ev-icon">🌊</span><span class="ev-place">오타루 운하</span></div>
+          <div class="ev-desc">아침 안개 + 눈 풍경. <strong>이른 오전 추천</strong>! 포토 스팟 📸</div>
+          <div class="badge-row"><span class="cost-badge free">무료</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕙 10:00</div>
+          <div class="ev-top"><span class="ev-icon">🎵</span><span class="ev-place">오타루 오르골당</span></div>
+          <div class="ev-desc">수천 개 오르골 구경 + 직접 만들기 체험. <strong>사전 예약 추천</strong> (13세·17세 모두 최애!)</div>
+          <div class="badge-row"><span class="cost-badge">체험 2,100엔~</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-gray"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕚 11:00</div>
+          <div class="ev-top"><span class="ev-icon">⏱️</span><span class="ev-place">스팀 시계</span></div>
+          <div class="ev-desc">오르골당 바로 옆. 15분마다 증기 + 멜로디 분출</div>
+          <div class="badge-row"><span class="cost-badge free">무료</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕛 12:00</div>
+          <div class="ev-top"><span class="ev-icon">🐟</span><span class="ev-place">점심 — 카이센동 (해산물 덮밥)</span></div>
+          <div class="ev-desc">오타루 명물 신선 해산물. <strong>아이들 최애 메뉴</strong>!</div>
+          <div class="badge-row"><span class="cost-badge">약 2,000엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-gray"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕐 13:30</div>
+          <div class="ev-top"><span class="ev-icon">🛍️</span><span class="ev-place">유리공예 숍 · 운하 카페</span></div>
+          <div class="ev-desc">기념품 쇼핑 &amp; 오타루 특색 카페 타임 ☕</div>
+          <div class="badge-row"><span class="cost-badge">자유</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🌙 19:00</div>
+          <div class="ev-top"><span class="ev-icon">🚤</span><span class="ev-place">오타루 운하 야경 크루즈</span></div>
+          <div class="ev-desc">40분 코스 · 영어 오디오 가이드 포함. 밤 운하 분위기 절경 🌃</div>
+          <div class="badge-row"><span class="cost-badge">1,800엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🌙 20:30 삿포로 도착</div>
+          <div class="ev-top"><span class="ev-icon">🍜</span><span class="ev-place">삿포로 귀환 · 저녁</span></div>
+          <div class="ev-desc">스스키노 이자카야 or <strong>스프 카레</strong> — 홋카이도 명물!</div>
+          <div class="badge-row"><span class="cost-badge">약 2,000엔/인</span></div>
+        </div>
+      </div>
+
+    </div>
+      </div>
+    <div class="spanel" id="d2-map">
+      <div id="d2-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
+      <div class="map-leg-sm">
+        <span class="leg-dot" style="background:#4A7FA5"></span>
+        <span>Day 2 · 삿포로↔오타루 당일치기</span>
+      </div>
+    </div>
+</section>
+
+  <!-- ══════ DAY 3 ══════ -->
+  <section class="panel" id="d3">
+    <div class="day-header">
+      <div class="day-hd-row">
+        <div class="day-badge">DAY 3 · 11/30 (월)</div>
+        <div class="stab-bar">
+          <button class="stab active" onclick="doStab('d3','sched',this)">📋 일정</button>
+          <button class="stab" onclick="doStab('d3','map',this)">🗺️ 지도</button>
+        </div>
+      </div>
+      <div class="day-title">비에이 당일 투어 🌾🏔️</div>
+    </div>
+    <div class="spanel active" id="d3-sched">
+
+    <div class="note note-blue" style="margin-bottom:16px">
+      🚌 <strong>삿포로 출발 비에이 버스투어</strong> 기준 일정입니다. 한국어 가이드 포함 상품 다수 운영 중. 투어사마다 출발 시간이 다를 수 있으니 예약 시 확인하세요!
+    </div>
+
+    <div class="sec-div">오전 — 출발 & 이동</div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕖 07:00</div>
+          <div class="ev-top"><span class="ev-icon">🏪</span><span class="ev-place">편의점 아침 + 투어용 간식 준비</span></div>
+          <div class="ev-desc">버스 출발 전 Lawson에서 아침 + 간식 준비! <strong>추천</strong> → 오니기리 · 핫도그 · 북해도 우유 · 핫팩 음료. 비에이는 매우 추우니 따뜻한 캔커피·핫초코 챙기기!</div>
+          <div class="badge-row"><span class="cost-badge">약 600~1,000엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕗 07:45</div>
+          <div class="ev-top"><span class="ev-icon">🚌</span><span class="ev-place">버스투어 집합 · 출발</span></div>
+          <div class="ev-desc">삿포로역 or 오도리 집합 (투어사 확인 필수). 한국어 가이드 포함 투어 추천 — 비에이·후라노 코스</div>
+          <div class="badge-row"><span class="cost-badge extra">투어비 별도 (약 8,000~12,000엔/인)</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕙 09:30 ~ 10:00</div>
+          <div class="ev-top"><span class="ev-icon">🚌</span><span class="ev-place">삿포로 → 비에이 이동 중</span></div>
+          <div class="ev-desc">고속도로 이용 약 2시간. 차 안에서 가이드의 홋카이도 설명 & 풍경 감상</div>
+          <div class="badge-row"><span class="cost-badge">투어 포함</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sec-div">오전~오후 — 비에이 명소</div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕙 10:00</div>
+          <div class="ev-top"><span class="ev-icon">🌲</span><span class="ev-place">크리스마스 트리 나무 / 마일드세븐 언덕</span></div>
+          <div class="ev-desc">눈 덮인 언덕 위 홀로 선 나무. 겨울 설경이 가장 아름다운 비에이 대표 포토스팟 📸 (약 20분)</div>
+          <div class="badge-row"><span class="cost-badge free">무료</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕙 10:30</div>
+          <div class="ev-top"><span class="ev-icon">🌳</span><span class="ev-place">켄과 메리의 나무 · 세븐스타 나무</span></div>
+          <div class="ev-desc">광활한 눈밭 위에 우뚝 선 나무들. 아이들과 함께 눈밭 산책 ⛄ 홋카이도 특유의 광활한 풍경 (약 30분)</div>
+          <div class="badge-row"><span class="cost-badge free">무료</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕚 11:10</div>
+          <div class="ev-top"><span class="ev-icon">💙</span><span class="ev-place">청의 호수 (아오이이케, 青い池)</span></div>
+          <div class="ev-desc">비에이 최고 명소! 겨울에는 <strong>얼어붙은 코발트블루 호수</strong>가 신비로운 설경 연출. 야간 라이트업은 별도 방문 필요 (약 40분)</div>
+          <div class="badge-row"><span class="cost-badge">주차장 500엔</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕛 12:30</div>
+          <div class="ev-top"><span class="ev-icon">🍽️</span><span class="ev-place">점심 — 비에이 현지 식당</span></div>
+          <div class="ev-desc">비에이역 주변 소박한 현지 식당. <strong>홋카이도 카레</strong> 또는 <strong>소바</strong> 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)</div>
+          <div class="badge-row"><span class="cost-badge">약 1,200엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕐 13:30</div>
+          <div class="ev-top"><span class="ev-icon">🏔️</span><span class="ev-place">시로가네 온천 지구 (선택 / 투어 코스 따라 다름)</span></div>
+          <div class="ev-desc">청의 호수 근처 온천 마을. 당일 입욕 가능한 료칸 있음. 겨울 추위에 온천으로 힐링 ♨️ (약 60분)</div>
+          <div class="badge-row"><span class="cost-badge">약 800~1,500엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕑 14:40</div>
+          <div class="ev-top"><span class="ev-icon">🌸</span><span class="ev-place">사계채의 언덕 (四季彩の丘)</span></div>
+          <div class="ev-desc">겨울엔 설원으로 변신! 다이쇼 연못·패치워크 언덕 등 비에이 전경 조망 (약 30분)</div>
+          <div class="badge-row"><span class="cost-badge free">무료 (성수기 유료)</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sec-div">저녁 — 삿포로 귀환</div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕒 15:30</div>
+          <div class="ev-top"><span class="ev-icon">🚌</span><span class="ev-place">버스투어 귀환 출발</span></div>
+          <div class="ev-desc">비에이 출발 → 삿포로 방향. 고속도로 이용 약 2시간</div>
+          <div class="badge-row"><span class="cost-badge">투어 포함</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕔 17:30 ~ 18:00</div>
+          <div class="ev-top"><span class="ev-icon">🏙️</span><span class="ev-place">삿포로 도착 · 해산</span></div>
+          <div class="ev-desc">삿포로역 or 오도리 하차 (투어사 확인 필수)</div>
+          <div class="badge-row"><span class="cost-badge">투어 포함</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🌙 19:00</div>
+          <div class="ev-top"><span class="ev-icon">🍜</span><span class="ev-place">저녁 — 스스키노 라멘 or 이자카야</span></div>
+          <div class="ev-desc">긴 하루 투어 후 따뜻한 라멘으로 마무리. 마지막 밤 스스키노 분위기 즐기기 🍶</div>
+          <div class="badge-row"><span class="cost-badge">약 2,000엔/인</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note" style="margin-top:16px">
+      💡 <strong>비에이 버스투어 팁!</strong><br>
+      ① 클룩(Klook) · 마이리얼트립 등에서 <strong>한국어 가이드 포함</strong> 상품 예약 추천<br>
+      ② 청의 호수 <strong>야간 라이트업</strong>은 16:00~21:00 운영 (11~3월) — 투어 일정 확인!<br>
+      ③ 비에이는 매우 춥고 바람 강함 — <strong>핫팩·방한장갑·넥워머 필수</strong>
+    </div>
+      </div>
+    <div class="spanel" id="d3-map">
+      <div id="d3-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
+      <div class="map-leg-sm">
+        <span class="leg-dot" style="background:#3A7A57"></span>
+        <span>Day 3 · 비에이 투어 + 모이와야마 야경</span>
+      </div>
+    </div>
+</section>
+
+  <!-- ══════ DAY 4 ══════ -->
+  <section class="panel" id="d4">
+    <div class="day-header">
+      <div class="day-hd-row">
+        <div class="day-badge">DAY 4 · 12/1 (화)</div>
+        <div class="stab-bar">
+          <button class="stab active" onclick="doStab('d4','sched',this)">📋 일정</button>
+          <button class="stab" onclick="doStab('d4','map',this)">🗺️ 지도</button>
+        </div>
+      </div>
+      <div class="day-title">쇼핑 후 귀국 ✈️</div>
+    </div>
+    <div class="spanel active" id="d4-sched">
+    <div class="timeline">
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕗 08:00</div>
+          <div class="ev-top"><span class="ev-icon">🏪</span><span class="ev-place">편의점 아침 후 체크아웃</span></div>
+          <div class="ev-desc">마지막 날 Lawson 아침! <strong>추천</strong> → 삿포로 한정 삼각김밥 · 크림빵 · 스프 컵라면. 짐은 프론트에 맡기고 쇼핑 출발!</div>
+          <div class="badge-row"><span class="cost-badge">약 500~800엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕘 09:00</div>
+          <div class="ev-top"><span class="ev-icon">🛍️</span><span class="ev-place">타누키코지 상점가 — 아케이드 쇼핑</span></div>
+          <div class="ev-desc">약 600m 실내 아케이드. 눈·비 걱정 없이 쇼핑! <strong>드럭스토어</strong>(마쓰모토키요시·코코카라) → 화장품·의약품·과자 싹쓸이 구간 🛒</div>
+          <div class="badge-row"><span class="cost-badge">자유</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕙 10:00</div>
+          <div class="ev-top"><span class="ev-icon">🍫</span><span class="ev-place">JR 타워 · 스텔라플레이스 지하 쇼핑</span></div>
+          <div class="ev-desc"><strong>로이스 생초콜릿</strong> · <strong>시로이 코이비토</strong> · <strong>하스카프 젤리</strong> · 홋카이도 한정 과자 총집합! 귀국 선물 여기서 마무리 🎁</div>
+          <div class="badge-row"><span class="cost-badge">자유</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-gray"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕚 11:00</div>
+          <div class="ev-top"><span class="ev-icon">🕐</span><span class="ev-place">삿포로 시계탑 (선택)</span></div>
+          <div class="ev-desc">오도리 공원 근처 · 외관 사진만 찍어도 충분한 삿포로 랜드마크!</div>
+          <div class="badge-row"><span class="cost-badge">200엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-green"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕛 12:00</div>
+          <div class="ev-top"><span class="ev-icon">🍽️</span><span class="ev-place">점심 — 시내 식사</span></div>
+          <div class="ev-desc">삿포로역 주변 또는 백화점 푸드코트</div>
+          <div class="badge-row"><span class="cost-badge">약 1,500엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-blue"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕐 13:00 호텔 출발</div>
+          <div class="ev-top"><span class="ev-icon">🚂</span><span class="ev-place">신치토세공항 이동</span></div>
+          <div class="ev-desc">짐 찾은 후 JR 쾌속 약 40분 → <strong>13:50 신치토세 도착</strong>. 출발 2시간 전 도착 권장</div>
+          <div class="badge-row"><span class="cost-badge">1,150엔/인</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕑 14:00 ~ 15:30</div>
+          <div class="ev-top"><span class="ev-icon">🛒</span><span class="ev-place">공항 면세점 · 홋카이도 특산품</span></div>
+          <div class="ev-desc">공항 내 홋카이도 특산품 마지막 쇼핑. 탑승 수속 후 면세구역에서 쇼핑 가능</div>
+          <div class="badge-row"><span class="cost-badge">자유</span></div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="bar bar-navy"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕔 16:00 탑승 수속</div>
+          <div class="ev-top"><span class="ev-icon">✈️</span><span class="ev-place">신치토세공항 귀국 출발</span></div>
+          <div class="ev-desc">신치토세(CTS) → 김해(PUS)&nbsp; |&nbsp; <strong>18:00 출발</strong>. 수속 마감 약 45~60분 전 체크인 카운터 방문</div>
+          <div class="badge-row"><span class="cost-badge extra">항공권 별도</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="note">
+      ⏰ <strong>귀국 주의!</strong>&nbsp; 18:00 출발 기준 → 신치토세 <strong>15:00~16:00 도착</strong>이 목표입니다. 삿포로역 JR 쾌속 약 40분 소요 — 쇼핑 마감 시간을 미리 체크하세요!
+    </div>
+      </div>
+    <div class="spanel" id="d4-map">
+      <div id="d4-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
+      <div class="map-leg-sm">
+        <span class="leg-dot" style="background:#6B4FA0"></span>
+        <span>Day 4 · 쇼핑 후 신치토세 귀국</span>
+      </div>
+    </div>
+</section>
+
+  <!-- ══════ BUDGET ══════ -->
+  <section class="panel" id="budget">
+    <div class="day-header">
+      <div class="day-badge">💴 예상 예산표</div>
+      <div class="day-title">호성이네 4인 · 엔화 기준 (¥100 = 950원)</div>
+    </div>
+
+    <div class="bud-hero">
+      <div class="bud-lbl">예상 총 비용 (항공·숙박 제외)</div>
+      <div class="bud-total">¥ 185,520</div>
+      <div class="bud-krw">약 ₩1,762,440 (¥100 = 950원 기준)</div>
+      <div class="bud-grid">
+        <div class="bud-person"><div class="bud-pname">임동준 (성인)</div><div class="bud-pamt">¥ 50,180</div></div>
+        <div class="bud-person"><div class="bud-pname">김은영 (성인)</div><div class="bud-pamt">¥ 50,180</div></div>
+        <div class="bud-person"><div class="bud-pname">임호성 (17세)</div><div class="bud-pamt">¥ 42,580</div></div>
+        <div class="bud-person"><div class="bud-pname">임창범 (13세)</div><div class="bud-pamt">¥ 42,580</div></div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="bud-tbl">
+        <thead>
+          <tr>
+            <th>항목</th><th>임동준</th><th>김은영</th><th>임호성</th><th>임창범</th>
+            <th style="color:var(--amber)">합계(¥)</th>
+            <th style="color:var(--green)">원화(₩)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>✈ 공항→삿포로 JR</td><td>1,150</td><td>1,150</td><td>1,150</td><td>1,150</td><td class="col-tot">4,600</td><td class="col-krw">₩43,700</td></tr>
+          <tr><td>🚂 삿포로↔오타루 JR 왕복</td><td>1,280</td><td>1,280</td><td>1,280</td><td>1,280</td><td class="col-tot">5,120</td><td class="col-krw">₩48,640</td></tr>
+          <tr><td>✈ 삿포로→공항 JR</td><td>1,150</td><td>1,150</td><td>1,150</td><td>1,150</td><td class="col-tot">4,600</td><td class="col-krw">₩43,700</td></tr>
+          <tr><td>🚇 지하철·버스 (4일)</td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td class="col-tot">8,000</td><td class="col-krw">₩76,000</td></tr>
+          <tr><td>🕐 삿포로 시계탑</td><td>200</td><td>200</td><td>200</td><td>200</td><td class="col-tot">800</td><td class="col-krw">₩7,600</td></tr>
+          <tr><td>🎵 오르골 만들기 체험</td><td>2,100</td><td>2,100</td><td>2,100</td><td>2,100</td><td class="col-tot">8,400</td><td class="col-krw">₩79,800</td></tr>
+          <tr><td>🚤 오타루 운하 크루즈</td><td>1,800</td><td>1,800</td><td>1,800</td><td>1,800</td><td class="col-tot">7,200</td><td class="col-krw">₩68,400</td></tr>
+          <tr><td>🚌 비에이 버스투어</td><td>10,000</td><td>10,000</td><td>10,000</td><td>10,000</td><td class="col-tot">40,000</td><td class="col-krw">₩380,000</td></tr>
+          <tr><td>🏪 편의점 식비 (4일)</td><td>4,000</td><td>4,000</td><td>3,200</td><td>3,200</td><td class="col-tot">14,400</td><td class="col-krw">₩136,800</td></tr>
+          <tr><td>🍽 외식 — Day1 저녁</td><td>2,500</td><td>2,500</td><td>2,000</td><td>2,000</td><td class="col-tot">9,000</td><td class="col-krw">₩85,500</td></tr>
+          <tr><td>🍽 외식 — Day2 점심+저녁</td><td>4,000</td><td>4,000</td><td>3,500</td><td>3,500</td><td class="col-tot">15,000</td><td class="col-krw">₩142,500</td></tr>
+          <tr><td>🍽 외식 — Day3 점심+저녁</td><td>3,500</td><td>3,500</td><td>3,000</td><td>3,000</td><td class="col-tot">13,000</td><td class="col-krw">₩123,500</td></tr>
+          <tr><td>🍽 외식 — Day4 점심</td><td>1,500</td><td>1,500</td><td>1,200</td><td>1,200</td><td class="col-tot">5,400</td><td class="col-krw">₩51,300</td></tr>
+          <tr><td>🛍 쇼핑·기념품 (추정)</td><td>15,000</td><td>15,000</td><td>10,000</td><td>10,000</td><td class="col-tot">50,000</td><td class="col-krw">₩475,000</td></tr>
+          <tr class="tot"><td>합 계</td><td>50,180</td><td>50,180</td><td>42,580</td><td>42,580</td><td class="col-tot">¥ 185,520</td><td class="col-krw">₩ 1,762,440</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bud-note">
+      ※ 항공권 · 숙박비(3박) · 개인 추가 쇼핑은 제외된 금액입니다.<br>
+      환율 ¥100 = 950원 적용. 실제 비용은 현지 물가에 따라 달라질 수 있습니다.
+    </div>
+  </section>
+
+  <!-- ══════ TIPS ══════ -->
+  <section class="panel" id="tips">
+    <div class="day-header">
+      <div class="day-badge">💡 여행 꿀팁</div>
+      <div class="day-title">알아두면 좋은 정보</div>
+    </div>
+    <div class="tips">
+
+      <div class="tip">
+        <span class="tip-ico">🍽️</span>
+        <div>
+          <div class="tip-lbl">꼭 먹어야 할 식당 메뉴</div>
+          <div class="tip-txt">
+            <strong>징기스칸</strong> · <strong>스프 카레</strong> · <strong>미소 라멘</strong> · <strong>오타루 카이센동</strong> · <strong>비에이 소바·카레</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🏪</span>
+        <div>
+          <div class="tip-lbl">일본 편의점 필수 먹거리</div>
+          <div class="tip-txt">
+            <strong>아침</strong> → 온타마 계란덮밥 · 오니기리 · 북해도 우유 · 핫도그<br>
+            <strong>간식</strong> → 우치카페 슈크림 · 바스크치즈케이크 · 홋카이도 푸딩 · 멜론빵<br>
+            <strong>야식</strong> → 삿포로 클래식 캔맥주 · 갓 튀긴 치킨 · 스프 컵라면<br>
+            <strong>귀국 선물</strong> → 로이스 생초콜릿 · 시로이 코이비토 · 하스카프 젤리
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🧥</span>
+        <div>
+          <div class="tip-lbl">옷차림 — 방한 필수!</div>
+          <div class="tip-txt">11월 말~12월 초 삿포로는 <strong>영하~3°C</strong>. <strong>눈길 방한화</strong> 반드시 준비. 아이들 미끄럼 주의!</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🚂</span>
+        <div>
+          <div class="tip-lbl">교통 핵심</div>
+          <div class="tip-txt">삿포로↔오타루 JR 쾌속 <strong>35분 / 640엔</strong>. 가족 전원 <strong>IC카드(Suica / ICOCA)</strong> 준비 추천. 한 번만 충전하면 JR·지하철·버스 모두 사용 가능</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🎵</span>
+        <div>
+          <div class="tip-lbl">체험 예약</div>
+          <div class="tip-txt">오르골 만들기 체험은 <strong>사전 예약 필수</strong>. 현장에서는 자리가 없을 수 있음. 13세·17세 모두 매우 좋아하는 체험</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🏨</span>
+        <div>
+          <div class="tip-lbl">숙소 포인트</div>
+          <div class="tip-txt">이비스 스타일즈는 <strong>스스키노 도보권</strong>. <strong>1층 Lawson</strong>에서 야식·음료·간식 해결 가능. 지하철 한 정거장 거리</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">🎡</span>
+        <div>
+          <div class="tip-lbl">호성·창범 Best 3 🌟</div>
+          <div class="tip-txt">① <strong>오르골 만들기</strong> (오타루) — 호성·창범 최애!&nbsp; ② <strong>비에이 설경 투어</strong> 🌨️&nbsp; ③ <strong>오타루 운하 크루즈</strong> 야경 🚤</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <span class="tip-ico">⏰</span>
+        <div>
+          <div class="tip-lbl">귀국 시간 — 중요!</div>
+          <div class="tip-txt">12/1 <strong>18:00 출발</strong> 기준 → 신치토세 <strong>15:00~16:00 도착</strong>이 목표. 삿포로역에서 JR 40분. 쇼핑 마감 시간 체크 필수!</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note note-blue" style="margin-top:20px">
+      ❄️ <strong>날씨 참고:</strong> 삿포로 11월 말 ~ 12월 초는 첫눈이 이미 내린 뒤. 운하·모이와야마 야경이 눈과 함께라면 훨씬 아름답습니다. 방한 준비만 잘 하면 최고의 시즌!
+    </div>
+  </section>
+
+
+  <!-- ══════ MAP ══════ -->
+  
+
+</main>
+
+<script>
+  /* TAB SWITCHING */
+  function goTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    const nav = document.querySelector('.tab-nav');
+    nav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    window.scrollTo({ top: nav.offsetTop - 60, behavior: 'smooth' });
+  }
+
+  /* SNOWFALL */
+  (function () {
+    const hero = document.getElementById('hero');
+    const count = 24;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('span');
+      s.className = 'snow-dot';
+      const size = Math.random() * 5 + 2;
+      s.style.cssText = [
+        `left:${Math.random() * 100}%`,
+        `width:${size}px`,
+        `height:${size}px`,
+        `animation-duration:${(Math.random() * 5 + 4).toFixed(1)}s`,
+        `animation-delay:${(Math.random() * 6).toFixed(1)}s`,
+        `opacity:${(Math.random() * 0.5 + 0.3).toFixed(2)}`
+      ].join(';');
+      hero.appendChild(s);
+    }
+  })();
+
+  /* ── SAPPORO WEATHER (WeatherAPI.com) ── */
+  (function(){
+    const KEY = 'b917650c54c74b6a8cc92746262806';
+    const ICONS = {
+      1000:'☀️', 1003:'⛅', 1006:'☁️', 1009:'☁️',
+      1030:'🌫️', 1135:'🌫️', 1147:'🌫️',
+      1063:'🌦️', 1066:'🌨️', 1072:'🌨️', 1087:'⛈️',
+      1114:'🌨️', 1117:'❄️',
+      1150:'🌦️', 1153:'🌦️', 1168:'🌨️', 1171:'🌨️',
+      1180:'🌧️', 1183:'🌧️', 1186:'🌧️', 1189:'🌧️',
+      1192:'🌧️', 1195:'🌧️', 1198:'🌨️', 1201:'🌨️',
+      1204:'🌨️', 1207:'🌨️',
+      1210:'❄️', 1213:'❄️', 1216:'❄️', 1219:'❄️', 1222:'❄️', 1225:'❄️',
+      1237:'🌨️', 1240:'🌧️', 1243:'🌧️', 1246:'🌧️',
+      1249:'🌨️', 1252:'🌨️', 1255:'❄️', 1258:'❄️',
+      1261:'🌨️', 1264:'🌨️',
+      1273:'⛈️', 1276:'⛈️', 1279:'⛈️', 1282:'⛈️'
+    };
+    const WDIR = {N:'북',NNE:'북북동',NE:'북동',ENE:'동북동',E:'동',ESE:'동남동',
+      SE:'남동',SSE:'남남동',S:'남',SSW:'남남서',SW:'남서',WSW:'서남서',
+      W:'서',WNW:'서북서',NW:'북서',NNW:'북북서'};
+
+    fetch('https://api.weatherapi.com/v1/current.json?key='+KEY+'&q=Sapporo&lang=ko&aqi=no')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => {
+        const c = d.current;
+        const code = c.condition.code;
+        const isDay = c.is_day === 1;
+        const icon = ICONS[code] || (isDay ? '🌡️' : '🌙');
+        const temp = Math.round(c.temp_c);
+        const feels = Math.round(c.feelslike_c);
+        const hum = c.humidity;
+        const wind = Math.round(c.wind_kph);
+        const wd = WDIR[c.wind_dir] || c.wind_dir;
+
+        document.getElementById('wxIcon').textContent = icon;
+        document.getElementById('wxTemp').textContent = temp + '°C';
+        document.getElementById('wxDesc').textContent = c.condition.text;
+        document.getElementById('wxDetail').textContent =
+          '체감 ' + feels + '° · 습도 ' + hum + '% · 바람 ' + wind + '㎞/h ' + wd;
+      })
+      .catch(() => {
+        document.getElementById('wxDesc').textContent = '날씨 정보 불러오기 실패';
+      });
+  })();
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ── PER-DAY MAP ── */
+const _maps={};
+const SPOTS={
+  chitose:    {n:'✈️ 신치토세공항',       lat:42.7752,lng:141.6924,e:'✈️',t:'JR 쾌속 약 40분 → 삿포로역'},
+  sapporo_st: {n:'🚂 삿포로역',           lat:43.0686,lng:141.3508,e:'🚂',t:'JR 허브역'},
+  clocktower: {n:'🕐 삿포로 시계탑',      lat:43.0641,lng:141.3540,e:'🕐',t:'입장 ¥200 · 역사명소'},
+  odori:      {n:'🌳 오도리 공원',        lat:43.0589,lng:141.3531,e:'🌳',t:'삿포로 도심 공원'},
+  tanuki:     {n:'🛍️ 타누키코지',         lat:43.0560,lng:141.3543,e:'🛍️',t:'지하 쇼핑 아케이드'},
+  susukino:   {n:'🍺 스스키노',           lat:43.0553,lng:141.3554,e:'🍺',t:'저녁식사 — 징기스칸·라멘'},
+  hotel:      {n:'🏨 이비스 스타일즈',    lat:43.0535,lng:141.3556,e:'🏨',t:'3박 숙소 · 1층 Lawson'},
+  otaru_st:   {n:'🚂 오타루역',           lat:43.1908,lng:140.9947,e:'🚂',t:'JR 쾌속 35분'},
+  otaru_canal:{n:'🚤 오타루 운하',        lat:43.1956,lng:140.9974,e:'🚤',t:'크루즈 ¥1,800'},
+  orgel:      {n:'🎵 오르골당',           lat:43.1930,lng:140.9956,e:'🎵',t:'오르골 만들기 ¥2,100 · 예약필수'},
+  sushi:      {n:'🍣 스시야거리',         lat:43.1916,lng:140.9952,e:'🍣',t:'오타루 카이센동'},
+  biei:       {n:'🌾 비에이',             lat:43.5858,lng:142.4647,e:'🌾',t:'설경 버스투어 ¥10,000'},
+  blue_pond:  {n:'💙 청의 호수',          lat:43.5877,lng:142.5489,e:'💙',t:'비에이 대표 명소'},
+  moiwa:      {n:'🌃 모이와야마',         lat:43.0286,lng:141.3197,e:'🌃',t:'야경 · 로프웨이'},
+};
+const DAY_ROUTES={
+  d1:{c:'#C97D2A',spots:['chitose','sapporo_st','clocktower','odori','tanuki','susukino','hotel']},
+  d2:{c:'#4A7FA5',spots:['hotel','sapporo_st','otaru_st','otaru_canal','orgel','sushi','otaru_st','sapporo_st','susukino','hotel']},
+  d3:{c:'#3A7A57',spots:['hotel','sapporo_st','biei','blue_pond','sapporo_st','moiwa','hotel']},
+  d4:{c:'#6B4FA0',spots:['hotel','tanuki','susukino','sapporo_st','chitose']},
+};
+function eIcon(e){
+  return L.divIcon({html:`<div style="font-size:20px;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.45)">${e}</div>`,
+    iconSize:[24,24],iconAnchor:[12,12],popupAnchor:[0,-14],className:''});
+}
+function initDayMap(sid){
+  if(_maps[sid])return;
+  const r=DAY_ROUTES[sid];
+  const coords=r.spots.map(k=>[SPOTS[k].lat,SPOTS[k].lng]);
+  const m=L.map(sid+'-mapbox').setView([43.15,141.35],9);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap',maxZoom:18}).addTo(m);
+  L.polyline(coords,{color:r.c,weight:4,opacity:.85}).addTo(m);
+  const seen=new Set();
+  r.spots.forEach(k=>{
+    if(seen.has(k))return; seen.add(k);
+    const s=SPOTS[k];
+    L.marker([s.lat,s.lng],{icon:eIcon(s.e)})
+      .bindPopup(`<b style="font-size:13px">${s.n}</b><br><span style="font-size:11px;color:#666">${s.t}</span>`)
+      .addTo(m);
+  });
+  m.fitBounds(L.latLngBounds(coords),{padding:[28,28]});
+  _maps[sid]=m;
+}
+function doStab(sid,sub,btn){
+  document.querySelectorAll('#'+sid+' .stab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#'+sid+' .spanel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(sid+'-'+sub).classList.add('active');
+  if(sub==='map') setTimeout(()=>initDayMap(sid),60);
+}
+</script>
+
+</body>
+</html>
