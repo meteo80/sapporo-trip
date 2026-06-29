@@ -2464,30 +2464,35 @@ function fbApply(data) {
     if (data.ev && typeof data.ev === 'object') {
       localStorage.setItem('ev_sap2026', JSON.stringify(data.ev));
       _evCache = null;
-      ['d1','d2','d3','d4'].forEach(function(did){ evLoadCustom(did); });
+      if (typeof evLoadCustom === 'function') {
+        ['d1','d2','d3','d4'].forEach(function(did){ evLoadCustom(did); });
+      }
     }
-    if (Array.isArray(data.kb)) {
-      localStorage.setItem('kb_sap2026', JSON.stringify(data.kb));
-      _kbData = data.kb;
+    if (data.kb !== undefined) {
+      var kb = Array.isArray(data.kb) ? data.kb : [];
+      localStorage.setItem('kb_sap2026', JSON.stringify(kb));
+      if (typeof _kbData !== 'undefined') _kbData = kb;
       if (typeof kbRender === 'function') kbRender();
     }
-    if (Array.isArray(data.done)) {
-      localStorage.setItem('done_sap2026', JSON.stringify(data.done));
+    if (data.done !== undefined) {
+      var done = Array.isArray(data.done) ? data.done : [];
+      localStorage.setItem('done_sap2026', JSON.stringify(done));
       if (typeof evLoadDone === 'function') evLoadDone();
     }
   } catch(e){ console.error('fbApply error', e); }
   _fbSyncing = false;
 }
 
-/* 실시간 리스너 — 다른 기기 변경 즉시 반영 */
-_fbDoc.onSnapshot(function(snap){
-  if (!snap.exists) return;
-  var data = snap.data();
-  if (!data) return;
-  /* 내가 방금 저장한 것이 돌아오는 경우 무시 */
-  if (_fbSyncing) return;
-  fbApply(data);
-}, function(err){ console.error('onSnapshot error', err); });
+/* 실시간 리스너 — DOM 준비 후 시작 */
+document.addEventListener('DOMContentLoaded', function(){
+  _fbDoc.onSnapshot(function(snap){
+    if (!snap.exists) return;
+    var data = snap.data();
+    if (!data) return;
+    if (_fbSyncing) return;
+    fbApply(data);
+  }, function(err){ console.error('onSnapshot error', err); });
+});
 
 /* ── 기존 저장 함수 후킹 ── */
 /* evSaveDB */
