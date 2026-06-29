@@ -2444,19 +2444,24 @@ function makeCustomCard(ev,did){
   /* ── 특정 장소에 리뷰 버튼 자동 추가 ── */
   var PLACE_BTNS = {
     '점심 — 비에이 현지 식당': [
-      {label:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
-      {label:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
+      {name:'비에이 소바', shop:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
+      {name:'비에이 카레', shop:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
     ]
   };
   if(PLACE_BTNS[ev.place]){
     var brow=document.createElement('div');
-    brow.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding-left:27px';
-    PLACE_BTNS[ev.place].forEach(function(b){
+    brow.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding-left:27px;align-items:center';
+    PLACE_BTNS[ev.place].forEach(function(b, i){
+      if(i>0){ var dot=document.createElement('span'); dot.textContent=' · '; dot.style.color='var(--muted)'; brow.appendChild(dot); }
+      var nm=document.createElement('strong'); nm.textContent=b.name; nm.style.color='var(--text)'; brow.appendChild(nm);
+      var sp=document.createElement('span'); sp.textContent='('; sp.style.color='var(--muted)'; brow.appendChild(sp);
+      var shopNm=document.createElement('span'); shopNm.textContent=b.shop; shopNm.style.cssText='color:var(--navy);font-weight:700'; brow.appendChild(shopNm);
       var a=document.createElement('a');
       a.className='review-btn'; a.href=b.url; a.target='_blank';
-      a.style.cssText='padding:2px 9px;font-size:11px';
-      a.textContent='⭐ '+b.label;
+      a.style.cssText='padding:2px 7px;font-size:11px;margin-left:3px';
+      a.textContent='⭐리뷰';
       brow.appendChild(a);
+      var sp2=document.createElement('span'); sp2.textContent=')'; sp2.style.color='var(--muted)'; brow.appendChild(sp2);
     });
     body.appendChild(brow);
   }
