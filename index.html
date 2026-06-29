@@ -2442,26 +2442,33 @@ function makeCustomCard(ev,did){
     d.textContent=ev.desc;
     body.appendChild(d); }
   /* ── 특정 장소에 리뷰 버튼 자동 추가 ── */
-  var PLACE_BTNS = {
-    '점심 — 비에이 현지 식당': [
-      {name:'비에이 소바', shop:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
-      {name:'비에이 카레', shop:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
-    ]
-  };
-  if(PLACE_BTNS[ev.place]){
+  var PLACE_BTNS = [
+    {
+      match: function(p){ return p && p.indexOf('비에이') >= 0 && (p.indexOf('식당') >= 0 || p.indexOf('점심') >= 0); },
+      btns: [
+        {name:'비에이 소바', shop:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
+        {name:'비에이 카레', shop:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
+      ]
+    }
+  ];
+  var matchedBtns = null;
+  for(var pi=0; pi<PLACE_BTNS.length; pi++){
+    if(PLACE_BTNS[pi].match(ev.place)){ matchedBtns = PLACE_BTNS[pi].btns; break; }
+  }
+  if(matchedBtns){
     var brow=document.createElement('div');
-    brow.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding-left:27px;align-items:center';
-    PLACE_BTNS[ev.place].forEach(function(b, i){
+    brow.style.cssText='display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;padding-left:27px;align-items:center;font-size:13px';
+    matchedBtns.forEach(function(b, i){
       if(i>0){ var dot=document.createElement('span'); dot.textContent=' · '; dot.style.color='var(--muted)'; brow.appendChild(dot); }
       var nm=document.createElement('strong'); nm.textContent=b.name; nm.style.color='var(--text)'; brow.appendChild(nm);
-      var sp=document.createElement('span'); sp.textContent='('; sp.style.color='var(--muted)'; brow.appendChild(sp);
+      var lp=document.createElement('span'); lp.textContent='('; lp.style.color='var(--muted)'; brow.appendChild(lp);
       var shopNm=document.createElement('span'); shopNm.textContent=b.shop; shopNm.style.cssText='color:var(--navy);font-weight:700'; brow.appendChild(shopNm);
       var a=document.createElement('a');
       a.className='review-btn'; a.href=b.url; a.target='_blank';
       a.style.cssText='padding:2px 7px;font-size:11px;margin-left:3px';
       a.textContent='⭐리뷰';
       brow.appendChild(a);
-      var sp2=document.createElement('span'); sp2.textContent=')'; sp2.style.color='var(--muted)'; brow.appendChild(sp2);
+      var rp=document.createElement('span'); rp.textContent=')'; rp.style.color='var(--muted)'; brow.appendChild(rp);
     });
     body.appendChild(brow);
   }
@@ -2922,6 +2929,7 @@ if(document.readyState==='loading'){
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  /* 비에이 점심 override 삭제 → 기본값 복원 */
   setTimeout(function(){
     try {
       var ev = JSON.parse(localStorage.getItem('ev_sap2026') || '{}');
@@ -2929,14 +2937,12 @@ document.addEventListener('DOMContentLoaded', function(){
       if(ev.overrides) {
         Object.keys(ev.overrides).forEach(function(eid) {
           var o = ev.overrides[eid];
-          /* place가 비에이 현지 식당인 항목의 override 삭제 → 기본값 복원 */
           if(o && (
             (o.place && o.place.indexOf('비에이') >= 0 && o.place.indexOf('식당') >= 0) ||
             (o.desc && (o.desc.indexOf('새우덮밥') >= 0 || o.desc.indexOf('비에이역 주변') >= 0))
           )) {
             delete ev.overrides[eid];
             changed = true;
-            console.log('✅ 비에이 점심 override 삭제:', eid);
           }
         });
       }
@@ -2948,6 +2954,38 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     } catch(e){ console.error(e); }
   }, 2500);
+
+  /* 비에이 점심 카드에 리뷰 버튼 DOM 직접 주입 (Firebase 카드 포함) */
+  function injectBieiBtns(){
+    document.querySelectorAll('.ev-place').forEach(function(pl){
+      if(pl.textContent.indexOf('비에이') < 0 || pl.textContent.indexOf('식당') < 0) return;
+      var body = pl.closest('.ev-body');
+      if(!body || body.querySelector('.biei-btns')) return;
+      var brow = document.createElement('div');
+      brow.className = 'biei-btns';
+      brow.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;padding-left:27px;align-items:center;font-size:13px';
+      var items = [
+        {name:'비에이 소바', shop:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
+        {name:'비에이 카레', shop:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
+      ];
+      items.forEach(function(b, i){
+        if(i>0){ var dot=document.createElement('span'); dot.textContent=' · '; dot.style.color='var(--muted)'; brow.appendChild(dot); }
+        var nm=document.createElement('strong'); nm.textContent=b.name; brow.appendChild(nm);
+        var lp=document.createElement('span'); lp.textContent='('; lp.style.color='var(--muted)'; brow.appendChild(lp);
+        var sn=document.createElement('span'); sn.textContent=b.shop; sn.style.cssText='color:var(--navy);font-weight:700'; brow.appendChild(sn);
+        var a=document.createElement('a'); a.className='review-btn'; a.href=b.url; a.target='_blank';
+        a.style.cssText='padding:2px 7px;font-size:11px;margin-left:3px'; a.textContent='⭐리뷰';
+        brow.appendChild(a);
+        var rp=document.createElement('span'); rp.textContent=')'; rp.style.color='var(--muted)'; brow.appendChild(rp);
+      });
+      /* cost badge 앞에 삽입 */
+      var badge = body.querySelector('.badge-row');
+      if(badge) body.insertBefore(brow, badge); else body.appendChild(brow);
+    });
+  }
+  setTimeout(injectBieiBtns, 800);
+  setTimeout(injectBieiBtns, 2000);
+  setTimeout(injectBieiBtns, 4000);
 });
 </script>
 </body>
