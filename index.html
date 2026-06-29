@@ -1255,50 +1255,14 @@
       <div class="day-badge">💴 예상 예산표</div>
       <div class="day-title">호성이네 4인 · 엔화 기준 (¥100 = 950원)</div>
     </div>
-
-    <div class="bud-hero">
-      <div class="bud-lbl">예상 총 비용 (항공·숙박 제외)</div>
-      <div class="bud-total">¥ 185,520</div>
-      <div class="bud-krw">약 ₩1,762,440 (¥100 = 950원 기준)</div>
-      <div class="bud-grid">
-        <div class="bud-person"><div class="bud-pname">임동준 (성인)</div><div class="bud-pamt">¥ 50,180</div></div>
-        <div class="bud-person"><div class="bud-pname">김은영 (성인)</div><div class="bud-pamt">¥ 50,180</div></div>
-        <div class="bud-person"><div class="bud-pname">임호성 (17세)</div><div class="bud-pamt">¥ 42,580</div></div>
-        <div class="bud-person"><div class="bud-pname">임창범 (13세)</div><div class="bud-pamt">¥ 42,580</div></div>
-      </div>
+    <div id="budHero"></div>
+    <div class="tbl-wrap"><table class="bud-tbl" id="budTbl"></table></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button onclick="budAddRow()" style="flex:1;padding:11px;border-radius:12px;border:2px dashed var(--border);background:var(--white);font-size:13px;font-weight:600;cursor:pointer;color:var(--navy)">+ 항목 추가</button>
+      <button onclick="budReset()" style="padding:11px 16px;border-radius:12px;border:none;background:rgba(239,68,68,.08);color:#ef4444;font-size:13px;font-weight:600;cursor:pointer">초기화</button>
     </div>
-
-    <div class="tbl-wrap">
-      <table class="bud-tbl">
-        <thead>
-          <tr>
-            <th>항목</th><th>임동준</th><th>김은영</th><th>임호성</th><th>임창범</th>
-            <th style="color:var(--amber)">합계(¥)</th>
-            <th style="color:var(--green)">원화(₩)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>✈ 공항→삿포로 JR</td><td>1,150</td><td>1,150</td><td>1,150</td><td>1,150</td><td class="col-tot">4,600</td><td class="col-krw">₩43,700</td></tr>
-          <tr><td>🚂 삿포로↔오타루 JR 왕복</td><td>1,280</td><td>1,280</td><td>1,280</td><td>1,280</td><td class="col-tot">5,120</td><td class="col-krw">₩48,640</td></tr>
-          <tr><td>✈ 삿포로→공항 JR</td><td>1,150</td><td>1,150</td><td>1,150</td><td>1,150</td><td class="col-tot">4,600</td><td class="col-krw">₩43,700</td></tr>
-          <tr><td>🚇 지하철·버스 (4일)</td><td>2,000</td><td>2,000</td><td>2,000</td><td>2,000</td><td class="col-tot">8,000</td><td class="col-krw">₩76,000</td></tr>
-          <tr><td>🕐 삿포로 시계탑</td><td>200</td><td>200</td><td>200</td><td>200</td><td class="col-tot">800</td><td class="col-krw">₩7,600</td></tr>
-          <tr><td>🎵 오르골 만들기 체험</td><td>2,100</td><td>2,100</td><td>2,100</td><td>2,100</td><td class="col-tot">8,400</td><td class="col-krw">₩79,800</td></tr>
-          <tr><td>🚤 오타루 운하 크루즈</td><td>1,800</td><td>1,800</td><td>1,800</td><td>1,800</td><td class="col-tot">7,200</td><td class="col-krw">₩68,400</td></tr>
-          <tr><td>🚌 비에이 버스투어</td><td>10,000</td><td>10,000</td><td>10,000</td><td>10,000</td><td class="col-tot">40,000</td><td class="col-krw">₩380,000</td></tr>
-          <tr><td>🏪 편의점 식비 (4일)</td><td>4,000</td><td>4,000</td><td>3,200</td><td>3,200</td><td class="col-tot">14,400</td><td class="col-krw">₩136,800</td></tr>
-          <tr><td>🍽 외식 — Day1 저녁</td><td>2,500</td><td>2,500</td><td>2,000</td><td>2,000</td><td class="col-tot">9,000</td><td class="col-krw">₩85,500</td></tr>
-          <tr><td>🍽 외식 — Day2 점심+저녁</td><td>4,000</td><td>4,000</td><td>3,500</td><td>3,500</td><td class="col-tot">15,000</td><td class="col-krw">₩142,500</td></tr>
-          <tr><td>🍽 외식 — Day3 점심+저녁</td><td>3,500</td><td>3,500</td><td>3,000</td><td>3,000</td><td class="col-tot">13,000</td><td class="col-krw">₩123,500</td></tr>
-          <tr><td>🍽 외식 — Day4 점심</td><td>1,500</td><td>1,500</td><td>1,200</td><td>1,200</td><td class="col-tot">5,400</td><td class="col-krw">₩51,300</td></tr>
-          <tr><td>🛍 쇼핑·기념품 (추정)</td><td>15,000</td><td>15,000</td><td>10,000</td><td>10,000</td><td class="col-tot">50,000</td><td class="col-krw">₩475,000</td></tr>
-          <tr class="tot"><td>합 계</td><td>50,180</td><td>50,180</td><td>42,580</td><td>42,580</td><td class="col-tot">¥ 185,520</td><td class="col-krw">₩ 1,762,440</td></tr>
-        </tbody>
-      </table>
-    </div>
-
     <div class="bud-note">
-      ※ 항공권 · 숙박비(3박) · 개인 추가 쇼핑은 제외된 금액입니다.<br>
+      ※ 금액 셀을 클릭하면 수정할 수 있습니다.<br>
       환율 ¥100 = 950원 적용. 실제 비용은 현지 물가에 따라 달라질 수 있습니다.
     </div>
   </section>
@@ -1752,7 +1716,99 @@ function doStab(sid,sub,btn){
 
 <script>
 /* ══ KAKEIBO 가계부 ══ */
-const KB_BUDGET = 185520;
+const BUD_STORE = 'bud_sap2026';
+const BUD_DEFAULT = [
+  {label:'\u2708 \uacf5\ud56d\u2192\uc0bf\ud3ec\ub85c JR', amts:[1150,1150,1150,1150]},
+  {label:'\ud83d\ude82 \uc0bf\ud3ec\ub85c\u2194\uc624\ud0c0\ub8e8 JR \uc655\ubcf5', amts:[1280,1280,1280,1280]},
+  {label:'\u2708 \uc0bf\ud3ec\ub85c\u2192\uacf5\ud56d JR', amts:[1150,1150,1150,1150]},
+  {label:'\ud83d\ude87 \uc9c0\ud558\ucca0\u00b7\ubc84\uc2a4 (4\uc77c)', amts:[2000,2000,2000,2000]},
+  {label:'\ud83d\udd50 \uc0bf\ud3ec\ub85c \uc2dc\uacc4\ud0d1', amts:[200,200,200,200]},
+  {label:'\ud83c\udfb5 \uc624\ub974\uace8 \ub9cc\ub4e4\uae30 \uccb4\ud5d8', amts:[2100,2100,2100,2100]},
+  {label:'\ud83d\udea4 \uc624\ud0c0\ub8e8 \uc6b4\ud558 \ud06c\ub8e8\uc988', amts:[1800,1800,1800,1800]},
+  {label:'\ud83d\ude8c \ube44\uc5d0\uc774 \ubc84\uc2a4\ud22c\uc5b4', amts:[10000,10000,10000,10000]},
+  {label:'\ud83c\udfea \ud3b8\uc758\uc810 \uc2dd\ube44 (4\uc77c)', amts:[4000,4000,3200,3200]},
+  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day1 \uc800\ub141', amts:[2500,2500,2000,2000]},
+  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day2 \uc810\uc2ec+\uc800\ub141', amts:[4000,4000,3500,3500]},
+  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day3 \uc810\uc2ec+\uc800\ub141', amts:[3500,3500,3000,3000]},
+  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day4 \uc810\uc2ec', amts:[1500,1500,1200,1200]},
+  {label:'\ud83d\uded2 \uc1fc\ud551\u00b7\uae30\ub150\ud488 (\ucd94\uc815)', amts:[15000,15000,10000,10000]},
+];
+const BUD_MEMBERS = ['\uc784\ub3d9\uc900','\uae40\uc740\uc601','\uc784\ud638\uc131','\uc784\ucc3d\ubc94'];
+
+function budLoad(){ try{ return JSON.parse(localStorage.getItem(BUD_STORE)) || BUD_DEFAULT.map(function(r){ return {label:r.label,amts:r.amts.slice()}; }); }catch(e){ return BUD_DEFAULT.map(function(r){ return {label:r.label,amts:r.amts.slice()}; }); } }
+function budSave(rows){ try{ localStorage.setItem(BUD_STORE, JSON.stringify(rows)); if(typeof fbSyncBud==='function') fbSyncBud(); }catch(e){} }
+
+function budRender(){
+  var rows = budLoad();
+  var totals = [0,0,0,0];
+  rows.forEach(function(r){ r.amts.forEach(function(a,i){ totals[i]+=a; }); });
+  var grandTotal = totals.reduce(function(s,a){ return s+a; },0);
+  window._budTotal = grandTotal;
+
+  var hero = document.getElementById('budHero');
+  if(hero) hero.innerHTML = '<div class="bud-hero">'
+    +'<div class="bud-lbl">\uc608\uc0c1 \ucd1d \ube44\uc6a9 (\ud56d\uacf5\u00b7\uc219\ubc15 \uc81c\uc678)</div>'
+    +'<div class="bud-total">\u00a5 '+grandTotal.toLocaleString()+'</div>'
+    +'<div class="bud-krw">\uc57d \u20a9'+Math.round(grandTotal*9.5).toLocaleString()+' (\u00a5100 = 950\uc6d0 \uae30\uc900)</div>'
+    +'<div class="bud-grid">'
+    +BUD_MEMBERS.map(function(n,i){ return '<div class="bud-person"><div class="bud-pname">'+n+'</div><div class="bud-pamt">\u00a5 '+totals[i].toLocaleString()+'</div></div>'; }).join('')
+    +'</div></div>';
+
+  var tbl = document.getElementById('budTbl');
+  if(!tbl) return;
+  var h = '<thead><tr><th>\ud56d\ubaa9</th>'
+    +BUD_MEMBERS.map(function(n){ return '<th>'+n+'</th>'; }).join('')
+    +'<th style="color:var(--amber)">\ud569\uacc4(\u00a5)</th><th style="color:var(--green)">\uc6d0\ud654(\u20a9)</th><th></th></tr></thead><tbody>';
+  rows.forEach(function(r,ri){
+    var rowSum = r.amts.reduce(function(s,a){ return s+a; },0);
+    h += '<tr><td><span onclick="budEditLabel('+ri+')" style="cursor:pointer;text-decoration:underline dotted" title="\ud56d\ubaa9\uba85 \uc218\uc815">'+r.label+'</span></td>';
+    r.amts.forEach(function(a,ci){
+      h += '<td onclick="budEditCell('+ri+','+ci+')" style="cursor:pointer;text-decoration:underline dotted;color:var(--navy)">'+a.toLocaleString()+'</td>';
+    });
+    h += '<td class="col-tot">'+rowSum.toLocaleString()+'</td>';
+    h += '<td class="col-krw">\u20a9'+Math.round(rowSum*9.5).toLocaleString()+'</td>';
+    h += '<td><button onclick="budDelRow('+ri+')" style="border:none;background:none;color:#ef4444;cursor:pointer;font-size:15px;padding:0 4px">\u2715</button></td></tr>';
+  });
+  h += '<tr class="tot"><td>\ud569 \uacc4</td>'
+    +totals.map(function(t){ return '<td>'+t.toLocaleString()+'</td>'; }).join('')
+    +'<td class="col-tot">\u00a5 '+grandTotal.toLocaleString()+'</td>'
+    +'<td class="col-krw">\u20a9 '+Math.round(grandTotal*9.5).toLocaleString()+'</td><td></td></tr></tbody>';
+  tbl.innerHTML = h;
+}
+
+function budEditCell(ri,ci){
+  var rows=budLoad();
+  var cur=rows[ri].amts[ci];
+  var input=prompt('\uae08\uc561 \uc218\uc815 (\u00a5\uc5d4)',cur);
+  if(input===null) return;
+  var v=parseFloat(input.replace(/[^0-9.]/g,''));
+  if(isNaN(v)||v<0){ alert('\uc62c\ubc14\ub978 \uae08\uc561\uc744 \uc785\ub825\ud574\uc8fc\uc138\uc694'); return; }
+  rows[ri].amts[ci]=v; budSave(rows); budRender();
+}
+function budEditLabel(ri){
+  var rows=budLoad();
+  var input=prompt('\ud56d\ubaa9\uba85 \uc218\uc815',rows[ri].label);
+  if(input===null||!input.trim()) return;
+  rows[ri].label=input.trim(); budSave(rows); budRender();
+}
+function budAddRow(){
+  var label=prompt('\uc0c8 \ud56d\ubaa9\uba85\uc744 \uc785\ub825\ud558\uc138\uc694','');
+  if(!label||!label.trim()) return;
+  var rows=budLoad();
+  rows.push({label:label.trim(),amts:[0,0,0,0]});
+  budSave(rows); budRender();
+}
+function budDelRow(ri){
+  if(!confirm('\uc774 \ud56d\ubaa9\uc744 \uc0ad\uc81c\ud560\uae4c\uc694?')) return;
+  var rows=budLoad(); rows.splice(ri,1); budSave(rows); budRender();
+}
+function budReset(){
+  if(!confirm('\uc608\uc0b0\ud45c\ub97c \uae30\ubcf8\uac12\uc73c\ub85c \ucd08\uae30\ud654\ud560\uae4c\uc694?')) return;
+  localStorage.removeItem(BUD_STORE); budRender();
+}
+document.addEventListener('DOMContentLoaded', budRender);
+var KB_BUDGET = 185520;
+Object.defineProperty(window,'KB_BUDGET',{ get:function(){ return window._budTotal||185520; } });
 const KB_CATS = {
   transport:   {e:'✈️', n:'교통'},
   accommodation:{e:'🏨', n:'숙소'},
