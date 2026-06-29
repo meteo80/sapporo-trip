@@ -1809,8 +1809,7 @@ function budReset(){
   localStorage.removeItem(BUD_STORE); budRender();
 }
 document.addEventListener('DOMContentLoaded', budRender);
-var KB_BUDGET = 185520;
-Object.defineProperty(window,'KB_BUDGET',{ get:function(){ return window._budTotal||185520; } });
+function getKbBudget(){ return window._budTotal||185520; }
 const KB_CATS = {
   transport:   {e:'✈️', n:'교통'},
   accommodation:{e:'🏨', n:'숙소'},
@@ -1924,9 +1923,10 @@ function kbReset(){
 
 function kbRender(){
   const total = _kbData.reduce((s,e)=>s+e.amt, 0);
-  const pct   = Math.min((total/KB_BUDGET)*100, 100);
-  const left  = KB_BUDGET - total;
-  const over  = total > KB_BUDGET;
+  var _bgt = getKbBudget();
+  const pct   = Math.min((total/_bgt)*100, 100);
+  const left  = _bgt - total;
+  const over  = total > _bgt;
 
   document.getElementById('kbTotal').innerHTML = kbWY(total);
   document.getElementById('kbKrw').textContent = '';
