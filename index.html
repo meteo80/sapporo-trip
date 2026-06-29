@@ -2414,8 +2414,9 @@ document.addEventListener('DOMContentLoaded',function(){
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
+(function(){
 /* ══ FIREBASE 실시간 동기화 ══ */
-const _fbApp = firebase.initializeApp({
+firebase.initializeApp({
   apiKey: "AIzaSyBNwlFrYYIp50SC02fVrn5ic0NcaFxjdLc",
   authDomain: "sapporo-trip-44304.firebaseapp.com",
   projectId: "sapporo-trip-44304",
@@ -2423,98 +2424,102 @@ const _fbApp = firebase.initializeApp({
   messagingSenderId: "55957351518",
   appId: "1:55957351518:web:63ec6ee37ea8cfddb318cf"
 });
-const _fbDb = firebase.firestore();
-const _fbDoc = _fbDb.collection('sapporo').doc('tripData');
+var _db  = firebase.firestore();
+var _ref = _db.collection('sapporo').doc('tripData');
 
-/* 동기화 상태 표시 */
-var _fbInd = document.createElement('div');
-_fbInd.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(58,122,87,.93);color:#fff;font-size:13px;padding:7px 18px;border-radius:20px;z-index:9999;display:none;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.2)';
-document.body.appendChild(_fbInd);
+/* 상태 표시 */
+var _ind = document.createElement('div');
+_ind.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(30,110,60,.92);color:#fff;font-size:13px;padding:7px 20px;border-radius:20px;z-index:9999;display:none;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.25)';
+document.body.appendChild(_ind);
+function _show(msg,hide){ _ind.textContent=msg; _ind.style.display='block'; if(hide) setTimeout(function(){ _ind.style.display='none'; },1800); }
 
-function fbShow(msg, hide) {
-  _fbInd.textContent = msg;
-  _fbInd.style.display = 'block';
-  if (hide) setTimeout(function(){ _fbInd.style.display='none'; }, 1800);
+var _pushing = false;
+var _timer   = null;
+
+/* 로컬 → Cloud */
+function _push(){
+  clearTimeout(_timer);
+  _show('☁️ 저장 중...');
+  _timer = setTimeout(function(){
+    var payload = {
+      ev:   safeJSON('ev_sap2026',  {}),
+      kb:   safeJSON('kb_sap2026',  []),
+      done: safeJSON('done_sap2026',[]),
+      at:   Date.now()
+    };
+    _ref.set(payload)
+      .then(function(){ _show('✅ 저장됨', true); })
+      .catch(function(e){ _show('❌ 오류', true); console.error(e); });
+  }, 900);
 }
-
-var _fbSyncing = false;
-var _fbTimer = null;
-
-/* 로컬 → Cloud 저장 */
-function fbPush() {
-  if (_fbSyncing) return;
-  clearTimeout(_fbTimer);
-  fbShow('☁️ 저장 중...');
-  _fbTimer = setTimeout(function(){
-    try {
-      var ev   = JSON.parse(localStorage.getItem('ev_sap2026')   || '{}');
-      var kb   = JSON.parse(localStorage.getItem('kb_sap2026')   || '[]');
-      var done = JSON.parse(localStorage.getItem('done_sap2026') || '[]');
-      _fbDoc.set({ ev:ev, kb:kb, done:done, at: Date.now() })
-        .then(function(){ fbShow('✅ 저장됨', true); })
-        .catch(function(e){ fbShow('❌ 저장 실패', true); console.error(e); });
-    } catch(e){ _fbInd.style.display='none'; }
-  }, 800);
+function safeJSON(key, def){
+  try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(def)); }catch(e){ return def; }
 }
 
 /* Cloud → 로컬 적용 */
-function fbApply(data) {
-  _fbSyncing = true;
-  try {
-    if (data.ev && typeof data.ev === 'object') {
+function _apply(data){
+  _pushing = true;
+  try{
+    /* 일정 */
+    if(data.ev && typeof data.ev==='object'){
       localStorage.setItem('ev_sap2026', JSON.stringify(data.ev));
-      _evCache = null;
-      if (typeof evLoadCustom === 'function') {
-        ['d1','d2','d3','d4'].forEach(function(did){ evLoadCustom(did); });
+      if(typeof _evCache!=='undefined') _evCache = null;
+      /* evLoadCustom 은 전역 함수 — window 로 안전 접근 */
+      if(typeof window.evLoadCustom==='function'){
+        ['d1','d2','d3','d4'].forEach(function(d){ window.evLoadCustom(d); });
       }
     }
-    if (data.kb !== undefined) {
-      var kb = Array.isArray(data.kb) ? data.kb : [];
-      localStorage.setItem('kb_sap2026', JSON.stringify(kb));
-      if (typeof _kbData !== 'undefined') _kbData = kb;
-      if (typeof kbRender === 'function') kbRender();
+    /* 가계부 */
+    if(Array.isArray(data.kb)){
+      localStorage.setItem('kb_sap2026', JSON.stringify(data.kb));
+      if(typeof window._kbData!=='undefined') window._kbData = data.kb;
+      if(typeof window.kbRender==='function') window.kbRender();
     }
-    if (data.done !== undefined) {
-      var done = Array.isArray(data.done) ? data.done : [];
-      localStorage.setItem('done_sap2026', JSON.stringify(done));
-      if (typeof evLoadDone === 'function') evLoadDone();
+    /* 체크 */
+    if(Array.isArray(data.done)){
+      localStorage.setItem('done_sap2026', JSON.stringify(data.done));
+      if(typeof window.evLoadDone==='function') window.evLoadDone();
     }
-  } catch(e){ console.error('fbApply error', e); }
-  _fbSyncing = false;
+  }catch(e){ console.error('_apply',e); }
+  _pushing = false;
 }
 
-/* 실시간 리스너 — DOM 준비 후 시작 */
-document.addEventListener('DOMContentLoaded', function(){
-  _fbDoc.onSnapshot(function(snap){
-    if (!snap.exists) return;
-    var data = snap.data();
-    if (!data) return;
-    if (_fbSyncing) return;
-    fbApply(data);
-  }, function(err){ console.error('onSnapshot error', err); });
-});
+/* 실시간 리스너 */
+_ref.onSnapshot(function(snap){
+  if(!snap.exists) return;
+  var d = snap.data();
+  if(!d || _pushing) return;
+  _apply(d);
+}, function(e){ console.error('snapshot',e); });
 
-/* ── 기존 저장 함수 후킹 ── */
-/* evSaveDB */
-var _orig_evSaveDB = evSaveDB;
-evSaveDB = function(db){
-  _orig_evSaveDB(db);
-  if (!_fbSyncing) fbPush();
-};
-/* kbSave */
-var _orig_kbSave = kbSave;
-kbSave = function(){
-  _orig_kbSave();
-  if (!_fbSyncing) fbPush();
-};
-/* doneSaveSet */
-var _orig_doneSave = doneSaveSet;
-doneSaveSet = function(s){
-  _orig_doneSave(s);
-  if (!_fbSyncing) fbPush();
-};
+/* 저장 함수 패치 — DOMContentLoaded 후 실행 보장 */
+function _patch(){
+  /* evSaveDB */
+  if(typeof window.evSaveDB==='function'){
+    var _o1 = window.evSaveDB;
+    window.evSaveDB = function(db){ _o1(db); if(!_pushing) _push(); };
+  }
+  /* kbSave */
+  if(typeof window.kbSave==='function'){
+    var _o2 = window.kbSave;
+    window.kbSave = function(){ _o2(); if(!_pushing) _push(); };
+  }
+  /* doneSaveSet */
+  if(typeof window.doneSaveSet==='function'){
+    var _o3 = window.doneSaveSet;
+    window.doneSaveSet = function(s){ _o3(s); if(!_pushing) _push(); };
+  }
+  console.log('🔥 Firebase 동기화 활성화');
+}
 
-console.log('🔥 Firebase 실시간 동기화 준비 완료');
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', _patch);
+} else {
+  _patch();
+}
+
+})();
 </script>
 </body>
+</html>
 </html>
