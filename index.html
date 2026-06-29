@@ -744,8 +744,30 @@
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕘 09:10</div>
-          <div class="ev-top"><span class="ev-icon">🌊</span><span class="ev-place">오타루 운하</span></div>
+          <div class="ev-top"><span class="ev-icon">🌊</span><span class="ev-place" onclick="otaruCanalToggle()" style="cursor:pointer;color:#e53e3e;text-decoration:underline dotted" title="겨울 풍경 보기">오타루 운하</span></div>
           <div class="ev-desc">아침 안개 + 눈 풍경. <strong>이른 오전 추천</strong>! 포토 스팟 📸</div>
+          <div id="otaruCanalBox" style="display:none;margin-top:10px;background:#EEF6FF;border:1.5px solid #4A90D9;border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.8">
+            <div style="font-weight:700;color:#1A3A6B;margin-bottom:10px">🌊 오타루 운하 겨울 풍경</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+              <a href="https://www.google.com/search?q=小樽運河+冬+雪景色&tbm=isch" target="_blank"
+                 style="display:block;background:linear-gradient(135deg,#0F2447,#1A3A6B);border-radius:10px;padding:20px 10px;text-align:center;color:#fff;text-decoration:none;font-size:12px;font-weight:700">
+                ❄️ 겨울 설경<br><span style="font-size:10px;opacity:.8">구글 이미지</span>
+              </a>
+              <a href="https://www.google.com/search?q=小樽運河+雪あかりの路&tbm=isch" target="_blank"
+                 style="display:block;background:linear-gradient(135deg,#1A3A6B,#4A90D9);border-radius:10px;padding:20px 10px;text-align:center;color:#fff;text-decoration:none;font-size:12px;font-weight:700">
+                🕯️ 눈빛 축제<br><span style="font-size:10px;opacity:.8">구글 이미지</span>
+              </a>
+              <a href="https://www.google.com/search?q=小樽運河+朝霧+冬&tbm=isch" target="_blank"
+                 style="display:block;background:linear-gradient(135deg,#2C5F8A,#6BA8D0);border-radius:10px;padding:20px 10px;text-align:center;color:#fff;text-decoration:none;font-size:12px;font-weight:700">
+                🌫️ 아침 안개<br><span style="font-size:10px;opacity:.8">구글 이미지</span>
+              </a>
+              <a href="https://www.google.com/maps/place/%E5%B0%8F%E6%A8%BD%E9%81%8B%E6%B2%B3/@43.1956,140.9974,17z" target="_blank"
+                 style="display:block;background:linear-gradient(135deg,#2E7D32,#4CAF50);border-radius:10px;padding:20px 10px;text-align:center;color:#fff;text-decoration:none;font-size:12px;font-weight:700">
+                📍 구글맵<br><span style="font-size:10px;opacity:.8">위치 보기</span>
+              </a>
+            </div>
+            <div style="color:#555;font-size:12px">💡 <strong>포토 팁:</strong> 오전 9시 이전 방문 시 안개+설경 연출. 가스등 켜지는 해질녘도 최고!</div>
+          </div>
           <div class="badge-row"><span class="cost-badge free">무료</span></div>
         </div>
       </div>
@@ -810,7 +832,7 @@
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🌙 19:00</div>
-          <div class="ev-top"><span class="ev-icon">🚤</span><span class="ev-place">오타루 운하 야경 크루즈</span></div>
+          <div class="ev-top"><span class="ev-icon">🚤</span><span class="ev-place" onclick="otaruNightToggle()" style="cursor:pointer;color:#e53e3e;text-decoration:underline dotted" title="야경 사진 보기">오타루 운하 야경 크루즈</span></div>
           <div class="ev-desc">40분 코스 · 영어 오디오 가이드 포함. 밤 운하 분위기 절경 🌃</div>
           <div class="badge-row"><span class="cost-badge">1,800엔/인</span></div>
         </div>
@@ -1763,6 +1785,14 @@
   }
 
   /* ── 가계부·예산·꿀팁 탭 전환 ── */
+function otaruCanalToggle(){
+  var box=document.getElementById('otaruCanalBox');
+  if(box) box.style.display=box.style.display==='none'?'':'none';
+}
+function otaruNightToggle(){
+  var box=document.getElementById('otaruNightBox');
+  if(box) box.style.display=box.style.display==='none'?'':'none';
+}
 function tsurukiToggle(body){
   var box = body.querySelector('.tsuruki-box');
   if(!box){
