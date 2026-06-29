@@ -1745,8 +1745,12 @@ let _kbCat = 'transport';
 let _kbData = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
 
 function kbSave(){ localStorage.setItem('kb_sap2026', JSON.stringify(_kbData)); }
+const KB_RATE = 950; /* 환율: 1엔 = 950원 */
 function kbY(n){ return '¥' + Math.round(n).toLocaleString(); }
-function kbW(n){ return '₩' + Math.round(n * 9.5).toLocaleString(); }
+function kbW(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString(); }
+/* 원화 우선 + 엔화 병기 */
+function kbWY(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString() + ' <small style="color:var(--muted);font-weight:400">(¥' + Math.round(n).toLocaleString() + ')</small>'; }
+function kbWYtext(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString() + ' (¥' + Math.round(n).toLocaleString() + ')'; }
 
 function kbCatSel(btn){
   document.querySelectorAll('.kb-cat').forEach(b=>b.classList.remove('on'));
@@ -1783,16 +1787,16 @@ function kbRender(){
   const left  = KB_BUDGET - total;
   const over  = total > KB_BUDGET;
 
-  document.getElementById('kbTotal').textContent = kbY(total);
-  document.getElementById('kbKrw').textContent   = kbW(total);
+  document.getElementById('kbTotal').innerHTML = kbWY(total);
+  document.getElementById('kbKrw').textContent = '';
   const prog = document.getElementById('kbProg');
   prog.style.width = pct + '%';
   prog.style.background = over ? '#ef4444' : 'linear-gradient(90deg,#4A7FA5,#C97D2A)';
   document.getElementById('kbPct').textContent = pct.toFixed(1) + '%';
   const leftEl = document.getElementById('kbLeft');
-  leftEl.textContent = over
-    ? kbY(Math.abs(left)) + ' 초과!'
-    : kbY(left) + ' 남음';
+  leftEl.innerHTML = over
+    ? kbWY(Math.abs(left)) + ' 초과!'
+    : kbWY(left) + ' 남음';
   leftEl.style.color = over ? '#f87171' : '';
 
   /* 카테고리 그리드 */
@@ -1805,7 +1809,7 @@ function kbRender(){
       const a=bycat[k]||0, p=(a/maxC*100).toFixed(0);
       return `<div class="kb-ci">
         <div class="kb-ci-name">${v.e} ${v.n}</div>
-        <div class="kb-ci-amt">${kbY(a)}</div>
+        <div class="kb-ci-amt">${kbWY(a)}</div>
         <div class="kb-ci-bar-w"><div class="kb-ci-bar" style="width:${p}%"></div></div>
       </div>`;
     }).join('');
@@ -1826,7 +1830,7 @@ function kbRender(){
       return `<div class="kb-day-group">
         <div class="kb-day-lbl">
           <span>${dlbl}</span>
-          <span>${kbY(daySum)}</span>
+          <span>${kbWY(daySum)}</span>
         </div>
         ${items.map(e=>`<div class="kb-item">
           <span class="kb-ico">${KB_CATS[e.cat].e}</span>
@@ -1834,7 +1838,7 @@ function kbRender(){
             <div class="kb-memo">${e.memo}</div>
             <div class="kb-meta">${KB_CATS[e.cat].n}</div>
           </div>
-          <span class="kb-amt">${kbY(e.amt)}</span>
+          <span class="kb-amt">${kbWY(e.amt)}</span>
           <button class="kb-del" onclick="kbDel(${e.id})">✕</button>
         </div>`).join('')}
       </div>`;
