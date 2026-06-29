@@ -1770,7 +1770,15 @@ const KB_RATE = 9.5; /* 환율: 1엔 = 9.5원 (¥100 = ₩950) */
 function kbY(n){ return '¥' + Math.round(n).toLocaleString(); }
 function kbW(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString(); }
 /* 원화 우선 + 엔화 병기 */
-function kbWY(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString() + ' <small style="color:var(--muted);font-weight:400">(¥' + Math.round(n).toLocaleString() + ')</small>'; }
+function kbWY(n, id){
+  var krw = '₩' + Math.round(n * KB_RATE).toLocaleString();
+  var jpy = '¥' + Math.round(n).toLocaleString();
+  if(id !== undefined){
+    return '<span onclick="kbEditKRW('+id+')" style="cursor:pointer;text-decoration:underline dotted">'+krw+'</span>'
+      + ' <small style="color:var(--muted);font-weight:400">(<span onclick="kbEditJPY('+id+')" style="cursor:pointer;text-decoration:underline dotted">'+jpy+'</span>)</small>';
+  }
+  return krw + ' <small style="color:var(--muted);font-weight:400">('+jpy+')</small>';
+}
 function kbWYtext(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString() + ' (¥' + Math.round(n).toLocaleString() + ')'; }
 
 function kbCatSel(btn){
@@ -1796,14 +1804,25 @@ function kbDel(id){
   _kbData = _kbData.filter(e=>e.id!==id);
   kbSave(); kbRender();
 }
-function kbEdit(id){
+function kbEdit(id){ kbEditJPY(id); }
+function kbEditJPY(id){
   var e = _kbData.find(function(x){ return x.id===id; });
   if(!e) return;
-  var input = prompt('금액 수정 (엔화 ¥)', e.amt);
+  var input = prompt('엔화 금액 입력 (¥)', Math.round(e.amt));
   if(input===null) return;
   var v = parseFloat(input.replace(/[^0-9.]/g,''));
   if(isNaN(v)||v<=0){ alert('올바른 금액을 입력해주세요'); return; }
   e.amt = v;
+  kbSave(); kbRender();
+}
+function kbEditKRW(id){
+  var e = _kbData.find(function(x){ return x.id===id; });
+  if(!e) return;
+  var input = prompt('원화 금액 입력 (₩)', Math.round(e.amt * KB_RATE));
+  if(input===null) return;
+  var v = parseFloat(input.replace(/[^0-9.]/g,''));
+  if(isNaN(v)||v<=0){ alert('올바른 금액을 입력해주세요'); return; }
+  e.amt = v / KB_RATE; /* 원화 → 엔화로 변환해서 저장 */
   kbSave(); kbRender();
 }
 function kbEditMemo(id){
@@ -1877,7 +1896,7 @@ function kbRender(){
             <div class="kb-memo">${e.memo}</div>
             <div class="kb-meta">${KB_CATS[e.cat].n}</div>
           </div>
-          <span class="kb-amt" onclick="kbEdit(${e.id})" style="cursor:pointer;text-decoration:underline dotted">${kbWY(e.amt)}</span>
+          <span class="kb-amt">${kbWY(e.amt, e.id)}</span>
           <button class="kb-del" onclick="kbDel(${e.id})">✕</button>
         </div>`).join('')}
       </div>`;
