@@ -81,12 +81,126 @@
     }
     .tab-nav::-webkit-scrollbar{display:none}
     .tab-btn{
-      flex-shrink:0;padding:13px 14px 11px;
-      background:none;border:none;border-bottom:3px solid transparent;
-      font-size:13px;font-weight:500;color:var(--muted);
+      flex-shrink:0;
+      padding:6px 14px;
+      background:#fff;border:1.5px solid var(--border);border-radius:20px;
+      font-size:12px;font-weight:600;color:var(--muted);
       cursor:pointer;white-space:nowrap;transition:all .18s;
     }
-    .tab-btn.active{color:var(--navy);border-bottom-color:var(--amber);font-weight:700}
+    .tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700}
+    /* ── NAV DROPDOWN ── */
+    /* ── DAY PICKER ── */
+    .day-picker{position:relative;flex-shrink:0}
+    .day-pick-btn{
+      background:#fff;color:var(--muted);
+      border:1.5px solid var(--border);border-radius:20px;
+      padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;
+      cursor:pointer;white-space:nowrap;outline:none;
+      transition:all .18s;
+    }
+    .day-pick-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .day-pick-btn:hover:not(.active){background:var(--ice);color:var(--text)}
+    .day-pick-menu{
+      position:fixed;
+      background:#fff;border-radius:12px;
+      box-shadow:0 6px 24px rgba(15,36,71,.18);
+      min-width:190px;z-index:1000;overflow:hidden;
+      display:none;animation:dpFadeIn .15s ease;
+    }
+    .day-pick-menu.open{display:block}
+    @keyframes dpFadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    .day-pick-menu button{
+      display:block;width:100%;padding:12px 16px;text-align:left;
+      background:none;border:none;border-bottom:1px solid var(--border);
+      font-size:13px;font-weight:600;color:var(--text);
+      cursor:pointer;font-family:inherit;transition:background .12s;
+    }
+    .day-pick-menu button:last-child{border-bottom:none}
+    .day-pick-menu button:hover{background:var(--ice)}
+    .day-pick-menu button.cur{color:var(--amber);font-weight:700}
+    /* kb-btn: 동일 형태, 활성 시 amber */
+    .kb-btn{
+      background:#fff!important;color:var(--muted)!important;
+      border:1.5px solid var(--border)!important;border-radius:20px!important;
+      padding:6px 14px!important;font-size:12px!important;
+      font-weight:600!important;white-space:nowrap;
+    }
+    .kb-btn.active{
+      background:var(--navy)!important;color:#fff!important;
+      border-color:var(--navy)!important;font-weight:700!important;
+    }
+    .kb-btn:hover:not(.active){background:var(--ice)!important;color:var(--text)!important}
+    .nav-sep{display:none}
+
+    /* ── SCHEDULE CRUD ── */
+    .event{position:relative}
+    .ev-del,.ev-edit{
+      position:absolute;z-index:10;
+      width:28px;height:28px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.06);border:none;
+      border-radius:50%;cursor:pointer;
+      font-size:13px;font-weight:700;
+      transition:all .15s;
+      padding:0;line-height:1;
+    }
+    .ev-del{top:8px;right:8px;color:#ef4444;background:rgba(239,68,68,.08)}
+    .ev-del:hover{background:rgba(239,68,68,.18)}
+    .ev-hidden{display:none!important}
+
+    .ev-add-wrap{margin-top:10px}
+    .ev-add-toggle{
+      width:100%;padding:11px;
+      background:var(--white);border:2px dashed var(--border);
+      border-radius:12px;font-size:13px;font-weight:600;
+      color:var(--muted);cursor:pointer;transition:all .18s;
+    }
+    #d1-add-toggle{border-color:#C97D2A;color:#C97D2A}
+    #d2-add-toggle{border-color:#4A7FA5;color:#4A7FA5}
+    #d3-add-toggle{border-color:#3A7A57;color:#3A7A57}
+    #d4-add-toggle{border-color:#6B4FA0;color:#6B4FA0}
+    #d1-add-toggle:active{background:#FBF4EA}
+    #d2-add-toggle:active{background:#EDF3F8}
+    #d3-add-toggle:active{background:#E9F4EE}
+    #d4-add-toggle:active{background:#F0ECF7}
+    .ev-add-toggle:hover{border-color:var(--amber);color:var(--amber)}
+    .ev-add-form{
+      background:var(--white);border-radius:12px;
+      padding:14px;box-shadow:var(--shadow);margin-top:8px;
+      border-top:4px solid var(--amber);
+    }
+    #d1-add-form{border-top-color:#C97D2A;background:linear-gradient(180deg,#FBF4EA 0%,#fff 60px)}
+    #d2-add-form{border-top-color:#4A7FA5;background:linear-gradient(180deg,#EDF3F8 0%,#fff 60px)}
+    #d3-add-form{border-top-color:#3A7A57;background:linear-gradient(180deg,#E9F4EE 0%,#fff 60px)}
+    #d4-add-form{border-top-color:#6B4FA0;background:linear-gradient(180deg,#F0ECF7 0%,#fff 60px)}
+    .ev-form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+    .time-sel-wrap{display:flex;align-items:center;gap:4px}
+    .time-col{font-weight:700;color:var(--muted);flex-shrink:0}
+    .ev-th{flex:1.2;min-width:0}
+    .ev-tm{flex:1;min-width:0}
+    .ev-inp{
+      width:100%;padding:10px 12px;border:1.5px solid var(--border);
+      border-radius:9px;font-size:13px;font-family:inherit;color:var(--text);
+      outline:none;background:var(--white);margin-bottom:8px;
+    }
+    .ev-inp:focus{border-color:var(--blue)}
+    .ev-inp:last-child{margin-bottom:0}
+    .ev-form-btns{display:flex;gap:8px;margin-top:4px}
+    .ev-save-btn{
+      flex:1;padding:11px;background:var(--amber);border:none;
+      border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;
+    }
+    #d1-add-form .ev-save-btn{background:#C97D2A}
+    #d2-add-form .ev-save-btn{background:#4A7FA5}
+    #d3-add-form .ev-save-btn{background:#3A7A57}
+    #d4-add-form .ev-save-btn{background:#6B4FA0}
+    .ev-cancel-btn{
+      flex:1;padding:11px;background:var(--white);
+      border:1.5px solid var(--border);border-radius:10px;
+      color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;
+    }
+    .ev-custom{border-left:4px solid var(--amber)!important}
+
     .tab-btn:hover:not(.active){color:var(--text)}
 
     /* ── MAIN ── */
@@ -232,10 +346,108 @@
     }
     .leg-dot{display:inline-block;width:12px;height:12px;border-radius:50%;flex-shrink:0}
 
+
+    /* ── KAKEIBO 가계부 ── */
+    .kb-hero{
+      background:var(--navy);border-radius:16px;
+      padding:20px 20px 18px;margin-bottom:14px;color:#fff;text-align:center;
+    }
+    .kb-hero-lbl{font-size:11px;color:var(--blue-light);letter-spacing:1px;margin-bottom:6px}
+    .kb-total{font-family:Georgia,serif;font-size:36px;font-weight:700;margin:3px 0}
+    .kb-krw{font-size:12px;color:var(--blue-light);margin-bottom:14px}
+    .kb-prog-wrap{background:rgba(255,255,255,.18);border-radius:8px;height:9px;overflow:hidden;margin-bottom:8px}
+    .kb-prog{height:100%;border-radius:8px;background:linear-gradient(90deg,#4A7FA5,#C97D2A);transition:width .4s}
+    .kb-pct{font-size:11px;color:var(--blue-light)}
+    .kb-pct .over{color:#f87171}
+
+    .kb-card{background:var(--white);border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+    .kb-card-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px}
+
+    .kb-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    .kb-inp{
+      width:100%;padding:11px 13px;border:1.5px solid var(--border);
+      border-radius:10px;font-size:14px;color:var(--text);outline:none;
+      background:var(--white);font-family:inherit;
+    }
+    .kb-inp:focus{border-color:var(--blue)}
+
+    .kb-cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+    .kb-cat{
+      flex:1;min-width:78px;padding:7px 4px;
+      border:1.5px solid var(--border);border-radius:10px;
+      background:var(--white);font-size:12px;font-weight:600;color:var(--muted);
+      cursor:pointer;text-align:center;transition:all .18s;
+    }
+    .kb-cat.on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+    .kb-add-btn{
+      width:100%;padding:13px;background:var(--amber);
+      border:none;border-radius:12px;color:#fff;
+      font-size:15px;font-weight:700;cursor:pointer;
+    }
+
+    .kb-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .kb-ci{background:var(--ice);border-radius:10px;padding:10px 12px}
+    .kb-ci-name{font-size:11px;color:var(--muted);margin-bottom:3px}
+    .kb-ci-amt{font-size:15px;font-weight:700;color:var(--navy)}
+    .kb-ci-bar-w{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+    .kb-ci-bar{height:100%;border-radius:2px;background:var(--amber);transition:width .3s}
+
+    .kb-day-group{margin-bottom:14px}
+    .kb-day-lbl{
+      font-size:11px;font-weight:700;color:var(--muted);
+      letter-spacing:.8px;margin-bottom:7px;
+      display:flex;justify-content:space-between;
+    }
+    .kb-item{
+      display:flex;align-items:center;gap:10px;
+      background:var(--white);border-radius:10px;
+      padding:11px 12px;margin-bottom:6px;
+      box-shadow:var(--shadow);
+    }
+    .kb-ico{font-size:20px;flex-shrink:0}
+    .kb-info{flex:1;min-width:0}
+    .kb-memo{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kb-meta{font-size:11px;color:var(--muted);margin-top:1px}
+    .kb-amt{font-size:15px;font-weight:700;color:var(--navy);flex-shrink:0;white-space:nowrap}
+    .kb-del{background:none;border:none;color:var(--border);font-size:18px;cursor:pointer;padding:3px 3px 3px 8px;line-height:1;flex-shrink:0}
+    .kb-del:hover{color:#ef4444}
+    .kb-empty{text-align:center;color:var(--muted);font-size:13px;padding:28px;line-height:1.7}
+    .kb-reset{
+      font-size:11px;color:var(--muted);text-align:center;
+      background:none;border:none;cursor:pointer;padding:8px;display:block;margin:0 auto;
+      text-decoration:underline;
+    }
+
+
+    /* ── EDIT MODAL ── */
+    .ev-edit{top:8px;right:42px;color:var(--blue);background:rgba(74,127,165,.10)}
+    .ev-edit:hover{background:rgba(74,127,165,.2)}
+    .ev-modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.45);
+      z-index:2000;display:flex;align-items:flex-end;
+      backdrop-filter:blur(2px);
+    }
+    .ev-modal{
+      background:#fff;border-radius:20px 20px 0 0;
+      padding:20px 20px 36px;width:100%;max-width:480px;
+      margin:0 auto;animation:slideUp .22s ease;
+    }
+    @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+    .ev-modal-title{
+      font-size:16px;font-weight:800;color:var(--navy);
+      margin-bottom:14px;text-align:center;
+    }
+    .ev-modal-sub{
+      font-size:11px;color:var(--muted);text-align:center;
+      margin-bottom:14px;margin-top:-8px;
+    }
+
     /* ── HERO WEATHER ── */
     .hero-wx{
       position:relative;z-index:1;
       display:inline-flex;align-items:center;gap:12px;
+      min-width:min(300px,calc(100% - 40px));
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.22);
       border-radius:14px;padding:9px 20px;
@@ -248,12 +460,12 @@
     .hero-wx-info{display:flex;flex-direction:column;gap:2px;text-align:left}
     .hero-wx-loc{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#B8D4E8}
     .hero-wx-desc{font-size:12px;color:rgba(255,255,255,.8)}
-    .hero-wx-detail{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px}
+    .hero-wx-detail{font-size:10px;color:rgba(255,255,255,.5);margin-top:2px;white-space:nowrap}
 
     /* ── RESPONSIVE ── */
     @media(max-width:380px){
       .hero-title{font-size:30px}
-      .tab-btn{padding:13px 11px 11px;font-size:12px}
+      .tab-btn,.day-pick-btn,.kb-btn{padding:5px 11px!important;font-size:11px!important}
     }
 
     /* ── MAP PANEL ── */
@@ -304,12 +516,22 @@
 
 <!-- TAB NAV -->
 <nav class="tab-nav">
-  <button class="tab-btn active"  onclick="goTab('d1',this)">Day 1</button>
-  <button class="tab-btn"         onclick="goTab('d2',this)">Day 2 ⭐</button>
-  <button class="tab-btn"         onclick="goTab('d3',this)">Day 3 🌾</button>
-  <button class="tab-btn"         onclick="goTab('d4',this)">Day 4</button>
-  <button class="tab-btn"         onclick="goTab('budget',this)">💴 예산</button>
-  <button class="tab-btn"         onclick="goTab('tips',this)">💡 꿀팁</button>
+  <!-- 커스텀 Day 피커 -->
+  <div class="day-picker" id="dayPicker">
+    <button class="day-pick-btn active" id="dayPickBtn" onclick="dayPickTap()">
+      📅 Day 1 · 11/28 (토) ▾
+    </button>
+    <div class="day-pick-menu" id="dayPickMenu">
+      <button data-day="d1" onclick="pickDay('d1')">Day 1 · 11/28 (토)</button>
+      <button data-day="d2" onclick="pickDay('d2')">Day 2 · 11/29 (일)</button>
+      <button data-day="d3" onclick="pickDay('d3')">Day 3 · 11/30 (월)</button>
+      <button data-day="d4" onclick="pickDay('d4')">Day 4 · 12/1 (화)</button>
+    </div>
+  </div>
+  <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
+  <span class="nav-sep"></span>
+  <button class="tab-btn" id="budBtn" onclick="goTabOnly('budget')">💴 예산</button>
+  <button class="tab-btn" id="tipBtn" onclick="goTabOnly('tips')">💡 꿀팁</button>
 </nav>
 
 <main class="main">
@@ -329,7 +551,9 @@
     <div class="spanel active" id="d1-sched">
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d1-0">
+        <button class="ev-del" onclick="evDel('d1-0')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d1-0')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕑 14:30</div>
@@ -339,7 +563,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d1-1">
+        <button class="ev-del" onclick="evDel('d1-1')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d1-1')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕕 17:00 도착</div>
@@ -349,7 +575,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d1-2">
+        <button class="ev-del" onclick="evDel('d1-2')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d1-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕕 17:40 출발</div>
@@ -359,7 +587,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d1-3">
+        <button class="ev-del" onclick="evDel('d1-3')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d1-3')" title="수정">✎</button>
         <div class="bar bar-purple"></div>
         <div class="ev-body">
           <div class="ev-time">🕕 18:00</div>
@@ -369,7 +599,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d1-4">
+        <button class="ev-del" onclick="evDel('d1-4')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d1-4')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕖 19:00</div>
@@ -380,7 +612,41 @@
       </div>
 
     </div>
+      
+    <div class="ev-add-wrap">
+      <button class="ev-add-toggle" id="d1-add-toggle" onclick="evToggle('d1')">＋ 일정 추가</button>
+      <div class="ev-add-form" id="d1-add-form" style="display:none">
+        <div class="ev-form-row">
+          <div class="time-sel-wrap">
+            <select class="ev-inp ev-th" id="d1-time-h" style="margin-bottom:0"><option value="">시 선택</option><option value="05">05시</option><option value="06">06시</option><option value="07">07시</option><option value="08">08시</option><option value="09">09시</option><option value="10">10시</option><option value="11">11시</option><option value="12">12시</option><option value="13">13시</option><option value="14">14시</option><option value="15">15시</option><option value="16">16시</option><option value="17">17시</option><option value="18">18시</option><option value="19">19시</option><option value="20">20시</option><option value="21">21시</option><option value="22">22시</option><option value="23">23시</option></select>
+            <span class="time-col">:</span>
+            <select class="ev-inp ev-tm" id="d1-time-m" style="margin-bottom:0"><option value="00">00분</option><option value="05">05분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
+          </div>
+          <select class="ev-inp" id="d1-bar" style="margin-bottom:0">
+            <option value="bar-amber">🟡 주황</option>
+            <option value="bar-blue">🔵 파랑</option>
+            <option value="bar-green">🟢 초록</option>
+            <option value="bar-navy">🔷 네이비</option>
+            <option value="bar-purple">🟣 보라</option>
+            <option value="bar-gray">⚪ 회색</option>
+          </select>
+        </div>
+        <input type="text" class="ev-inp" id="d1-place" placeholder="장소명 (예: 오도리 공원)">
+        <input type="text" class="ev-inp" id="d1-desc"  placeholder="설명 (선택)">
+        <input type="text" class="ev-inp" id="d1-cost"  placeholder="비용 (예: ¥200, 무료)">
+        <div class="ev-form-btns">
+          <button class="ev-save-btn"   onclick="evSave('d1')">추가</button>
+          <button class="ev-cancel-btn" onclick="evToggle('d1')">취소</button>
+        </div>
       </div>
+      <button onclick="shareDay('d1')" style="width:100%;margin-top:14px;padding:13px;border-radius:14px;border:none;background:#C97D2A;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 8px #C97D2A40">
+        📤 Day 1 일정 공유하기 (카카오톡 등)
+      </button>
+      <button onclick="resetDay('d1')" style="width:100%;margin-top:10px;padding:13px;border-radius:14px;border:1.5px solid #ef4444;background:rgba(239,68,68,.06);color:#ef4444;font-weight:700;font-size:14px;cursor:pointer">
+        🔄 Day 1 초기화 (이 날짜만 복원)
+      </button>
+    </div>
+</div>
     <div class="spanel" id="d1-map">
       <div id="d1-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
       <div class="map-leg-sm">
@@ -405,7 +671,9 @@
     <div class="spanel active" id="d2-sched">
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d2-0">
+        <button class="ev-del" onclick="evDel('d2-0')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕖 07:30</div>
@@ -415,7 +683,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-1">
+        <button class="ev-del" onclick="evDel('d2-1')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕗 08:30 출발</div>
@@ -425,7 +695,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-2">
+        <button class="ev-del" onclick="evDel('d2-2')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕘 09:10</div>
@@ -435,7 +707,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-3">
+        <button class="ev-del" onclick="evDel('d2-3')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-3')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕙 10:00</div>
@@ -445,7 +719,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-4">
+        <button class="ev-del" onclick="evDel('d2-4')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-4')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
           <div class="ev-time">🕚 11:00</div>
@@ -455,7 +731,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-5">
+        <button class="ev-del" onclick="evDel('d2-5')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-5')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕛 12:00</div>
@@ -465,7 +743,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-6">
+        <button class="ev-del" onclick="evDel('d2-6')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-6')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
           <div class="ev-time">🕐 13:30</div>
@@ -475,7 +755,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-7">
+        <button class="ev-del" onclick="evDel('d2-7')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-7')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🌙 19:00</div>
@@ -485,7 +767,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d2-8">
+        <button class="ev-del" onclick="evDel('d2-8')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d2-8')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🌙 20:30 삿포로 도착</div>
@@ -496,7 +780,41 @@
       </div>
 
     </div>
+      
+    <div class="ev-add-wrap">
+      <button class="ev-add-toggle" id="d2-add-toggle" onclick="evToggle('d2')">＋ 일정 추가</button>
+      <div class="ev-add-form" id="d2-add-form" style="display:none">
+        <div class="ev-form-row">
+          <div class="time-sel-wrap">
+            <select class="ev-inp ev-th" id="d2-time-h" style="margin-bottom:0"><option value="">시 선택</option><option value="05">05시</option><option value="06">06시</option><option value="07">07시</option><option value="08">08시</option><option value="09">09시</option><option value="10">10시</option><option value="11">11시</option><option value="12">12시</option><option value="13">13시</option><option value="14">14시</option><option value="15">15시</option><option value="16">16시</option><option value="17">17시</option><option value="18">18시</option><option value="19">19시</option><option value="20">20시</option><option value="21">21시</option><option value="22">22시</option><option value="23">23시</option></select>
+            <span class="time-col">:</span>
+            <select class="ev-inp ev-tm" id="d2-time-m" style="margin-bottom:0"><option value="00">00분</option><option value="05">05분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
+          </div>
+          <select class="ev-inp" id="d2-bar" style="margin-bottom:0">
+            <option value="bar-amber">🟡 주황</option>
+            <option value="bar-blue">🔵 파랑</option>
+            <option value="bar-green">🟢 초록</option>
+            <option value="bar-navy">🔷 네이비</option>
+            <option value="bar-purple">🟣 보라</option>
+            <option value="bar-gray">⚪ 회색</option>
+          </select>
+        </div>
+        <input type="text" class="ev-inp" id="d2-place" placeholder="장소명 (예: 오도리 공원)">
+        <input type="text" class="ev-inp" id="d2-desc"  placeholder="설명 (선택)">
+        <input type="text" class="ev-inp" id="d2-cost"  placeholder="비용 (예: ¥200, 무료)">
+        <div class="ev-form-btns">
+          <button class="ev-save-btn"   onclick="evSave('d2')">추가</button>
+          <button class="ev-cancel-btn" onclick="evToggle('d2')">취소</button>
+        </div>
       </div>
+      <button onclick="shareDay('d2')" style="width:100%;margin-top:14px;padding:13px;border-radius:14px;border:none;background:#4A7FA5;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 8px #4A7FA540">
+        📤 Day 2 일정 공유하기 (카카오톡 등)
+      </button>
+      <button onclick="resetDay('d2')" style="width:100%;margin-top:10px;padding:13px;border-radius:14px;border:1.5px solid #ef4444;background:rgba(239,68,68,.06);color:#ef4444;font-weight:700;font-size:14px;cursor:pointer">
+        🔄 Day 2 초기화 (이 날짜만 복원)
+      </button>
+    </div>
+</div>
     <div class="spanel" id="d2-map">
       <div id="d2-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
       <div class="map-leg-sm">
@@ -527,7 +845,9 @@
     <div class="sec-div">오전 — 출발 & 이동</div>
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d3-0">
+        <button class="ev-del" onclick="evDel('d3-0')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕖 07:00</div>
@@ -537,7 +857,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-1">
+        <button class="ev-del" onclick="evDel('d3-1')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕗 07:45</div>
@@ -547,7 +869,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-2">
+        <button class="ev-del" onclick="evDel('d3-2')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕙 09:30 ~ 10:00</div>
@@ -562,7 +886,9 @@
     <div class="sec-div">오전~오후 — 비에이 명소</div>
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d3-3">
+        <button class="ev-del" onclick="evDel('d3-3')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-3')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕙 10:00</div>
@@ -572,7 +898,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-4">
+        <button class="ev-del" onclick="evDel('d3-4')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-4')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕙 10:30</div>
@@ -582,7 +910,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-5">
+        <button class="ev-del" onclick="evDel('d3-5')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-5')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕚 11:10</div>
@@ -592,7 +922,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-6">
+        <button class="ev-del" onclick="evDel('d3-6')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-6')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕛 12:30</div>
@@ -602,7 +934,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-7">
+        <button class="ev-del" onclick="evDel('d3-7')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-7')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕐 13:30</div>
@@ -612,7 +946,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-8">
+        <button class="ev-del" onclick="evDel('d3-8')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-8')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕑 14:40</div>
@@ -627,7 +963,9 @@
     <div class="sec-div">저녁 — 삿포로 귀환</div>
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d3-9">
+        <button class="ev-del" onclick="evDel('d3-9')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-9')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕒 15:30</div>
@@ -637,7 +975,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-10">
+        <button class="ev-del" onclick="evDel('d3-10')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-10')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕔 17:30 ~ 18:00</div>
@@ -647,7 +987,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d3-11">
+        <button class="ev-del" onclick="evDel('d3-11')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-11')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🌙 19:00</div>
@@ -665,7 +1007,41 @@
       ② 청의 호수 <strong>야간 라이트업</strong>은 16:00~21:00 운영 (11~3월) — 투어 일정 확인!<br>
       ③ 비에이는 매우 춥고 바람 강함 — <strong>핫팩·방한장갑·넥워머 필수</strong>
     </div>
+      
+    <div class="ev-add-wrap">
+      <button class="ev-add-toggle" id="d3-add-toggle" onclick="evToggle('d3')">＋ 일정 추가</button>
+      <div class="ev-add-form" id="d3-add-form" style="display:none">
+        <div class="ev-form-row">
+          <div class="time-sel-wrap">
+            <select class="ev-inp ev-th" id="d3-time-h" style="margin-bottom:0"><option value="">시 선택</option><option value="05">05시</option><option value="06">06시</option><option value="07">07시</option><option value="08">08시</option><option value="09">09시</option><option value="10">10시</option><option value="11">11시</option><option value="12">12시</option><option value="13">13시</option><option value="14">14시</option><option value="15">15시</option><option value="16">16시</option><option value="17">17시</option><option value="18">18시</option><option value="19">19시</option><option value="20">20시</option><option value="21">21시</option><option value="22">22시</option><option value="23">23시</option></select>
+            <span class="time-col">:</span>
+            <select class="ev-inp ev-tm" id="d3-time-m" style="margin-bottom:0"><option value="00">00분</option><option value="05">05분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
+          </div>
+          <select class="ev-inp" id="d3-bar" style="margin-bottom:0">
+            <option value="bar-amber">🟡 주황</option>
+            <option value="bar-blue">🔵 파랑</option>
+            <option value="bar-green">🟢 초록</option>
+            <option value="bar-navy">🔷 네이비</option>
+            <option value="bar-purple">🟣 보라</option>
+            <option value="bar-gray">⚪ 회색</option>
+          </select>
+        </div>
+        <input type="text" class="ev-inp" id="d3-place" placeholder="장소명 (예: 오도리 공원)">
+        <input type="text" class="ev-inp" id="d3-desc"  placeholder="설명 (선택)">
+        <input type="text" class="ev-inp" id="d3-cost"  placeholder="비용 (예: ¥200, 무료)">
+        <div class="ev-form-btns">
+          <button class="ev-save-btn"   onclick="evSave('d3')">추가</button>
+          <button class="ev-cancel-btn" onclick="evToggle('d3')">취소</button>
+        </div>
       </div>
+      <button onclick="shareDay('d3')" style="width:100%;margin-top:14px;padding:13px;border-radius:14px;border:none;background:#3A7A57;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 8px #3A7A5740">
+        📤 Day 3 일정 공유하기 (카카오톡 등)
+      </button>
+      <button onclick="resetDay('d3')" style="width:100%;margin-top:10px;padding:13px;border-radius:14px;border:1.5px solid #ef4444;background:rgba(239,68,68,.06);color:#ef4444;font-weight:700;font-size:14px;cursor:pointer">
+        🔄 Day 3 초기화 (이 날짜만 복원)
+      </button>
+    </div>
+</div>
     <div class="spanel" id="d3-map">
       <div id="d3-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
       <div class="map-leg-sm">
@@ -690,7 +1066,9 @@
     <div class="spanel active" id="d4-sched">
     <div class="timeline">
 
-      <div class="event">
+      <div class="event" data-eid="d4-0">
+        <button class="ev-del" onclick="evDel('d4-0')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕗 08:00</div>
@@ -700,7 +1078,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-1">
+        <button class="ev-del" onclick="evDel('d4-1')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕘 09:00</div>
@@ -710,7 +1090,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-2">
+        <button class="ev-del" onclick="evDel('d4-2')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕙 10:00</div>
@@ -720,7 +1102,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-3">
+        <button class="ev-del" onclick="evDel('d4-3')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-3')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
           <div class="ev-time">🕚 11:00</div>
@@ -730,7 +1114,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-4">
+        <button class="ev-del" onclick="evDel('d4-4')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-4')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
           <div class="ev-time">🕛 12:00</div>
@@ -740,7 +1126,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-5">
+        <button class="ev-del" onclick="evDel('d4-5')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-5')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
           <div class="ev-time">🕐 13:00 호텔 출발</div>
@@ -750,7 +1138,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-6">
+        <button class="ev-del" onclick="evDel('d4-6')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-6')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
           <div class="ev-time">🕑 14:00 ~ 15:30</div>
@@ -760,7 +1150,9 @@
         </div>
       </div>
 
-      <div class="event">
+      <div class="event" data-eid="d4-7">
+        <button class="ev-del" onclick="evDel('d4-7')" title="삭제">✕</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d4-7')" title="수정">✎</button>
         <div class="bar bar-navy"></div>
         <div class="ev-body">
           <div class="ev-time">🕔 16:00 탑승 수속</div>
@@ -774,7 +1166,41 @@
     <div class="note">
       ⏰ <strong>귀국 주의!</strong>&nbsp; 18:00 출발 기준 → 신치토세 <strong>15:00~16:00 도착</strong>이 목표입니다. 삿포로역 JR 쾌속 약 40분 소요 — 쇼핑 마감 시간을 미리 체크하세요!
     </div>
+      
+    <div class="ev-add-wrap">
+      <button class="ev-add-toggle" id="d4-add-toggle" onclick="evToggle('d4')">＋ 일정 추가</button>
+      <div class="ev-add-form" id="d4-add-form" style="display:none">
+        <div class="ev-form-row">
+          <div class="time-sel-wrap">
+            <select class="ev-inp ev-th" id="d4-time-h" style="margin-bottom:0"><option value="">시 선택</option><option value="05">05시</option><option value="06">06시</option><option value="07">07시</option><option value="08">08시</option><option value="09">09시</option><option value="10">10시</option><option value="11">11시</option><option value="12">12시</option><option value="13">13시</option><option value="14">14시</option><option value="15">15시</option><option value="16">16시</option><option value="17">17시</option><option value="18">18시</option><option value="19">19시</option><option value="20">20시</option><option value="21">21시</option><option value="22">22시</option><option value="23">23시</option></select>
+            <span class="time-col">:</span>
+            <select class="ev-inp ev-tm" id="d4-time-m" style="margin-bottom:0"><option value="00">00분</option><option value="05">05분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
+          </div>
+          <select class="ev-inp" id="d4-bar" style="margin-bottom:0">
+            <option value="bar-amber">🟡 주황</option>
+            <option value="bar-blue">🔵 파랑</option>
+            <option value="bar-green">🟢 초록</option>
+            <option value="bar-navy">🔷 네이비</option>
+            <option value="bar-purple">🟣 보라</option>
+            <option value="bar-gray">⚪ 회색</option>
+          </select>
+        </div>
+        <input type="text" class="ev-inp" id="d4-place" placeholder="장소명 (예: 오도리 공원)">
+        <input type="text" class="ev-inp" id="d4-desc"  placeholder="설명 (선택)">
+        <input type="text" class="ev-inp" id="d4-cost"  placeholder="비용 (예: ¥200, 무료)">
+        <div class="ev-form-btns">
+          <button class="ev-save-btn"   onclick="evSave('d4')">추가</button>
+          <button class="ev-cancel-btn" onclick="evToggle('d4')">취소</button>
+        </div>
       </div>
+      <button onclick="shareDay('d4')" style="width:100%;margin-top:14px;padding:13px;border-radius:14px;border:none;background:#6B4FA0;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 8px #6B4FA040">
+        📤 Day 4 일정 공유하기 (카카오톡 등)
+      </button>
+      <button onclick="resetDay('d4')" style="width:100%;margin-top:10px;padding:13px;border-radius:14px;border:1.5px solid #ef4444;background:rgba(239,68,68,.06);color:#ef4444;font-weight:700;font-size:14px;cursor:pointer">
+        🔄 Day 4 초기화 (이 날짜만 복원)
+      </button>
+    </div>
+</div>
     <div class="spanel" id="d4-map">
       <div id="d4-mapbox" style="height:470px;border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 16px rgba(15,36,71,.12)"></div>
       <div class="map-leg-sm">
@@ -928,19 +1354,199 @@
   <!-- ══════ MAP ══════ -->
   
 
+
+  <!-- ══════ KAKEIBO 가계부 ══════ -->
+  <section class="panel" id="kakeibo">
+    <div class="day-header">
+      <div class="day-badge">💰 여행 가계부</div>
+      <div class="day-title">호성이네 4인 · 실제 지출 기록</div>
+    </div>
+
+    <!-- 합계 히어로 -->
+    <div class="kb-hero">
+      <div class="kb-hero-lbl">현재까지 총 지출</div>
+      <div class="kb-total" id="kbTotal">¥0</div>
+      <div class="kb-krw" id="kbKrw">₩0</div>
+      <div class="kb-prog-wrap">
+        <div class="kb-prog" id="kbProg" style="width:0%"></div>
+      </div>
+      <div class="kb-pct">
+        예산 ¥185,520 대비 <span id="kbPct">0%</span> 사용 &nbsp;·&nbsp;
+        잔액 <span id="kbLeft">¥185,520</span>
+      </div>
+    </div>
+
+    <!-- 입력 폼 -->
+    <div class="kb-card">
+      <div class="kb-card-title">+ 지출 추가</div>
+      <div class="kb-row2">
+        <select class="kb-inp" id="kbDay">
+          <option value="d1">Day 1 · 11/28</option>
+          <option value="d2">Day 2 · 11/29</option>
+          <option value="d3">Day 3 · 11/30</option>
+          <option value="d4">Day 4 · 12/1</option>
+        </select>
+        <input type="number" class="kb-inp" id="kbAmt" placeholder="금액 (¥)" inputmode="numeric" min="0">
+      </div>
+      <div class="kb-cats" id="kbCatBtns">
+        <button class="kb-cat on"  data-cat="transport"   onclick="kbCatSel(this)">✈️ 교통</button>
+        <button class="kb-cat"     data-cat="food"        onclick="kbCatSel(this)">🍽️ 식비</button>
+        <button class="kb-cat"     data-cat="activity"    onclick="kbCatSel(this)">🎡 체험</button>
+        <button class="kb-cat"     data-cat="shopping"    onclick="kbCatSel(this)">🛍️ 쇼핑</button>
+        <button class="kb-cat"     data-cat="convenience" onclick="kbCatSel(this)">🏪 편의점</button>
+        <button class="kb-cat"     data-cat="etc"         onclick="kbCatSel(this)">💊 기타</button>
+      </div>
+      <input type="text" class="kb-inp" id="kbMemo" placeholder="메모 (예: 오타루 JR 왕복)" style="margin-bottom:12px">
+      <button class="kb-add-btn" onclick="kbAdd()">추가하기</button>
+    </div>
+
+    <!-- 카테고리별 -->
+    <div class="kb-card">
+      <div class="kb-card-title">📊 카테고리별 지출</div>
+      <div class="kb-cat-grid" id="kbCatGrid"></div>
+    </div>
+
+    <!-- 일별 내역 -->
+    <div id="kbListWrap"></div>
+
+    <button onclick="shareBudget()" style="width:100%;margin-top:16px;padding:14px;border-radius:14px;border:none;background:#C97D2A;color:#fff;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 8px rgba(201,125,42,.25)">
+      📤 가계부 공유하기 (카카오톡 등)
+    </button>
+    <button class="kb-reset" onclick="kbReset()">🗑 전체 초기화</button>
+  </section>
+
+
+<!-- ── 수정 모달 ── -->
+<div class="ev-modal-overlay" id="evModal" style="display:none" onclick="evModalClose()">
+  <div class="ev-modal" onclick="event.stopPropagation()">
+    <div class="ev-modal-title">✏️ 일정 수정</div>
+    <div class="ev-modal-sub" id="evModalSub"></div>
+    <div class="ev-form-row">
+      <div class="time-sel-wrap" style="flex:1">
+          <select class="ev-inp ev-th" id="editTimeH" style="margin-bottom:0"><option value="">시 선택</option><option value="05">05시</option><option value="06">06시</option><option value="07">07시</option><option value="08">08시</option><option value="09">09시</option><option value="10">10시</option><option value="11">11시</option><option value="12">12시</option><option value="13">13시</option><option value="14">14시</option><option value="15">15시</option><option value="16">16시</option><option value="17">17시</option><option value="18">18시</option><option value="19">19시</option><option value="20">20시</option><option value="21">21시</option><option value="22">22시</option><option value="23">23시</option></select>
+          <span class="time-col">:</span>
+          <select class="ev-inp ev-tm" id="editTimeM" style="margin-bottom:0"><option value="00">00분</option><option value="05">05분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
+        </div>
+      <select class="ev-inp" id="editBar" style="margin-bottom:0">
+        <option value="bar-amber">🟡 주황</option>
+        <option value="bar-blue">🔵 파랑</option>
+        <option value="bar-green">🟢 초록</option>
+        <option value="bar-navy">🔷 네이비</option>
+        <option value="bar-purple">🟣 보라</option>
+        <option value="bar-gray">⚪ 회색</option>
+      </select>
+    </div>
+    <input type="text" class="ev-inp" id="editPlace" placeholder="장소명">
+    <input type="text" class="ev-inp" id="editDesc"  placeholder="설명">
+    <input type="text" class="ev-inp" id="editCost"  placeholder="비용 (예: ¥200, 무료)">
+    <div class="ev-form-btns">
+      <button class="ev-save-btn"   onclick="evEditSave()">저장</button>
+      <button class="ev-cancel-btn" onclick="evModalClose()">취소</button>
+    </div>
+  </div>
+</div>
 </main>
 
 <script>
   /* TAB SWITCHING */
-  function goTab(id, btn) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-    const nav = document.querySelector('.tab-nav');
-    nav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    window.scrollTo({ top: nav.offsetTop - 60, behavior: 'smooth' });
+  /* 드롭다운 클릭 시 비-Day 패널이면 즉시 Day로 전환 */
+  function daySelFocus() {
+    const active = document.querySelector('.panel.active');
+    const dayIds = ['d1','d2','d3','d4'];
+    if (active && !dayIds.includes(active.id)) {
+      goDay(document.getElementById('daySel').value);
+    }
   }
+
+  /* ── Day labels ── */
+  const DAY_LABELS={d1:'Day 1 · 11/28 (토)',d2:'Day 2 · 11/29 (일)',d3:'Day 3 · 11/30 (월)',d4:'Day 4 · 12/1 (화)'};
+  let _lastDay='d1';
+
+  /* 네비 활성 상태 통합 관리 */
+  function setNavActive(which){
+    document.getElementById('dayPickBtn').classList.remove('active');
+    ['kbNavBtn','budBtn','tipBtn'].forEach(id=>{
+      const b=document.getElementById(id);if(b)b.classList.remove('active');
+    });
+    if(which==='day'){
+      document.getElementById('dayPickBtn').classList.add('active');
+    } else {
+      const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':'tipBtn';
+      const b=document.getElementById(btnId);if(b)b.classList.add('active');
+    }
+  }
+
+  /* Day 피커 버튼 텍스트 업데이트 */
+  function updateDayPickBtn(dayId){
+    document.getElementById('dayPickBtn').textContent='📅 '+DAY_LABELS[dayId]+' ▾';
+  }
+
+  /* Day 피커 탭: 비-Day 패널이면 바로 전환, Day 패널이면 드롭다운 */
+  function dayPickTap(){
+    const active=document.querySelector('.panel.active');
+    const isOnDay=active&&['d1','d2','d3','d4'].includes(active.id);
+    if(!isOnDay){
+      closePickMenu();
+      goDay(_lastDay);
+    } else {
+      const menu=document.getElementById('dayPickMenu');
+      if(menu.classList.contains('open')) closePickMenu();
+      else openPickMenu();
+    }
+  }
+
+  function openPickMenu(){
+    const menu=document.getElementById('dayPickMenu');
+    const btn=document.getElementById('dayPickBtn');
+    const r=btn.getBoundingClientRect();
+    menu.style.top=(r.bottom+4)+'px';
+    menu.style.left=r.left+'px';
+    menu.classList.add('open');
+    menu.querySelectorAll('button').forEach(b=>b.classList.remove('cur'));
+    const cur=menu.querySelector('[data-day="'+_lastDay+'"]');
+    if(cur) cur.classList.add('cur');
+    setTimeout(()=>document.addEventListener('click',closeOnOutside),0);
+  }
+
+  function closePickMenu(){
+    document.getElementById('dayPickMenu').classList.remove('open');
+    document.removeEventListener('click',closeOnOutside);
+  }
+
+  function closeOnOutside(e){
+    if(!document.getElementById('dayPicker').contains(e.target)) closePickMenu();
+  }
+
+  function pickDay(dayId){
+    closePickMenu();
+    goDay(dayId);
+  }
+
+  /* ── Day 패널 전환 ── */
+  function goDay(dayId) {
+    _lastDay=dayId;
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(dayId).classList.add('active');
+    updateDayPickBtn(dayId);
+    setNavActive('day');
+    const schedBtn=document.querySelector('#'+dayId+' .stab');
+    if(schedBtn) doStab(dayId,'sched',schedBtn);
+    evLoadCustom(dayId);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  /* ── 가계부·예산·꿀팁 탭 전환 ── */
+  function goTabOnly(id) {
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    setNavActive(id);
+    if(id==='kakeibo') kbRender();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  /* ── legacy ── */
+  function goTab(id,btn){ goDay(id); }
+  function daySelFocus(){} // deprecated
 
   /* SNOWFALL */
   (function () {
@@ -1001,7 +1607,7 @@
         document.getElementById('wxTemp').textContent = temp + '°C';
         document.getElementById('wxDesc').textContent = c.condition.text;
         document.getElementById('wxDetail').textContent =
-          '체감 ' + feels + '° · 습도 ' + hum + '% · 바람 ' + wind + '㎞/h ' + wd;
+          `체감 ${feels}° · 습도 ${hum}% · ${wind}㎞/h ${wd}`;
       })
       .catch(() => {
         document.getElementById('wxDesc').textContent = '날씨 정보 불러오기 실패';
@@ -1017,7 +1623,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ── PER-DAY MAP ── */
-const _maps={};
+const _maps={}, _customMarkers={}, _builtinMarkers={}, _builtinLines={};
 const SPOTS={
   chitose:    {n:'✈️ 신치토세공항',       lat:42.7752,lng:141.6924,e:'✈️',t:'JR 쾌속 약 40분 → 삿포로역'},
   sapporo_st: {n:'🚂 삿포로역',           lat:43.0686,lng:141.3508,e:'🚂',t:'JR 허브역'},
@@ -1051,17 +1657,23 @@ function initDayMap(sid){
   const m=L.map(sid+'-mapbox').setView([43.15,141.35],9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap',maxZoom:18}).addTo(m);
-  L.polyline(coords,{color:r.c,weight:4,opacity:.85}).addTo(m);
+  const polyline=L.polyline(coords,{color:r.c,weight:4,opacity:.85}).addTo(m);
+  _builtinLines[sid]={line:polyline,allCoords:coords,allSpots:r.spots};
+  _builtinMarkers[sid]={};
   const seen=new Set();
   r.spots.forEach(k=>{
     if(seen.has(k))return; seen.add(k);
     const s=SPOTS[k];
-    L.marker([s.lat,s.lng],{icon:eIcon(s.e)})
-      .bindPopup(`<b style="font-size:13px">${s.n}</b><br><span style="font-size:11px;color:#666">${s.t}</span>`)
+    const mk=L.marker([s.lat,s.lng],{icon:eIcon(s.e)})
+      .bindPopup('<b style="font-size:13px">'+s.n+'</b><br><span style="font-size:11px;color:#666">'+s.t+'</span>')
       .addTo(m);
+    _builtinMarkers[sid][k]=mk;
   });
   m.fitBounds(L.latLngBounds(coords),{padding:[28,28]});
   _maps[sid]=m;
+  _customMarkers[sid]=[];
+  evRefreshMapMarkers(sid);
+  evUpdateBuiltinMarkers(sid); // 이미 숨겨진 일정 반영
 }
 function doStab(sid,sub,btn){
   document.querySelectorAll('#'+sid+' .stab').forEach(b=>b.classList.remove('active'));
@@ -1070,6 +1682,653 @@ function doStab(sid,sub,btn){
   document.getElementById(sid+'-'+sub).classList.add('active');
   if(sub==='map') setTimeout(()=>initDayMap(sid),60);
 }
+</script>
+
+
+<script>
+/* ══ KAKEIBO 가계부 ══ */
+const KB_BUDGET = 185520;
+const KB_CATS = {
+  transport:   {e:'✈️', n:'교통'},
+  food:        {e:'🍽️', n:'식비'},
+  activity:    {e:'🎡', n:'체험'},
+  shopping:    {e:'🛍️', n:'쇼핑'},
+  convenience: {e:'🏪', n:'편의점'},
+  etc:         {e:'💊', n:'기타'},
+};
+const KB_DAYS = {
+  d1:'Day 1 · 11/28 (토)',
+  d2:'Day 2 · 11/29 (일)',
+  d3:'Day 3 · 11/30 (월)',
+  d4:'Day 4 · 12/1 (화)',
+};
+let _kbCat = 'transport';
+let _kbData = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
+
+function kbSave(){ localStorage.setItem('kb_sap2026', JSON.stringify(_kbData)); }
+function kbY(n){ return '¥' + Math.round(n).toLocaleString(); }
+function kbW(n){ return '₩' + Math.round(n * 9.5).toLocaleString(); }
+
+function kbCatSel(btn){
+  document.querySelectorAll('.kb-cat').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  _kbCat = btn.dataset.cat;
+}
+
+function kbAdd(){
+  const day = document.getElementById('kbDay').value;
+  const amt = parseInt(document.getElementById('kbAmt').value);
+  const memo = document.getElementById('kbMemo').value.trim();
+  if(!amt || amt <= 0){ alert('금액을 입력해주세요'); return; }
+  _kbData.push({id:Date.now(), day, cat:_kbCat, amt, memo: memo || KB_CATS[_kbCat].n});
+  kbSave();
+  document.getElementById('kbAmt').value = '';
+  document.getElementById('kbMemo').value = '';
+  kbRender();
+}
+
+function kbDel(id){
+  if(!confirm('삭제할까요?')) return;
+  _kbData = _kbData.filter(e=>e.id!==id);
+  kbSave(); kbRender();
+}
+
+function kbReset(){
+  if(!confirm('전체 내역을 초기화할까요?')) return;
+  _kbData = []; kbSave(); kbRender();
+}
+
+function kbRender(){
+  const total = _kbData.reduce((s,e)=>s+e.amt, 0);
+  const pct   = Math.min((total/KB_BUDGET)*100, 100);
+  const left  = KB_BUDGET - total;
+  const over  = total > KB_BUDGET;
+
+  document.getElementById('kbTotal').textContent = kbY(total);
+  document.getElementById('kbKrw').textContent   = kbW(total);
+  const prog = document.getElementById('kbProg');
+  prog.style.width = pct + '%';
+  prog.style.background = over ? '#ef4444' : 'linear-gradient(90deg,#4A7FA5,#C97D2A)';
+  document.getElementById('kbPct').textContent = pct.toFixed(1) + '%';
+  const leftEl = document.getElementById('kbLeft');
+  leftEl.textContent = over
+    ? kbY(Math.abs(left)) + ' 초과!'
+    : kbY(left) + ' 남음';
+  leftEl.style.color = over ? '#f87171' : '';
+
+  /* 카테고리 그리드 */
+  const bycat = {};
+  Object.keys(KB_CATS).forEach(k=>bycat[k]=0);
+  _kbData.forEach(e=>{ bycat[e.cat]=(bycat[e.cat]||0)+e.amt; });
+  const maxC = Math.max(...Object.values(bycat), 1);
+  document.getElementById('kbCatGrid').innerHTML =
+    Object.entries(KB_CATS).map(([k,v])=>{
+      const a=bycat[k]||0, p=(a/maxC*100).toFixed(0);
+      return `<div class="kb-ci">
+        <div class="kb-ci-name">${v.e} ${v.n}</div>
+        <div class="kb-ci-amt">${kbY(a)}</div>
+        <div class="kb-ci-bar-w"><div class="kb-ci-bar" style="width:${p}%"></div></div>
+      </div>`;
+    }).join('');
+
+  /* 일별 내역 */
+  const wrap = document.getElementById('kbListWrap');
+  if(!_kbData.length){
+    wrap.innerHTML='<div class="kb-empty">아직 지출 내역이 없습니다 ✈️<br><small>위 폼으로 지출을 기록해보세요</small></div>';
+    return;
+  }
+  const byDay={};
+  _kbData.forEach(e=>{ if(!byDay[e.day])byDay[e.day]=[]; byDay[e.day].push(e); });
+  wrap.innerHTML = Object.entries(KB_DAYS)
+    .filter(([d])=>byDay[d])
+    .map(([d,dlbl])=>{
+      const items=byDay[d];
+      const daySum=items.reduce((s,e)=>s+e.amt,0);
+      return `<div class="kb-day-group">
+        <div class="kb-day-lbl">
+          <span>${dlbl}</span>
+          <span>${kbY(daySum)}</span>
+        </div>
+        ${items.map(e=>`<div class="kb-item">
+          <span class="kb-ico">${KB_CATS[e.cat].e}</span>
+          <div class="kb-info">
+            <div class="kb-memo">${e.memo}</div>
+            <div class="kb-meta">${KB_CATS[e.cat].n}</div>
+          </div>
+          <span class="kb-amt">${kbY(e.amt)}</span>
+          <button class="kb-del" onclick="kbDel(${e.id})">✕</button>
+        </div>`).join('')}
+      </div>`;
+    }).join('');
+}
+</script>
+
+
+<script>
+/* ══ SCHEDULE CRUD ══ */
+const EV_STORE='ev_sap2026';
+var _evCache=null;
+function evGetDB(){
+  if(_evCache) return _evCache;
+  try{
+    var stored=localStorage.getItem(EV_STORE);
+    _evCache=stored?JSON.parse(stored):{"hidden":[],"custom":{"d1":[],"d2":[],"d3":[],"d4":[]},"overrides":{}};
+  }catch(e){
+    _evCache={"hidden":[],"custom":{"d1":[],"d2":[],"d3":[],"d4":[]},"overrides":{}};
+  }
+  return _evCache;
+}
+function evSaveDB(db){
+  _evCache=db; /* 메모리 캐시 즉시 업데이트 */
+  try{ localStorage.setItem(EV_STORE,JSON.stringify(db)); }catch(e){}
+}
+
+/* eid → 지도 spot 매핑 */
+const EID_SPOT={"d1-0":null,"d1-1":"chitose","d1-2":"sapporo_st","d1-3":"hotel","d1-4":"susukino","d2-0":"hotel","d2-1":"sapporo_st","d2-2":"otaru_canal","d2-3":"orgel","d2-4":"otaru_st","d2-5":"sushi","d2-6":"otaru_canal","d2-7":"otaru_canal","d2-8":"susukino","d3-0":"hotel","d3-1":"sapporo_st","d3-2":null,"d3-3":"biei","d3-4":"biei","d3-5":"blue_pond","d3-6":"biei","d3-7":null,"d3-8":"biei","d3-9":null,"d3-10":"sapporo_st","d3-11":"susukino","d4-0":"hotel","d4-1":"tanuki","d4-2":"sapporo_st","d4-3":"clocktower","d4-4":null,"d4-5":"chitose","d4-6":"chitose","d4-7":"chitose"};
+
+/* ── 일정 삭제 (기본) ── */
+function evDel(eid){
+  const db=evGetDB();
+  if(!db.hidden.includes(eid)) db.hidden.push(eid);
+  evSaveDB(db);
+  const el=document.querySelector('[data-eid="'+eid+'"]');
+  if(el) el.style.display='none';
+  const did=eid.split('-')[0];
+  evUpdateBuiltinMarkers(did);
+}
+
+/* ── 추가폼 열기/닫기 ── */
+function evToggle(did){
+  const f=document.getElementById(did+'-add-form');
+  if(!f) return;
+  f.style.display=(f.style.display==='block')?'none':'block';
+}
+
+/* ── 일정 추가 저장 ── */
+function evSave(did){
+  try{
+    var gEl=function(id){ var e=document.getElementById(id); return e?e.value:''; };
+    var place=gEl(did+'-place').trim();
+    if(!place) return;
+
+    /* 키워드→좌표 (SPOTS 직접 참조, GEO_KEYWORDS 불필요) */
+    var KW=[
+      ['신치토세','chitose'],['공항','chitose'],['치토세','chitose'],
+      ['삿포로역','sapporo_st'],['시계탑','clocktower'],
+      ['오도리','odori'],['타누키','tanuki'],
+      ['스스키노','susukino'],['이비스','hotel'],['호텔','hotel'],
+      ['오타루역','otaru_st'],['오타루운하','otaru_canal'],['운하','otaru_canal'],
+      ['오르골','orgel'],['스시','sushi'],['초밥','sushi'],
+      ['비에이','biei'],['청의호수','blue_pond'],['파란호수','blue_pond'],
+      ['모이와','moiwa'],['야경','moiwa']
+    ];
+    var lat=null, lng=null;
+    var lower=place.toLowerCase().replace(/\s/g,'');
+    for(var ki=0;ki<KW.length;ki++){
+      if(lower.indexOf(KW[ki][0])!==-1 && SPOTS[KW[ki][1]]){
+        lat=SPOTS[KW[ki][1]].lat; lng=SPOTS[KW[ki][1]].lng; break;
+      }
+    }
+
+    var evId=Date.now();
+    var h=document.getElementById(did+'-time-h');
+    var m=document.getElementById(did+'-time-m');
+    var evTime=(h&&h.value)?(h.value+':'+(m?m.value:'00')):'';
+    var ev={id:evId,time:evTime,bar:gEl(did+'-bar')||'bar-amber',
+            place:place,desc:gEl(did+'-desc').trim(),
+            cost:gEl(did+'-cost').trim(),lat:lat,lng:lng};
+    var db=evGetDB();
+    db.custom[did].push(ev);
+    evSaveDB(db);
+    evRenderCustom(did);
+
+    ['place','desc','cost'].forEach(function(f){
+      var e=document.getElementById(did+'-'+f); if(e) e.value='';
+    });
+    var th=document.getElementById(did+'-time-h'); if(th) th.value='';
+    var tm=document.getElementById(did+'-time-m'); if(tm) tm.value='00';
+    evToggle(did);
+    if(!lat) evGeocode(did,evId,place);
+  }catch(e){
+    alert('추가 오류: '+e.message);
+  }
+}
+
+/* ── 지오코딩: SPOTS 키워드 매칭 우선 → Nominatim 폴백 ── */
+var GEO_KEYWORDS={
+  '신치토세':'chitose','공항':'chitose','치토세':'chitose',
+  '삿포로역':'sapporo_st','sapporo station':'sapporo_st',
+  '시계탑':'clocktower','clock tower':'clocktower',
+  '오도리':'odori','odori':'odori','대통공원':'odori',
+  '타누키':'tanuki','타누키코지':'tanuki','狸小路':'tanuki',
+  '스스키노':'susukino','susukino':'susukino','薄野':'susukino',
+  '이비스':'hotel','호텔':'hotel','hotel':'hotel',
+  '오타루역':'otaru_st','오타루 역':'otaru_st',
+  '오타루운하':'otaru_canal','운하':'otaru_canal','canal':'otaru_canal',
+  '오르골':'orgel','오르골당':'orgel','오르고루':'orgel',
+  '스시':'sushi','초밥':'sushi','스시야':'sushi','kaisen':'sushi',
+  '비에이':'biei','biei':'biei','미술관':'biei',
+  '청의호수':'blue_pond','파란호수':'blue_pond','시로가네':'blue_pond','blue pond':'blue_pond',
+  '모이와':'moiwa','야경':'moiwa'
+};
+
+function evGeocode(did, evId, place){
+  /* 1) SPOTS 키워드 매칭 */
+  var lower=place.toLowerCase().replace(/\s/g,'');
+  var spotKey=null;
+  var keys=Object.keys(GEO_KEYWORDS);
+  for(var i=0;i<keys.length;i++){
+    if(lower.indexOf(keys[i].replace(/\s/g,''))!==-1){
+      spotKey=GEO_KEYWORDS[keys[i]]; break;
+    }
+  }
+  if(spotKey && SPOTS[spotKey]){
+    var sp=SPOTS[spotKey];
+    evGeoApply(did,evId,sp.lat,sp.lng);
+    return;
+  }
+
+  /* 2) Nominatim 폴백 (GitHub Pages에서만 작동) */
+  var ctrl=new AbortController();
+  var tid=setTimeout(function(){ ctrl.abort(); },4000);
+  /* 영문 변환 시도: 한글이면 로마자 병행 검색 */
+  var q=encodeURIComponent(place+' Sapporo Hokkaido Japan');
+  fetch('https://nominatim.openstreetmap.org/search?q='+q+'&format=json&limit=1',
+    {signal:ctrl.signal,headers:{'Accept-Language':'ko,ja,en'}})
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    clearTimeout(tid);
+    if(!data||!data.length) return;
+    evGeoApply(did,evId,parseFloat(data[0].lat),parseFloat(data[0].lon));
+  })
+  .catch(function(){ clearTimeout(tid); });
+}
+
+function evGeoApply(did,evId,lat,lng){
+  var db=evGetDB();
+  var arr=db.custom[did]||[];
+  for(var i=0;i<arr.length;i++){
+    if(arr[i].id===evId){ arr[i].lat=lat; arr[i].lng=lng; break; }
+  }
+  evSaveDB(db);
+  evRenderCustom(did);
+  var _gmap=_maps[did];
+  if(_gmap){
+    if(_customMarkers[did]) _customMarkers[did].forEach(function(m){ _gmap.removeLayer(m); });
+    _customMarkers[did]=[];
+    (evGetDB().custom[did]||[]).forEach(function(ev){ if(ev.lat&&ev.lng) _cMarker(did,ev); });
+  }
+}
+/* ── 커스텀 일정 렌더링 (insertBefore 정렬 삽입) ── */
+function evRenderCustom(did){
+  var tl=document.querySelector('#'+did+'-sched .timeline');
+  if(!tl) return;
+  /* 기존 커스텀 카드 제거 */
+  Array.from(tl.querySelectorAll('.ev-custom')).forEach(function(el){ el.remove(); });
+  var db=evGetDB();
+  var events=(db.custom[did]||[]).slice();
+  /* 커스텀 카드를 타임라인 끝에 추가 (정렬은 sortTimeline이 담당) */
+  events.forEach(function(ev){ tl.appendChild(makeCustomCard(ev,did)); });
+  /* 기본+커스텀 전체 시간순 정렬 */
+  sortTimeline(did);
+  /* 지도 커스텀 마커 갱신 (인라인) */
+  var _rmap=_maps[did];
+  if(_rmap){
+    if(_customMarkers[did]) _customMarkers[did].forEach(function(m){ _rmap.removeLayer(m); });
+    _customMarkers[did]=[];
+    (evGetDB().custom[did]||[]).forEach(function(ev){ if(ev.lat&&ev.lng) _cMarker(did,ev); });
+  }
+}
+
+/* 시간 문자열 "HH:MM" → 분 */
+function evMinsOf(t){
+  if(!t) return 9999;
+  var p=t.split(':');
+  return (parseInt(p[0])||0)*60+(parseInt(p[1])||0);
+}
+/* DOM .event 요소의 시간 → 분 */
+function domEvMins(el){
+  var t=el.querySelector('.ev-time');
+  if(!t) return 9999;
+  var clean=t.textContent.replace(/[^0-9:]/g,'');
+  var p=clean.split(':');
+  return (parseInt(p[0])||0)*60+(parseInt(p[1])||0);
+}
+/* 커스텀 이벤트 카드 생성 */
+function makeCustomCard(ev,did){
+  var card=document.createElement('div');
+  card.className='event ev-custom';
+  card.dataset.cid=ev.id;
+  var delBtn=document.createElement('button');
+  delBtn.className='ev-del'; delBtn.title='삭제'; delBtn.textContent='✕';
+  (function(d,c){ delBtn.addEventListener('click',function(){ evDelCustom(d,c); }); })(did,ev.id);
+  card.appendChild(delBtn);
+  var editBtn=document.createElement('button');
+  editBtn.className='ev-edit'; editBtn.title='수정'; editBtn.textContent='✎';
+  (function(d,c){ editBtn.addEventListener('click',function(){ evEditOpen('custom',d,c); }); })(did,ev.id);
+  card.appendChild(editBtn);
+  var bar=document.createElement('div');
+  bar.className='bar '+(ev.bar||'bar-amber');
+  card.appendChild(bar);
+  var body=document.createElement('div'); body.className='ev-body';
+  if(ev.time){ var t=document.createElement('div'); t.className='ev-time'; t.textContent='🕐 '+ev.time; body.appendChild(t); }
+  var top=document.createElement('div'); top.className='ev-top';
+  var ico=document.createElement('span'); ico.className='ev-icon'; ico.textContent=ev.lat?'⭐':'📍';
+  var pl=document.createElement('span'); pl.className='ev-place'; pl.textContent=ev.place;
+  var badge=document.createElement('span');
+  badge.style.cssText='font-size:10px;margin-left:6px;color:'+(ev.lat?'var(--amber)':'var(--muted)');
+  badge.textContent=ev.lat?'지도 ✓':'위치 미확인';
+  top.appendChild(ico); top.appendChild(pl); top.appendChild(badge); body.appendChild(top);
+  if(ev.desc){ var d=document.createElement('div'); d.className='ev-desc'; d.textContent=ev.desc; body.appendChild(d); }
+  if(ev.cost){ var br=document.createElement('div'); br.className='badge-row'; var cb=document.createElement('span'); cb.className='cost-badge'; cb.textContent=ev.cost; br.appendChild(cb); body.appendChild(br); }
+  card.appendChild(body);
+  return card;
+}
+
+/* ── 커스텀 삭제 ── */
+function evDelCustom(did,cid){
+  var db=evGetDB();
+  db.custom[did]=(db.custom[did]||[]).filter(function(e){ return e.id!==cid; });
+  evSaveDB(db);
+  evRenderCustom(did);
+}
+
+/* ── 로드 ── */
+function evLoadCustom(did){
+  var db=evGetDB();
+  db.hidden.forEach(function(eid){
+    var el=document.querySelector('[data-eid="'+eid+'"]');
+    if(el) el.style.display='none';
+  });
+  Object.entries(db.overrides||{}).forEach(function(entry){
+    if(entry[0].startsWith(did)) evApplyOverrideDom(entry[0],entry[1]);
+  });
+  evRenderCustom(did);
+  sortTimeline(did); /* 기본 일정도 order 적용 */
+}
+
+/* ── 지도 마커 (_builtinMarkers/_builtinLines는 블록2에서 이미 선언됨) ── */
+function evUpdateBuiltinMarkers(did){
+  var map=_maps[did]; if(!map) return;
+  var db=evGetDB();
+  var hiddenSpots=new Set();
+  db.hidden.forEach(function(eid){ var sp=EID_SPOT[eid]; if(sp) hiddenSpots.add(sp); });
+  var bm=_builtinMarkers[did]||{};
+  Object.entries(bm).forEach(function(e){
+    var k=e[0],mk=e[1];
+    if(hiddenSpots.has(k)){ if(map.hasLayer(mk)) map.removeLayer(mk); }
+    else{ if(!map.hasLayer(mk)) mk.addTo(map); }
+  });
+  var bl=_builtinLines[did]; if(!bl) return;
+  if(bl.line) map.removeLayer(bl.line);
+  var visCoords=[];
+  (bl.allSpots||[]).forEach(function(k){ if(!hiddenSpots.has(k)&&SPOTS[k]) visCoords.push([SPOTS[k].lat,SPOTS[k].lng]); });
+  if(visCoords.length>1){ var r=DAY_ROUTES[did]; bl.line=L.polyline(visCoords,{color:r.c,weight:4,opacity:.85}).addTo(map); }
+}
+function evRefreshMapMarkers(did){
+  var map=_maps[did]; if(!map) return;
+  if(_customMarkers[did]) _customMarkers[did].forEach(function(m){ map.removeLayer(m); });
+  _customMarkers[did]=[];
+  (evGetDB().custom[did]||[]).forEach(function(ev){ if(ev.lat&&ev.lng) _cMarker(did,ev); });
+}
+/* ── 커스텀 마커 생성 및 지도에 추가 ── */
+function _cMarker(did,ev){
+  var map=_maps[did]; if(!map||!ev.lat||!ev.lng) return;
+  var mk=L.marker([ev.lat,ev.lng],{
+    icon:L.divIcon({
+      className:'',
+      html:'<div style="font-size:20px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))">⭐</div>',
+      iconSize:[24,24], iconAnchor:[12,12]
+    })
+  }).bindPopup('<b style="font-size:13px">'+ev.place+'</b>'+(ev.desc?'<br><span style="font-size:11px;color:#666">'+ev.desc+'</span>':''));
+  mk.addTo(map);
+  if(!_customMarkers[did]) _customMarkers[did]=[];
+  _customMarkers[did].push(mk);
+}
+function evAddMapMarker(did,ev){ _cMarker(did,ev); }
+
+/* ── 시간 → 분 변환 ── */
+function toMins(s){
+  if(!s) return 9999;
+  var clean=s.replace(/[^0-9:]/g,'').trim();
+  if(!clean) return 9999;
+  var p=clean.split(':');
+  return (parseInt(p[0])||0)*60+(parseInt(p[1])||0);
+}
+function evTimeOf(el){
+  var t=el.querySelector('.ev-time');
+  return t?toMins(t.textContent):9999;
+}
+
+/* ── 정렬: 모든 .event 요소를 시간순으로 재배치 ── */
+function sortTimeline(did){
+  var tl=document.querySelector('#'+did+'-sched .timeline');
+  if(!tl) return;
+  var all=Array.from(tl.querySelectorAll('.event'));
+  /* 시간 + 원래 인덱스로 정렬 (같은 시간일 때 안정 정렬) */
+  var withIdx=all.map(function(el,i){ return {el:el, m:domEvMins(el), i:i}; });
+  withIdx.sort(function(a,b){
+    if(a.m!==b.m) return a.m-b.m;
+    return a.i-b.i;
+  });
+  /* CSS order 적용 (flex 즉시 반영) */
+  withIdx.forEach(function(o,rank){ o.el.style.order=rank; });
+  /* DOM 순서도 재배치 (order 미지원 환경 대비) */
+  withIdx.forEach(function(o){ tl.appendChild(o.el); });
+}
+
+/* ── 수정 모달 ── */
+var _editTarget=null;
+function evEditOpen(type,ref1,ref2){
+  var modal=document.getElementById('evModal'); if(!modal) return;
+  var time='',place='',desc='',cost='',bar='bar-amber';
+  if(type==='builtin'){
+    var eid=ref1;
+    var db=evGetDB(); var ov=(db.overrides||{})[eid]||{};
+    var el=document.querySelector('[data-eid="'+eid+'"]');
+    var bodyEl=el&&el.querySelector('.ev-body');
+    var timeEl=bodyEl&&bodyEl.querySelector('.ev-time');
+    var placeEl=bodyEl&&bodyEl.querySelector('.ev-place');
+    var descEl=bodyEl&&bodyEl.querySelector('.ev-desc');
+    var costEl=bodyEl&&bodyEl.querySelector('.cost-badge');
+    time=ov.time||(timeEl?timeEl.textContent.replace(/[^0-9:]/g,'').trim():'');
+    place=ov.place||(placeEl?placeEl.textContent.trim():'');
+    desc=ov.desc||(descEl?descEl.textContent.trim():'');
+    cost=ov.cost||(costEl?costEl.textContent.trim():'');
+    _editTarget={type:type,eid:eid};
+    document.getElementById('evModalSub').textContent='기본 일정 수정';
+    document.getElementById('editBar').style.display='none';
+  } else {
+    var did=ref1, cid=parseInt(ref2);
+    var db=evGetDB();
+    var ev=(db.custom[did]||[]).find(function(e){ return e.id===cid; });
+    if(!ev) return;
+    time=ev.time||''; place=ev.place||''; desc=ev.desc||''; cost=ev.cost||''; bar=ev.bar||'bar-amber';
+    _editTarget={type:type,did:did,cid:cid};
+    document.getElementById('evModalSub').textContent='추가 일정 수정';
+    document.getElementById('editBar').style.display='';
+  }
+  var tp=(time||'').split(':'); document.getElementById('editTimeH').value=tp[0]||''; document.getElementById('editTimeM').value=tp[1]||'00';
+  document.getElementById('editPlace').value=place;
+  document.getElementById('editDesc').value=desc;
+  document.getElementById('editCost').value=cost;
+  document.getElementById('editBar').value=bar;
+  modal.style.display='flex';
+}
+function evEditSave(){
+  if(!_editTarget) return;
+  var eH=document.getElementById('editTimeH'),eM=document.getElementById('editTimeM'); var time=(eH&&eH.value)?(eH.value+':'+(eM?eM.value:'00')): '';
+  var place=document.getElementById('editPlace').value.trim();
+  var desc=document.getElementById('editDesc').value.trim();
+  var cost=document.getElementById('editCost').value.trim();
+  var bar=document.getElementById('editBar').value;
+  if(!place) return;
+  if(_editTarget.type==='builtin'){
+    var eid=_editTarget.eid, did=eid.split('-')[0];
+    var db=evGetDB(); if(!db.overrides) db.overrides={};
+    db.overrides[eid]={time:time,place:place,desc:desc,cost:cost};
+    evSaveDB(db);
+    evApplyOverrideDom(eid,{time:time,place:place,desc:desc,cost:cost});
+    sortTimeline(did);
+  } else {
+    var did=_editTarget.did, cid=_editTarget.cid;
+    var db=evGetDB();
+    var arr=db.custom[did]||[];
+    for(var i=0;i<arr.length;i++){
+      if(arr[i].id===cid){ arr[i]=Object.assign({},arr[i],{time:time,place:place,desc:desc,cost:cost,bar:bar}); break; }
+    }
+    evSaveDB(db);
+    evRenderCustom(did);
+  }
+  evModalClose();
+}
+function evModalClose(){
+  var m=document.getElementById('evModal'); if(m) m.style.display='none';
+  _editTarget=null;
+}
+function evApplyOverrideDom(eid,data){
+  var el=document.querySelector('[data-eid="'+eid+'"]'); if(!el) return;
+  var body=el.querySelector('.ev-body'); if(!body) return;
+  if(data.place){ var pl=body.querySelector('.ev-place'); if(pl) pl.textContent=data.place; }
+  if(data.time){
+    var tel=body.querySelector('.ev-time');
+    if(!tel){ tel=document.createElement('div'); tel.className='ev-time'; body.insertBefore(tel,body.firstChild); }
+    tel.textContent='🕐 '+data.time;
+  }
+  if(data.cost){ var cb=body.querySelector('.cost-badge'); if(cb) cb.textContent=data.cost; }
+  var dl=body.querySelector('.ev-desc');
+  if(data.desc){
+    if(!dl){ dl=document.createElement('div'); dl.className='ev-desc';
+      var br=body.querySelector('.badge-row');
+      if(br) body.insertBefore(dl,br); else body.appendChild(dl); }
+    dl.textContent=data.desc;
+  }
+}
+
+/* ── 모든 데이터 초기화 ── */
+function resetAllData(){
+  if(!confirm('모든 일정·가계부 데이터를 삭제하고 기본 상태로 되돌릴까요?\n(이 작업은 취소할 수 없습니다)')) return;
+  try{
+    localStorage.removeItem('ev_sap2026');
+    localStorage.removeItem('kb_sap2026');
+  }catch(e){}
+  _evCache=null;  /* 메모리 캐시도 비우기 */
+  alert('초기화되었습니다. 페이지를 새로고침합니다.');
+  location.reload();
+}
+
+/* ── 특정 날짜만 초기화 ── */
+function resetDay(did){
+  var dayNum=did.replace('d','');
+  if(!confirm('Day '+dayNum+' 일정을 기본 상태로 되돌릴까요?\n(추가·수정·삭제한 내용이 사라집니다)')) return;
+  var db=evGetDB();
+  /* 1) 이 날짜의 커스텀 일정 제거 */
+  db.custom[did]=[];
+  /* 2) 이 날짜의 숨긴 기본 일정 복원 */
+  db.hidden=(db.hidden||[]).filter(function(eid){ return eid.split('-')[0]!==did; });
+  /* 3) 이 날짜의 수정 내역 제거 */
+  var newOv={};
+  Object.keys(db.overrides||{}).forEach(function(eid){
+    if(eid.split('-')[0]!==did) newOv[eid]=db.overrides[eid];
+  });
+  db.overrides=newOv;
+  evSaveDB(db);
+  alert('Day '+dayNum+'이(가) 초기화되었습니다. 페이지를 새로고침합니다.');
+  location.reload();
+}
+
+/* ── 일정 텍스트로 변환 ── */
+function buildScheduleText(did){
+  var label=(typeof DAY_LABELS!=='undefined'&&DAY_LABELS[did])?DAY_LABELS[did]:('Day '+did.replace('d',''));
+  var lines=['🗓 '+label,''];
+  var tl=document.querySelector('#'+did+'-sched .timeline');
+  if(!tl) return lines.join('\n');
+  var events=Array.from(tl.querySelectorAll('.event')).filter(function(el){ return el.style.display!=='none'; });
+  /* 시간순 정렬 */
+  events.sort(function(a,b){ return domEvMins(a)-domEvMins(b); });
+  events.forEach(function(el){
+    var timeEl=el.querySelector('.ev-time');
+    var placeEl=el.querySelector('.ev-place');
+    var descEl=el.querySelector('.ev-desc');
+    var costEl=el.querySelector('.cost-badge');
+    var iconEl=el.querySelector('.ev-icon');
+    var time=timeEl?timeEl.textContent.replace(/[🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛🕜🕝🕞🕟🕠🕡🕢🕣🕤🕥🕦🕧]/g,'').trim():'';
+    var place=placeEl?placeEl.textContent.trim():'';
+    var icon=iconEl?iconEl.textContent.trim():'';
+    var line=(time?'⏰ '+time+'  ':'')+(icon?icon+' ':'')+place;
+    lines.push(line);
+    if(descEl&&descEl.textContent.trim()) lines.push('   └ '+descEl.textContent.trim());
+    if(costEl&&costEl.textContent.trim()) lines.push('   💴 '+costEl.textContent.trim());
+  });
+  lines.push('');
+  lines.push('— 삿포로·오타루 여행 일정 —');
+  return lines.join('\n');
+}
+
+/* ── 가계부 텍스트로 변환 ── */
+function buildBudgetText(){
+  var lines=['💰 여행 가계부',''];
+  /* 데이터 직접 사용 */
+  var data=(typeof _kbData!=='undefined')?_kbData:[];
+  if(!data.length){
+    lines.push('아직 지출 내역이 없습니다.');
+    lines.push('');
+    lines.push('— 삿포로·오타루 여행 가계부 —');
+    return lines.join('\n');
+  }
+  var total=data.reduce(function(s,e){ return s+e.amt; },0);
+  lines.push('총 지출: ¥'+total.toLocaleString()+(typeof kbW==='function'?' ('+kbW(total)+')':''));
+  lines.push('');
+  /* 카테고리별 합계 */
+  var catSum={};
+  data.forEach(function(e){ catSum[e.cat]=(catSum[e.cat]||0)+e.amt; });
+  lines.push('📊 카테고리별');
+  Object.keys(KB_CATS).forEach(function(c){
+    if(catSum[c]) lines.push('  '+KB_CATS[c].e+' '+KB_CATS[c].n+': ¥'+catSum[c].toLocaleString());
+  });
+  lines.push('');
+  /* 일별 내역 */
+  var byDay={};
+  data.forEach(function(e){ if(!byDay[e.day]) byDay[e.day]=[]; byDay[e.day].push(e); });
+  Object.keys(KB_DAYS).forEach(function(d){
+    if(!byDay[d]) return;
+    var items=byDay[d];
+    var daySum=items.reduce(function(s,e){ return s+e.amt; },0);
+    lines.push('📅 '+KB_DAYS[d]+'  ¥'+daySum.toLocaleString());
+    items.forEach(function(e){
+      var cat=KB_CATS[e.cat]||{e:'',n:''};
+      lines.push('   '+cat.e+' '+e.memo+'  ¥'+e.amt.toLocaleString());
+    });
+  });
+  lines.push('');
+  lines.push('— 삿포로·오타루 여행 가계부 —');
+  return lines.join('\n');
+}
+
+/* ── 공유 실행 (Web Share API → 클립보드 폴백) ── */
+function shareText(text, title){
+  if(navigator.share){
+    navigator.share({title:title||'삿포로 여행', text:text}).catch(function(){});
+  } else if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      alert('복사되었습니다!\n카카오톡 등에 붙여넣기 하세요.');
+    }).catch(function(){ shareFallback(text); });
+  } else {
+    shareFallback(text);
+  }
+}
+function shareFallback(text){
+  var ta=document.createElement('textarea');
+  ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); alert('복사되었습니다!\n카카오톡 등에 붙여넣기 하세요.'); }
+  catch(e){ prompt('아래 내용을 복사하세요:', text); }
+  document.body.removeChild(ta);
+}
+function shareDay(did){ shareText(buildScheduleText(did), '삿포로 여행 일정'); }
+function shareBudget(){ shareText(buildBudgetText(), '삿포로 여행 가계부'); }
+
+document.addEventListener('DOMContentLoaded',function(){ evLoadCustom('d1'); });
 </script>
 
 </body>
