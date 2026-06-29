@@ -2462,9 +2462,13 @@ function _apply(data){
   try{
     /* 일정 */
     if(data.ev && typeof data.ev==='object'){
-      localStorage.setItem('ev_sap2026', JSON.stringify(data.ev));
+      /* hidden/custom/overrides 기본값 보장 */
+      var evData = data.ev;
+      if(!Array.isArray(evData.hidden)) evData.hidden = [];
+      if(!evData.custom) evData.custom = {d1:[],d2:[],d3:[],d4:[]};
+      if(!evData.overrides) evData.overrides = {};
+      localStorage.setItem('ev_sap2026', JSON.stringify(evData));
       if(typeof _evCache!=='undefined') _evCache = null;
-      /* evLoadCustom 은 전역 함수 — window 로 안전 접근 */
       if(typeof window.evLoadCustom==='function'){
         ['d1','d2','d3','d4'].forEach(function(d){ window.evLoadCustom(d); });
       }
