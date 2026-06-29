@@ -1310,7 +1310,21 @@
         <span class="tip-ico">🚂</span>
         <div>
           <div class="tip-lbl">교통 핵심</div>
-          <div class="tip-txt">삿포로↔오타루 JR 쾌속 <strong>35분 / 640엔</strong>. 가족 전원 <strong>IC카드(Suica / ICOCA)</strong> 준비 추천. 한 번만 충전하면 JR·지하철·버스 모두 사용 가능</div>
+          <div class="tip-txt">삿포로↔오타루 JR 쾌속 <strong>35분 / 640엔</strong>. 가족 전원 <button onclick="icCardToggle()" style="background:var(--navy);color:#fff;border:none;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;cursor:pointer">🪪 IC카드</button> 준비 추천. 한 번만 충전하면 JR·지하철·버스 모두 사용 가능</div>
+          <div id="icCardBox" style="display:none;margin-top:12px;background:var(--blue-pale,#EEF4FF);border:1.5px solid var(--blue-light,#4A90D9);border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.7;color:var(--text)">
+            <div style="font-weight:700;color:var(--navy);margin-bottom:8px">🪪 IC카드 발급 완벽 가이드</div>
+            <strong>추천: Suica 또는 ICOCA</strong> — JR·지하철·버스·편의점 모두 사용<br><br>
+            🇰🇷 <strong>한국에서 미리 준비</strong><br>
+            · <strong>모바일 Suica</strong> (iPhone/Android 앱) — 한국 카드로 충전 가능. 공항 전 미리 설정 추천<br>
+            · Apple Pay / Google Pay 등록 → 스마트폰 태그만으로 개찰구 통과<br><br>
+            ✈️ <strong>공항 도착 후 실물 발급</strong><br>
+            · 신치토세공항 JR역 자동발급기 → 한국어 화면 지원<br>
+            · 보증금 <strong>¥500</strong> 포함 최소 <strong>¥1,500</strong>부터 / 귀국 시 환불 가능<br><br>
+            💡 <strong>가족 꿀팁</strong><br>
+            · <strong>4명 각자 1장씩</strong> 발급 → 개찰구 훨씬 빠름<br>
+            · 1인당 <strong>¥3,000~5,000</strong> 충전하면 4일 충분<br>
+            · 잔액은 편의점·역 자판기 사용 또는 JR 창구 환불
+          </div>
         </div>
       </div>
 
@@ -1343,27 +1357,6 @@
         <div>
           <div class="tip-lbl">귀국 시간 — 중요!</div>
           <div class="tip-txt">12/1 <strong>18:00 출발</strong> 기준 → 신치토세 <strong>15:00~16:00 도착</strong>이 목표. 삿포로역에서 JR 40분. 쇼핑 마감 시간 체크 필수!</div>
-        </div>
-      </div>
-
-      <div class="tip">
-        <span class="tip-ico">🪪</span>
-        <div>
-          <div class="tip-lbl">IC카드 발급 완벽 가이드</div>
-          <div class="tip-txt">
-            <strong>추천 카드: Suica 또는 ICOCA</strong> — 삿포로·오타루 JR·지하철·버스·편의점 결제 모두 사용 가능.<br><br>
-            🇰🇷 <strong>한국에서 미리 준비</strong><br>
-            · <strong>모바일 Suica</strong> (iPhone/Android 앱) — 한국 카드로 충전 가능. 공항 도착 전 미리 설정 추천<br>
-            · Apple Pay / Google Pay에 등록하면 스마트폰 태그만으로 개찰구 통과<br><br>
-            ✈️ <strong>공항 도착 후 실물 발급</strong><br>
-            · 신치토세공항 JR역 자동발급기 → 「Suica」또는「ICOCA」선택<br>
-            · 한국어 화면 지원. 보증금 <strong>¥500</strong> 포함 최소 <strong>¥1,500</strong>부터 발급<br>
-            · 귀국 시 JR 창구에서 보증금 ¥500 환불 가능<br><br>
-            💡 <strong>가족 꿀팁</strong><br>
-            · <strong>4명 각자 1장씩</strong> 발급 → 개찰구 통과가 훨씬 빠르고 편함<br>
-            · 1인당 <strong>¥3,000~5,000</strong> 충전하면 4일 교통비 충분<br>
-            · 잔액은 편의점·역 자판기에서 사용하거나 귀국 전 JR 창구 환불
-          </div>
         </div>
       </div>
 
@@ -1565,6 +1558,13 @@
   }
 
   /* ── 가계부·예산·꿀팁 탭 전환 ── */
+function icCardToggle(){
+  var box = document.getElementById('icCardBox');
+  if(!box) return;
+  if(box.style.display==='none'){ box.style.display='block'; }
+  else { box.style.display='none'; }
+}
+
   function goTabOnly(id) {
     document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
