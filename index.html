@@ -1849,11 +1849,18 @@ const EV_STORE='ev_sap2026';
 var _evCache=null;
 function evGetDB(){
   if(_evCache) return _evCache;
+  var def={"hidden":[],"custom":{"d1":[],"d2":[],"d3":[],"d4":[]},"overrides":{}};
   try{
     var stored=localStorage.getItem(EV_STORE);
-    _evCache=stored?JSON.parse(stored):{"hidden":[],"custom":{"d1":[],"d2":[],"d3":[],"d4":[]},"overrides":{}};
+    var parsed=stored?JSON.parse(stored):def;
+    /* 필수 필드 기본값 보장 */
+    if(!Array.isArray(parsed.hidden)) parsed.hidden=[];
+    if(!parsed.custom||typeof parsed.custom!=='object') parsed.custom={d1:[],d2:[],d3:[],d4:[]};
+    ['d1','d2','d3','d4'].forEach(function(d){ if(!Array.isArray(parsed.custom[d])) parsed.custom[d]=[]; });
+    if(!parsed.overrides||typeof parsed.overrides!=='object') parsed.overrides={};
+    _evCache=parsed;
   }catch(e){
-    _evCache={"hidden":[],"custom":{"d1":[],"d2":[],"d3":[],"d4":[]},"overrides":{}};
+    _evCache=def;
   }
   return _evCache;
 }
