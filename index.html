@@ -1446,11 +1446,16 @@
           <option value="d3">Day 3 · 11/30</option>
           <option value="d4">Day 4 · 12/1</option>
         </select>
-        <input type="number" class="kb-inp" id="kbAmt" placeholder="금액 (¥)" inputmode="numeric" min="0">
+        <div style="display:flex;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;background:var(--white)">
+          <button id="kbTabJpy" onclick="kbTabSel('jpy')" style="flex:1;border:none;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:0;cursor:pointer">¥ 엔화</button>
+          <button id="kbTabKrw" onclick="kbTabSel('krw')" style="flex:1;border:none;background:transparent;color:var(--muted);font-weight:700;font-size:13px;padding:0;cursor:pointer">₩ 원화</button>
+          <input type="number" class="kb-inp" id="kbAmt" placeholder="¥ 엔화 입력" inputmode="numeric" min="0" style="flex:2;border:none;border-left:1.5px solid var(--border);border-radius:0;margin:0">
+        </div>
       </div>
       <div class="kb-cats" id="kbCatBtns">
-        <button class="kb-cat on"  data-cat="transport"   onclick="kbCatSel(this)">✈️ 교통</button>
-        <button class="kb-cat"     data-cat="food"        onclick="kbCatSel(this)">🍽️ 식비</button>
+        <button class="kb-cat on"  data-cat="transport"     onclick="kbCatSel(this)">✈️ 교통</button>
+        <button class="kb-cat"     data-cat="accommodation" onclick="kbCatSel(this)">🏨 숙소</button>
+        <button class="kb-cat"     data-cat="food"          onclick="kbCatSel(this)">🍽️ 식비</button>
         <button class="kb-cat"     data-cat="activity"    onclick="kbCatSel(this)">🎡 체험</button>
         <button class="kb-cat"     data-cat="shopping"    onclick="kbCatSel(this)">🛍️ 쇼핑</button>
         <button class="kb-cat"     data-cat="convenience" onclick="kbCatSel(this)">🏪 편의점</button>
@@ -1750,6 +1755,7 @@ function doStab(sid,sub,btn){
 const KB_BUDGET = 185520;
 const KB_CATS = {
   transport:   {e:'✈️', n:'교통'},
+  accommodation:{e:'🏨', n:'숙소'},
   food:        {e:'🍽️', n:'식비'},
   activity:    {e:'🎡', n:'체험'},
   shopping:    {e:'🛍️', n:'쇼핑'},
@@ -1787,11 +1793,30 @@ function kbCatSel(btn){
   _kbCat = btn.dataset.cat;
 }
 
+var _kbCurTab = 'jpy';
+function kbTabSel(tab){
+  _kbCurTab = tab;
+  var jBtn = document.getElementById('kbTabJpy');
+  var kBtn = document.getElementById('kbTabKrw');
+  var inp  = document.getElementById('kbAmt');
+  if(tab==='jpy'){
+    jBtn.style.background='var(--navy)'; jBtn.style.color='#fff';
+    kBtn.style.background='transparent'; kBtn.style.color='var(--muted)';
+    inp.placeholder='¥ 엔화 입력';
+  } else {
+    kBtn.style.background='var(--navy)'; kBtn.style.color='#fff';
+    jBtn.style.background='transparent'; jBtn.style.color='var(--muted)';
+    inp.placeholder='₩ 원화 입력';
+  }
+  inp.value='';
+  inp.focus();
+}
 function kbAdd(){
-  const day = document.getElementById('kbDay').value;
-  const amt = parseInt(document.getElementById('kbAmt').value);
+  const day  = document.getElementById('kbDay').value;
+  const raw  = parseFloat(document.getElementById('kbAmt').value);
   const memo = document.getElementById('kbMemo').value.trim();
-  if(!amt || amt <= 0){ alert('금액을 입력해주세요'); return; }
+  if(!raw || raw <= 0){ alert('금액을 입력해주세요'); return; }
+  const amt = _kbCurTab === 'krw' ? raw / KB_RATE : raw;
   _kbData.push({id:Date.now(), day, cat:_kbCat, amt, memo: memo || KB_CATS[_kbCat].n});
   kbSave();
   document.getElementById('kbAmt').value = '';
