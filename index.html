@@ -2439,9 +2439,27 @@ function makeCustomCard(ev,did){
   badge.textContent=ev.lat?'지도 ✓':'위치 미확인';
   top.appendChild(ico); top.appendChild(pl); top.appendChild(badge); body.appendChild(top);
   if(ev.desc){ var d=document.createElement('div'); d.className='ev-desc';
-    /* HTML 태그가 포함된 경우 innerHTML로 렌더링 */
-    if(ev.desc.indexOf('<') >= 0){ d.innerHTML=ev.desc; } else { d.textContent=ev.desc; }
+    d.textContent=ev.desc;
     body.appendChild(d); }
+  /* ── 특정 장소에 리뷰 버튼 자동 추가 ── */
+  var PLACE_BTNS = {
+    '점심 — 비에이 현지 식당': [
+      {label:'고마소바 츠루키', url:'https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B'},
+      {label:'준페이', url:'https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B'}
+    ]
+  };
+  if(PLACE_BTNS[ev.place]){
+    var brow=document.createElement('div');
+    brow.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding-left:27px';
+    PLACE_BTNS[ev.place].forEach(function(b){
+      var a=document.createElement('a');
+      a.className='review-btn'; a.href=b.url; a.target='_blank';
+      a.style.cssText='padding:2px 9px;font-size:11px';
+      a.textContent='⭐ '+b.label;
+      brow.appendChild(a);
+    });
+    body.appendChild(brow);
+  }
   if(ev.cost){ var br=document.createElement('div'); br.className='badge-row'; var cb=document.createElement('span'); cb.className='cost-badge'; cb.textContent=ev.cost; br.appendChild(cb); body.appendChild(br); }
   card.appendChild(body);
   return card;
