@@ -1745,12 +1745,12 @@ let _kbCat = 'transport';
 let _kbData = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
 
 function kbSave(){ localStorage.setItem('kb_sap2026', JSON.stringify(_kbData)); }
-const KB_RATE = 950; /* 환율: 1엔 = 950원 */
+const KB_RATE = 9.5; /* 환율: 1엔 = 9.5원 (¥100 = ₩950) */
 function kbY(n){ return '¥' + Math.round(n).toLocaleString(); }
-function kbW(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString(); }
+function kbW(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString(); }
 /* 원화 우선 + 엔화 병기 */
-function kbWY(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString() + ' <small style="color:var(--muted);font-weight:400">(¥' + Math.round(n).toLocaleString() + ')</small>'; }
-function kbWYtext(n){ return '₩' + Math.round(n * KB_RATE / 100 * 100).toLocaleString() + ' (¥' + Math.round(n).toLocaleString() + ')'; }
+function kbWY(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString() + ' <small style="color:var(--muted);font-weight:400">(¥' + Math.round(n).toLocaleString() + ')</small>'; }
+function kbWYtext(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString() + ' (¥' + Math.round(n).toLocaleString() + ')'; }
 
 function kbCatSel(btn){
   document.querySelectorAll('.kb-cat').forEach(b=>b.classList.remove('on'));
