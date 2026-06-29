@@ -2408,5 +2408,115 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
+
+<script type="module">
+/* ══ FIREBASE REALTIME SYNC ══ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBNwlFrYYIp50SC02fVrn5ic0NcaFxjdLc",
+  authDomain: "sapporo-trip-44304.firebaseapp.com",
+  projectId: "sapporo-trip-44304",
+  storageBucket: "sapporo-trip-44304.firebasestorage.app",
+  messagingSenderId: "55957351518",
+  appId: "1:55957351518:web:63ec6ee37ea8cfddb318cf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const TRIP_DOC = doc(db, "sapporo", "tripData");
+
+let _isSyncing = false;
+
+/* ── Firestore → 로컬 적용 ── */
+function applyRemoteData(data) {
+  _isSyncing = true;
+  try {
+    if (data.ev) {
+      localStorage.setItem('ev_sap2026', JSON.stringify(data.ev));
+      _evCache = null;
+      ['d1','d2','d3','d4'].forEach(function(did){ evLoadCustom(did); });
+    }
+    if (data.kb) {
+      localStorage.setItem('kb_sap2026', JSON.stringify(data.kb));
+      _kbData = data.kb;
+      if(typeof kbRender === 'function') kbRender();
+    }
+    if (data.done) {
+      localStorage.setItem('done_sap2026', JSON.stringify(data.done));
+      evLoadDone();
+    }
+  } catch(e) {}
+  _isSyncing = false;
+}
+
+/* ── 로컬 → Firestore 저장 ── */
+window._fbSaveTimer = null;
+window.fbSyncToCloud = function() {
+  if (_isSyncing) return;
+  clearTimeout(window._fbSaveTimer);
+  window._fbSaveTimer = setTimeout(function() {
+    try {
+      var ev = JSON.parse(localStorage.getItem('ev_sap2026') || '{}');
+      var kb = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
+      var done = JSON.parse(localStorage.getItem('done_sap2026') || '[]');
+      setDoc(TRIP_DOC, { ev, kb, done, updatedAt: Date.now() });
+    } catch(e) {}
+  }, 800);
+};
+
+/* ── 실시간 리스너 (다른 기기 변경 감지) ── */
+onSnapshot(TRIP_DOC, function(snap) {
+  if (snap.exists()) {
+    applyRemoteData(snap.data());
+  }
+});
+
+/* ── 저장 함수 후킹: 로컬 저장 후 자동으로 클라우드 동기화 ── */
+var _origEvSave = window.evSaveDB;
+window.evSaveDB = function(db) {
+  _origEvSave(db);
+  window.fbSyncToCloud();
+};
+
+var _origKbSave = window.kbSave;
+window.kbSave = function() {
+  _origKbSave();
+  window.fbSyncToCloud();
+};
+
+var _origDoneSave = window.doneSaveSet;
+window.doneSaveSet = function(s) {
+  _origDoneSave(s);
+  window.fbSyncToCloud();
+};
+
+/* ── 동기화 상태 표시 ── */
+var indicator = document.createElement('div');
+indicator.id = 'fb-indicator';
+indicator.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(58,122,87,.92);color:#fff;font-size:12px;padding:6px 16px;border-radius:20px;z-index:9999;display:none;pointer-events:none;font-family:inherit';
+document.body.appendChild(indicator);
+
+var _origFbSync = window.fbSyncToCloud;
+window.fbSyncToCloud = function() {
+  indicator.textContent = '☁️ 저장 중...';
+  indicator.style.display = 'block';
+  clearTimeout(window._fbSaveTimer);
+  window._fbSaveTimer = setTimeout(function() {
+    try {
+      var ev = JSON.parse(localStorage.getItem('ev_sap2026') || '{}');
+      var kb = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
+      var done = JSON.parse(localStorage.getItem('done_sap2026') || '[]');
+      setDoc(TRIP_DOC, { ev, kb, done, updatedAt: Date.now() }).then(function(){
+        indicator.textContent = '✅ 저장됨';
+        setTimeout(function(){ indicator.style.display='none'; }, 1500);
+      });
+    } catch(e) { indicator.style.display='none'; }
+  }, 800);
+};
+
+console.log('🔥 Firebase 실시간 동기화 활성화');
+</script>
 </body>
 </html>
