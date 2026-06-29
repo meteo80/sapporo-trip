@@ -987,7 +987,7 @@
         <div class="ev-body">
           <div class="ev-time">🕛 12:30</div>
           <div class="ev-top"><span class="ev-icon">🍽️</span><span class="ev-place">점심 — 비에이 현지 식당</span></div>
-          <div class="ev-desc">비에이역 주변 소박한 현지 식당. <strong>비에이 소바</strong>(<span style="color:var(--navy);font-weight:700">고마소바 츠루키</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) · <strong>비에이 카레</strong>(<span style="color:var(--navy);font-weight:700">준페이</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)</div>
+          <div class="ev-desc">비에이역 주변 소박한 현지 식당. <strong>비에이 소바</strong>(<span style="color:var(--navy);font-weight:700">고마소바 츠루키</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) · <strong>비에이 카레</strong>(<span style="color:var(--navy);font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="junpeiToggle(this.closest('.ev-body'))" title="예약방법 보기">준페이</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)</div>
           <div class="badge-row"><span class="cost-badge">약 1,200엔/인</span></div>
         </div>
       </div>
@@ -1763,6 +1763,30 @@
   }
 
   /* ── 가계부·예산·꿀팁 탭 전환 ── */
+function junpeiToggle(body){
+  var box = body.querySelector('.junpei-box');
+  if(!box){
+    box = document.createElement('div');
+    box.className = 'junpei-box';
+    box.style.cssText = 'margin-top:10px;background:#EEF4FF;border:1.5px solid var(--navy);border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.75;color:var(--text)';
+    box.innerHTML = '<div style="font-weight:700;color:var(--navy);margin-bottom:8px">🍽️ 준페이 예약 방법</div>'
+      + '📍 <strong>위치:</strong> 비에이역 도보 3분 · 비에이 마을 중심부<br>'
+      + '🕐 <strong>영업시간:</strong> 11:00~14:30 (재료 소진 시 마감)<br>'
+      + '📞 <strong>전화:</strong> +81-166-92-1028<br><br>'
+      + '📋 <strong>예약 방법</strong><br>'
+      + '· 전화 예약 추천 — 일본어 필요 (구글 번역 활용)<br>'
+      + '· 또는 당일 오전 일찍 방문해 자리 확보<br>'
+      + '· 투어버스 점심 시간(12:00~13:30) 가장 혼잡<br><br>'
+      + '🍤 <strong>추천 메뉴</strong><br>'
+      + '· 새우덮밥(에비동) ¥1,200~ — 대표 메뉴<br>'
+      + '· 가츠동 ¥1,000~ · 카레라이스 ¥900~<br><br>'
+      + '💡 <strong>꿀팁:</strong> 비에이 버스투어 점심 시간 전후 방문 추천. 현금 지참 필수!';
+    var badge = body.querySelector('.badge-row');
+    if(badge) body.insertBefore(box, badge); else body.appendChild(box);
+  } else {
+    box.style.display = box.style.display==='none' ? '' : 'none';
+  }
+}
 function icCardToggle(){
   var box = document.getElementById('icCardBox');
   if(!box) return;
@@ -2972,7 +2996,9 @@ document.addEventListener('DOMContentLoaded', function(){
         if(i>0){ var dot=document.createElement('span'); dot.textContent=' · '; dot.style.color='var(--muted)'; brow.appendChild(dot); }
         var nm=document.createElement('strong'); nm.textContent=b.name; brow.appendChild(nm);
         var lp=document.createElement('span'); lp.textContent='('; lp.style.color='var(--muted)'; brow.appendChild(lp);
-        var sn=document.createElement('span'); sn.textContent=b.shop; sn.style.cssText='color:var(--navy);font-weight:700'; brow.appendChild(sn);
+        var sn=document.createElement('span'); sn.textContent=b.shop; sn.style.cssText='color:var(--navy);font-weight:700'; 
+        if(b.shop==='준페이'){ sn.style.cssText='color:var(--navy);font-weight:700;cursor:pointer;text-decoration:underline dotted'; sn.title='예약방법 보기'; sn.onclick=function(){ junpeiToggle(body); }; }
+        brow.appendChild(sn);
         var a=document.createElement('a'); a.className='review-btn'; a.href=b.url; a.target='_blank';
         a.style.cssText='padding:2px 7px;font-size:11px;margin-left:3px'; a.textContent='⭐리뷰';
         brow.appendChild(a);
