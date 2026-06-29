@@ -1796,6 +1796,24 @@ function kbDel(id){
   _kbData = _kbData.filter(e=>e.id!==id);
   kbSave(); kbRender();
 }
+function kbEdit(id){
+  var e = _kbData.find(function(x){ return x.id===id; });
+  if(!e) return;
+  var input = prompt('금액 수정 (엔화 ¥)', e.amt);
+  if(input===null) return;
+  var v = parseFloat(input.replace(/[^0-9.]/g,''));
+  if(isNaN(v)||v<=0){ alert('올바른 금액을 입력해주세요'); return; }
+  e.amt = v;
+  kbSave(); kbRender();
+}
+function kbEditMemo(id){
+  var e = _kbData.find(function(x){ return x.id===id; });
+  if(!e) return;
+  var input = prompt('메모 수정', e.memo);
+  if(input===null) return;
+  e.memo = input.trim() || e.memo;
+  kbSave(); kbRender();
+}
 
 function kbReset(){
   if(!confirm('전체 내역을 초기화할까요?')) return;
@@ -1855,11 +1873,11 @@ function kbRender(){
         </div>
         ${items.map(e=>`<div class="kb-item">
           <span class="kb-ico">${KB_CATS[e.cat].e}</span>
-          <div class="kb-info">
+          <div class="kb-info" onclick="kbEditMemo(${e.id})" style="cursor:pointer">
             <div class="kb-memo">${e.memo}</div>
             <div class="kb-meta">${KB_CATS[e.cat].n}</div>
           </div>
-          <span class="kb-amt">${kbWY(e.amt)}</span>
+          <span class="kb-amt" onclick="kbEdit(${e.id})" style="cursor:pointer;text-decoration:underline dotted">${kbWY(e.amt)}</span>
           <button class="kb-del" onclick="kbDel(${e.id})">✕</button>
         </div>`).join('')}
       </div>`;
