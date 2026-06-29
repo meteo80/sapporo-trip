@@ -1409,7 +1409,7 @@
         <div class="kb-prog" id="kbProg" style="width:0%"></div>
       </div>
       <div class="kb-pct">
-        예산 ¥185,520 대비 <span id="kbPct">0%</span> 사용 &nbsp;·&nbsp;
+        예산 <span id="kbBudgetDisp">¥185,520</span> 대비 <span id="kbPct">0%</span> 사용 &nbsp;·&nbsp;
         잔액 <span id="kbLeft">¥185,520</span>
       </div>
     </div>
@@ -1801,6 +1801,8 @@ function budRender(){
     +'<td class="col-tot">\u00a5 '+grandTotal.toLocaleString()+'</td>'
     +'<td class="col-krw">\u20a9 '+Math.round(grandTotal*9.5).toLocaleString()+'</td><td></td></tr></tbody>';
   tbl.innerHTML = h;
+  /* 가계부 예산 기준도 즉시 업데이트 */
+  if(typeof kbRender === 'function') kbRender();
 }
 
 function budEditCell(ri,ci){
@@ -1955,6 +1957,9 @@ function kbRender(){
 
   document.getElementById('kbTotal').innerHTML = kbWY(total);
   document.getElementById('kbKrw').textContent = '';
+  /* 예산 기준 표시 업데이트 */
+  var budDisp = document.getElementById('kbBudgetDisp');
+  if(budDisp) budDisp.textContent = '¥'+Math.round(_bgt).toLocaleString();
   const prog = document.getElementById('kbProg');
   prog.style.width = pct + '%';
   prog.style.background = over ? '#ef4444' : 'linear-gradient(90deg,#4A7FA5,#C97D2A)';
