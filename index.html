@@ -2438,7 +2438,10 @@ function makeCustomCard(ev,did){
   badge.style.cssText='font-size:10px;margin-left:6px;color:'+(ev.lat?'var(--amber)':'var(--muted)');
   badge.textContent=ev.lat?'지도 ✓':'위치 미확인';
   top.appendChild(ico); top.appendChild(pl); top.appendChild(badge); body.appendChild(top);
-  if(ev.desc){ var d=document.createElement('div'); d.className='ev-desc'; d.textContent=ev.desc; body.appendChild(d); }
+  if(ev.desc){ var d=document.createElement('div'); d.className='ev-desc';
+    /* HTML 태그가 포함된 경우 innerHTML로 렌더링 */
+    if(ev.desc.indexOf('<') >= 0){ d.innerHTML=ev.desc; } else { d.textContent=ev.desc; }
+    body.appendChild(d); }
   if(ev.cost){ var br=document.createElement('div'); br.className='badge-row'; var cb=document.createElement('span'); cb.className='cost-badge'; cb.textContent=ev.cost; br.appendChild(cb); body.appendChild(br); }
   card.appendChild(body);
   return card;
@@ -2898,7 +2901,7 @@ if(document.readyState==='loading'){
 document.addEventListener('DOMContentLoaded', function(){
   setTimeout(function(){
     try {
-      var NEW_DESC = '비에이역 주변 소박한 현지 식당. <strong>비에이 소바</strong>(<span style="color:var(--navy);font-weight:700">고마소바 츠루키</span>&nbsp;<a class=\"review-btn\" href=\"https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B\" target=\"_blank\" style=\"padding:2px 7px;font-size:11px\">⭐리뷰</a>) · <strong>비에이 카레</strong>(<span style="color:var(--navy);font-weight:700">준페이</span>&nbsp;<a class=\"review-btn\" href=\"https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B\" target=\"_blank\" style=\"padding:2px 7px;font-size:11px\">⭐리뷰</a>) 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)';
+      var NEW_DESC = '비에이역 주변 소박한 현지 식당. <strong>비에이 소바</strong>(<span style="color:var(--navy);font-weight:700">고마소바 츠루키</span>\xa0<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리븷</a>) · <strong>비에이 카레</strong>(<span style="color:var(--navy);font-weight:700">준페이</span>\xa0<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리븷</a>) 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)';
       var ev = JSON.parse(localStorage.getItem('ev_sap2026') || '{}');
       var changed = false;
       if(ev.overrides) {
