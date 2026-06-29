@@ -1446,13 +1446,7 @@
           <option value="d3">Day 3 · 11/30</option>
           <option value="d4">Day 4 · 12/1</option>
         </select>
-        <div style="display:flex;gap:6px">
-          <select class="kb-inp" id="kbCurrency" style="flex:0 0 60px;padding:0 6px" onchange="kbCurrencyChange()">
-            <option value="jpy">¥ 엔</option>
-            <option value="krw">₩ 원</option>
-          </select>
-          <input type="number" class="kb-inp" id="kbAmt" placeholder="금액" inputmode="numeric" min="0" style="flex:1">
-        </div>
+        <input type="number" class="kb-inp" id="kbAmt" placeholder="금액 (¥)" inputmode="numeric" min="0">
       </div>
       <div class="kb-cats" id="kbCatBtns">
         <button class="kb-cat on"  data-cat="transport"   onclick="kbCatSel(this)">✈️ 교통</button>
@@ -1793,18 +1787,11 @@ function kbCatSel(btn){
   _kbCat = btn.dataset.cat;
 }
 
-function kbCurrencyChange(){
-  var cur = document.getElementById('kbCurrency').value;
-  document.getElementById('kbAmt').placeholder = cur==='krw' ? '금액 (₩원)' : '금액 (¥엔)';
-}
 function kbAdd(){
   const day = document.getElementById('kbDay').value;
-  const rawAmt = parseFloat(document.getElementById('kbAmt').value);
+  const amt = parseInt(document.getElementById('kbAmt').value);
   const memo = document.getElementById('kbMemo').value.trim();
-  const cur = document.getElementById('kbCurrency').value;
-  if(!rawAmt || rawAmt <= 0){ alert('금액을 입력해주세요'); return; }
-  /* 원화 입력이면 엔화로 변환해서 저장 */
-  const amt = cur === 'krw' ? rawAmt / KB_RATE : rawAmt;
+  if(!amt || amt <= 0){ alert('금액을 입력해주세요'); return; }
   _kbData.push({id:Date.now(), day, cat:_kbCat, amt, memo: memo || KB_CATS[_kbCat].n});
   kbSave();
   document.getElementById('kbAmt').value = '';
@@ -1893,19 +1880,16 @@ function kbRender(){
   }
   const byDay={};
   _kbData.forEach(e=>{ if(!byDay[e.day])byDay[e.day]=[]; byDay[e.day].push(e); });
-  const total=_kbData.reduce((s,e)=>s+e.amt,0);
-  /* 날짜별 블록 */
-  const dayBlocks = Object.entries(KB_DAYS)
+  wrap.innerHTML = Object.entries(KB_DAYS)
     .filter(([d])=>byDay[d])
     .map(([d,dlbl])=>{
       const items=byDay[d];
       const daySum=items.reduce((s,e)=>s+e.amt,0);
       return `<div class="kb-day-group">
-        <div class="kb-day-lbl" onclick="kbToggleDay('${d}')" style="cursor:pointer;user-select:none">
-          <span>${dlbl} <span id="kbArr_${d}" style="font-size:11px">▾</span></span>
+        <div class="kb-day-lbl">
+          <span>${dlbl}</span>
           <span>${kbWY(daySum)}</span>
         </div>
-        <div id="kbDayItems_${d}">
         ${items.map(e=>`<div class="kb-item">
           <span class="kb-ico">${KB_CATS[e.cat].e}</span>
           <div class="kb-info" onclick="kbEditMemo(${e.id})" style="cursor:pointer">
@@ -1915,24 +1899,8 @@ function kbRender(){
           <span class="kb-amt">${kbWY(e.amt, e.id)}</span>
           <button class="kb-del" onclick="kbDel(${e.id})">✕</button>
         </div>`).join('')}
-        </div>
       </div>`;
     }).join('');
-  /* 총합 행 */
-  const totalRow = _kbData.length ? `<div class="kb-day-group" style="border-top:2px solid var(--navy);margin-top:8px;padding-top:8px">
-    <div class="kb-day-lbl" style="font-size:15px;font-weight:800;color:var(--navy)">
-      <span>📊 전체 총지출</span>
-      <span>${kbWY(total)}</span>
-    </div>
-  </div>` : '';
-  wrap.innerHTML = dayBlocks + totalRow;
-}
-function kbToggleDay(d){
-  var el = document.getElementById('kbDayItems_'+d);
-  var arr = document.getElementById('kbArr_'+d);
-  if(!el) return;
-  if(el.style.display==='none'){ el.style.display=''; if(arr) arr.textContent='▾'; }
-  else { el.style.display='none'; if(arr) arr.textContent='▸'; }
 }
 </script>
 
