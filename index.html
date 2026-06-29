@@ -321,6 +321,21 @@
     .tip-txt{font-size:13px;color:var(--muted);line-height:1.6}
     .tip-txt strong{color:var(--text)}
 
+    /* ── SHOPPING ── */
+    .shop-card{background:var(--white);border-radius:16px;border:1.5px solid var(--border);margin-bottom:14px;overflow:hidden}
+    .shop-header{display:flex;align-items:center;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--border)}
+    .shop-ico{font-size:26px;flex-shrink:0}
+    .shop-name{font-size:15px;font-weight:800;color:var(--navy)}
+    .shop-sub{font-size:11px;color:var(--muted);margin-top:2px}
+    .shop-map-btn{margin-left:auto;background:var(--navy);color:#fff;border:none;border-radius:10px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap}
+    .shop-map-btn:active{opacity:.8}
+    .shop-body{padding:12px 16px 14px}
+    .shop-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    .shop-tag{background:rgba(15,36,71,.08);color:var(--navy);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+    .shop-desc{font-size:13px;color:var(--text);line-height:1.65;margin-bottom:8px}
+    .shop-desc strong{color:var(--navy)}
+    .shop-info{font-size:11.5px;color:var(--muted)}
+
     /* ── TIME BADGE ── */
     .ev-time{
       display:inline-block;font-size:11px;font-weight:700;
@@ -533,9 +548,10 @@
       <button data-day="d4" onclick="pickDay('d4')">Day 4 · 12/1 (화)</button>
     </div>
   </div>
-  <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
+  <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('budget')">💴 예산</button>
   <span class="nav-sep"></span>
-  <button class="tab-btn" id="budBtn" onclick="goTabOnly('budget')">💴 예산</button>
+  <button class="tab-btn" id="budBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
+  <button class="tab-btn" id="shopBtn" onclick="goTabOnly('shopping')">🛍 쇼핑</button>
   <button class="tab-btn" id="tipBtn" onclick="goTabOnly('tips')">💡 꿀팁</button>
 </nav>
 
@@ -1267,6 +1283,144 @@
     </div>
   </section>
 
+  <!-- ══════ SHOPPING ══════ -->
+  <section class="panel" id="shopping">
+    <div class="day-header">
+      <div class="day-badge">🛍 삿포로 쇼핑 가이드</div>
+      <div class="day-title">호성·창범이 취향 저격 애니 굿즈 & 쇼핑</div>
+    </div>
+
+    <!-- 포켓몬 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">🎴</span>
+        <div>
+          <div class="shop-name">포켓몬센터 삿포로</div>
+          <div class="shop-sub">Pokemon Center Sapporo</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=Pokemon+Center+Sapporo+Stellar+Place')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">포켓몬카드</span><span class="shop-tag">피규어</span><span class="shop-tag">봉제인형</span><span class="shop-tag">한정굿즈</span>
+        </div>
+        <div class="shop-desc">
+          JR 삿포로역 직결 <strong>Stellar Place 6F</strong>. 삿포로 한정 포켓몬카드 팩, 피카츄 삿포로 버전 굿즈 등 한국에서 구하기 어려운 제품 가득. <strong>포켓몬카드 부스터팩</strong>은 1팩 ¥165~, 박스(36팩) ¥6,000~. 호성·창범이 필수 방문!
+        </div>
+        <div class="shop-info">📍 삿포로역 Stellar Place 6F &nbsp;·&nbsp; ⏰ 10:00~21:00</div>
+      </div>
+    </div>
+
+    <!-- 애니메이트 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">🔥</span>
+        <div>
+          <div class="shop-name">애니메이트 삿포로</div>
+          <div class="shop-sub">Animate Sapporo</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=Animate+Sapporo')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">귀멸의칼날</span><span class="shop-tag">주술회전</span><span class="shop-tag">원피스</span><span class="shop-tag">만화·피규어</span>
+        </div>
+        <div class="shop-desc">
+          일본 최대 애니 굿즈 체인. <strong>귀멸의칼날</strong> (탄지로·젠이츠·이노스케 아크릴스탠드·캔뱃지), <strong>주술회전</strong> (고조 사토루·이타도리·메구미 굿즈) 등 최신 굿즈 총집합. 한정판 콜라보 상품도 많아 방문 전 공식 사이트에서 입하 정보 확인 추천.
+        </div>
+        <div class="shop-info">📍 삿포로시 주오구 &nbsp;·&nbsp; ⏰ 10:00~21:00</div>
+      </div>
+    </div>
+
+    <!-- 토라노아나 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">⚔️</span>
+        <div>
+          <div class="shop-name">토라노아나 삿포로</div>
+          <div class="shop-sub">Toranoana Sapporo</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=Toranoana+Sapporo')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">동인굿즈</span><span class="shop-tag">귀멸</span><span class="shop-tag">주술</span><span class="shop-tag">희귀템</span>
+        </div>
+        <div class="shop-desc">
+          애니메이트보다 희귀한 <strong>한정판·동인 굿즈</strong> 전문. 귀멸의칼날·주술회전 팬아트 굿즈, 아크릴키홀더, 클리어파일 등. 애니 팬이라면 반드시 들러야 할 성지.
+        </div>
+        <div class="shop-info">📍 삿포로 스스키노 인근 &nbsp;·&nbsp; ⏰ 11:00~20:00</div>
+      </div>
+    </div>
+
+    <!-- 빅카메라 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">🎮</span>
+        <div>
+          <div class="shop-name">빅카메라 삿포로점</div>
+          <div class="shop-sub">BIC CAMERA Sapporo</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=BicCamera+Sapporo')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">포켓몬카드</span><span class="shop-tag">닌텐도</span><span class="shop-tag">게임</span><span class="shop-tag">전자제품</span>
+        </div>
+        <div class="shop-desc">
+          포켓몬카드를 편의점보다 <strong>구하기 쉬운 곳</strong>. 닌텐도 스위치 소프트 일본판, 포켓몬카드 박스도 상시 재고. 면세(Tax Free) 가능 — 여권 지참 필수. ¥5,000 이상 구매 시 소비세 8% 환급.
+        </div>
+        <div class="shop-info">📍 삿포로역 앞 &nbsp;·&nbsp; ⏰ 10:00~21:00 &nbsp;·&nbsp; 💴 면세 가능</div>
+      </div>
+    </div>
+
+    <!-- 돈키호테 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">🦅</span>
+        <div>
+          <div class="shop-name">돈키호테 스스키노점</div>
+          <div class="shop-sub">Don Quijote Susukino</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=Don+Quijote+Susukino+Sapporo')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">포켓몬카드</span><span class="shop-tag">과자</span><span class="shop-tag">기념품</span><span class="shop-tag">24시간</span>
+        </div>
+        <div class="shop-desc">
+          <strong>24시간 영업</strong>. 포켓몬카드 단팩, 귀멸·주술 캐릭터 과자, 삿포로 한정 기념품 등. 숙소(이비스 스타일즈)에서 <strong>도보 5분</strong> 거리. 늦은 밤에도 쇼핑 가능. 면세 카운터 있음.
+        </div>
+        <div class="shop-info">📍 스스키노 &nbsp;·&nbsp; ⏰ 24시간 &nbsp;·&nbsp; 💴 면세 가능</div>
+      </div>
+    </div>
+
+    <!-- 오타루 키타이치 글라스 / 굿즈샵 -->
+    <div class="shop-card">
+      <div class="shop-header">
+        <span class="shop-ico">🏮</span>
+        <div>
+          <div class="shop-name">오타루 사카이마치 쇼핑거리</div>
+          <div class="shop-sub">Otaru Sakaimachi Street</div>
+        </div>
+        <button class="shop-map-btn" onclick="shopMap('https://maps.google.com/?q=Sakaimachi+Street+Otaru')">📍 지도</button>
+      </div>
+      <div class="shop-body">
+        <div class="shop-tag-row">
+          <span class="shop-tag">오르골</span><span class="shop-tag">유리공예</span><span class="shop-tag">오타루한정</span><span class="shop-tag">기념품</span>
+        </div>
+        <div class="shop-desc">
+          오타루 관광 핵심 거리. 오르골당·키타이치글라스 등 한정 기념품. 특히 <strong>오르골당 2호관</strong>에서 귀멸의칼날·주술회전 테마 오르골도 판매! 운하 크루즈 전후 쇼핑 가능.
+        </div>
+        <div class="shop-info">📍 오타루역 도보 10분 &nbsp;·&nbsp; ⏰ 09:00~18:00</div>
+      </div>
+    </div>
+
+    <div class="note note-blue" style="margin-top:16px">
+      💡 <strong>쇼핑 꿀팁:</strong> ¥5,000 이상 구매 시 면세(Tax Free) 혜택. 여권 반드시 지참! 포켓몬카드는 빅카메라·돈키호테에서 재고 확인 후 구매 추천. 귀멸·주술 최신 굿즈는 <strong>애니메이트</strong>가 가장 풍부해요.
+    </div>
+  </section>
+
   <!-- ══════ TIPS ══════ -->
   <section class="panel" id="tips">
     <div class="day-header">
@@ -1508,13 +1662,13 @@
   /* 네비 활성 상태 통합 관리 */
   function setNavActive(which){
     document.getElementById('dayPickBtn').classList.remove('active');
-    ['kbNavBtn','budBtn','tipBtn'].forEach(id=>{
+    ['kbNavBtn','budBtn','shopBtn','tipBtn'].forEach(id=>{
       const b=document.getElementById(id);if(b)b.classList.remove('active');
     });
     if(which==='day'){
       document.getElementById('dayPickBtn').classList.add('active');
     } else {
-      const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':'tipBtn';
+      const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':which==='shopping'?'shopBtn':'tipBtn';
       const b=document.getElementById(btnId);if(b)b.classList.add('active');
     }
   }
@@ -1583,6 +1737,9 @@ function icCardToggle(){
   var box = document.getElementById('icCardBox');
   if(!box) return;
   box.style.display = box.style.display==='none' ? 'block' : 'none';
+}
+function shopMap(url){
+  window.open(url, '_blank');
 }
 function reserveToggle(){
   var box = document.getElementById('reserveBox');
