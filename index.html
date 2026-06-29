@@ -146,6 +146,11 @@
     }
     .ev-del{top:8px;right:8px;color:#ef4444;background:rgba(239,68,68,.08)}
     .ev-del:hover{background:rgba(239,68,68,.18)}
+    .ev-check{top:8px;right:78px;color:#aaa;background:rgba(0,0,0,.05);font-size:16px}
+    .ev-check:hover{background:rgba(58,122,87,.15)}
+    .event.ev-done .ev-check{color:var(--green);background:rgba(58,122,87,.15)}
+    .event.ev-done .ev-body{opacity:.5}
+    .event.ev-done .ev-place{text-decoration:line-through;color:var(--muted)}
     .ev-hidden{display:none!important}
 
     .ev-add-wrap{margin-top:10px}
@@ -553,6 +558,7 @@
 
       <div class="event" data-eid="d1-0">
         <button class="ev-del" onclick="evDel('d1-0')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d1-0')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d1-0')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -565,6 +571,7 @@
 
       <div class="event" data-eid="d1-1">
         <button class="ev-del" onclick="evDel('d1-1')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d1-1')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d1-1')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -577,6 +584,7 @@
 
       <div class="event" data-eid="d1-2">
         <button class="ev-del" onclick="evDel('d1-2')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d1-2')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d1-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -589,6 +597,7 @@
 
       <div class="event" data-eid="d1-3">
         <button class="ev-del" onclick="evDel('d1-3')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d1-3')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d1-3')" title="수정">✎</button>
         <div class="bar bar-purple"></div>
         <div class="ev-body">
@@ -601,6 +610,7 @@
 
       <div class="event" data-eid="d1-4">
         <button class="ev-del" onclick="evDel('d1-4')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d1-4')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d1-4')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -673,6 +683,7 @@
 
       <div class="event" data-eid="d2-0">
         <button class="ev-del" onclick="evDel('d2-0')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-0')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -685,6 +696,7 @@
 
       <div class="event" data-eid="d2-1">
         <button class="ev-del" onclick="evDel('d2-1')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-1')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -697,6 +709,7 @@
 
       <div class="event" data-eid="d2-2">
         <button class="ev-del" onclick="evDel('d2-2')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-2')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -709,6 +722,7 @@
 
       <div class="event" data-eid="d2-3">
         <button class="ev-del" onclick="evDel('d2-3')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-3')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-3')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -721,6 +735,7 @@
 
       <div class="event" data-eid="d2-4">
         <button class="ev-del" onclick="evDel('d2-4')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-4')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-4')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
@@ -733,6 +748,7 @@
 
       <div class="event" data-eid="d2-5">
         <button class="ev-del" onclick="evDel('d2-5')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-5')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-5')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -745,6 +761,7 @@
 
       <div class="event" data-eid="d2-6">
         <button class="ev-del" onclick="evDel('d2-6')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-6')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-6')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
@@ -757,6 +774,7 @@
 
       <div class="event" data-eid="d2-7">
         <button class="ev-del" onclick="evDel('d2-7')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-7')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-7')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -769,6 +787,7 @@
 
       <div class="event" data-eid="d2-8">
         <button class="ev-del" onclick="evDel('d2-8')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d2-8')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d2-8')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -847,6 +866,7 @@
 
       <div class="event" data-eid="d3-0">
         <button class="ev-del" onclick="evDel('d3-0')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-0')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -859,6 +879,7 @@
 
       <div class="event" data-eid="d3-1">
         <button class="ev-del" onclick="evDel('d3-1')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-1')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -871,6 +892,7 @@
 
       <div class="event" data-eid="d3-2">
         <button class="ev-del" onclick="evDel('d3-2')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-2')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -888,6 +910,7 @@
 
       <div class="event" data-eid="d3-3">
         <button class="ev-del" onclick="evDel('d3-3')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-3')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-3')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -900,6 +923,7 @@
 
       <div class="event" data-eid="d3-4">
         <button class="ev-del" onclick="evDel('d3-4')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-4')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-4')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -912,6 +936,7 @@
 
       <div class="event" data-eid="d3-5">
         <button class="ev-del" onclick="evDel('d3-5')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-5')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-5')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -924,6 +949,7 @@
 
       <div class="event" data-eid="d3-6">
         <button class="ev-del" onclick="evDel('d3-6')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-6')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-6')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -936,6 +962,7 @@
 
       <div class="event" data-eid="d3-7">
         <button class="ev-del" onclick="evDel('d3-7')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-7')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-7')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -948,6 +975,7 @@
 
       <div class="event" data-eid="d3-8">
         <button class="ev-del" onclick="evDel('d3-8')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-8')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-8')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -965,6 +993,7 @@
 
       <div class="event" data-eid="d3-9">
         <button class="ev-del" onclick="evDel('d3-9')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-9')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-9')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -977,6 +1006,7 @@
 
       <div class="event" data-eid="d3-10">
         <button class="ev-del" onclick="evDel('d3-10')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-10')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-10')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -989,6 +1019,7 @@
 
       <div class="event" data-eid="d3-11">
         <button class="ev-del" onclick="evDel('d3-11')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-11')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-11')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -1068,6 +1099,7 @@
 
       <div class="event" data-eid="d4-0">
         <button class="ev-del" onclick="evDel('d4-0')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-0')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-0')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -1080,6 +1112,7 @@
 
       <div class="event" data-eid="d4-1">
         <button class="ev-del" onclick="evDel('d4-1')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-1')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-1')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -1092,6 +1125,7 @@
 
       <div class="event" data-eid="d4-2">
         <button class="ev-del" onclick="evDel('d4-2')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-2')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-2')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -1104,6 +1138,7 @@
 
       <div class="event" data-eid="d4-3">
         <button class="ev-del" onclick="evDel('d4-3')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-3')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-3')" title="수정">✎</button>
         <div class="bar bar-gray"></div>
         <div class="ev-body">
@@ -1116,6 +1151,7 @@
 
       <div class="event" data-eid="d4-4">
         <button class="ev-del" onclick="evDel('d4-4')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-4')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-4')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
@@ -1128,6 +1164,7 @@
 
       <div class="event" data-eid="d4-5">
         <button class="ev-del" onclick="evDel('d4-5')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-5')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-5')" title="수정">✎</button>
         <div class="bar bar-blue"></div>
         <div class="ev-body">
@@ -1140,6 +1177,7 @@
 
       <div class="event" data-eid="d4-6">
         <button class="ev-del" onclick="evDel('d4-6')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-6')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-6')" title="수정">✎</button>
         <div class="bar bar-amber"></div>
         <div class="ev-body">
@@ -1152,6 +1190,7 @@
 
       <div class="event" data-eid="d4-7">
         <button class="ev-del" onclick="evDel('d4-7')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d4-7')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d4-7')" title="수정">✎</button>
         <div class="bar bar-navy"></div>
         <div class="ev-body">
@@ -2003,6 +2042,17 @@ function makeCustomCard(ev,did){
   delBtn.className='ev-del'; delBtn.title='삭제'; delBtn.textContent='✕';
   (function(d,c){ delBtn.addEventListener('click',function(){ evDelCustom(d,c); }); })(did,ev.id);
   card.appendChild(delBtn);
+  var checkBtn=document.createElement('button');
+  checkBtn.className='ev-check'; checkBtn.title='방문완료'; checkBtn.textContent='✓';
+  (function(ceid){ checkBtn.addEventListener('click',function(){
+    var s=doneGetSet();
+    var key='custom-'+ceid;
+    if(s.has(key)){ s.delete(key); card.classList.remove('ev-done'); }
+    else{ s.add(key); card.classList.add('ev-done'); }
+    doneSaveSet(s);
+    var s2=doneGetSet(); if(s2.has('custom-'+ceid)) card.classList.add('ev-done'); else card.classList.remove('ev-done');
+  }); })(ev.id);
+  card.appendChild(checkBtn);
   var editBtn=document.createElement('button');
   editBtn.className='ev-edit'; editBtn.title='수정'; editBtn.textContent='✎';
   (function(d,c){ editBtn.addEventListener('click',function(){ evEditOpen('custom',d,c); }); })(did,ev.id);
@@ -2328,7 +2378,34 @@ function shareFallback(text){
 function shareDay(did){ shareText(buildScheduleText(did), '삿포로 여행 일정'); }
 function shareBudget(){ shareText(buildBudgetText(), '삿포로 여행 가계부'); }
 
-document.addEventListener('DOMContentLoaded',function(){ evLoadCustom('d1'); });
+/* ── 방문완료 체크 저장/불러오기 ── */
+const DONE_STORE = 'done_sap2026';
+function doneGetSet(){
+  try{ return new Set(JSON.parse(localStorage.getItem(DONE_STORE)||'[]')); }catch(e){ return new Set(); }
+}
+function doneSaveSet(s){
+  try{ localStorage.setItem(DONE_STORE, JSON.stringify([...s])); }catch(e){}
+}
+function evToggleDone(eid){
+  var el = document.querySelector('[data-eid="'+eid+'"]');
+  if(!el) return;
+  var s = doneGetSet();
+  if(s.has(eid)){ s.delete(eid); el.classList.remove('ev-done'); }
+  else{ s.add(eid); el.classList.add('ev-done'); }
+  doneSaveSet(s);
+}
+function evLoadDone(){
+  var s = doneGetSet();
+  s.forEach(function(eid){
+    var el = document.querySelector('[data-eid="'+eid+'"]');
+    if(el) el.classList.add('ev-done');
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  evLoadCustom('d1');
+  evLoadDone();
+});
 </script>
 
 </body>
