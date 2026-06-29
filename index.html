@@ -2924,16 +2924,19 @@ if(document.readyState==='loading'){
 document.addEventListener('DOMContentLoaded', function(){
   setTimeout(function(){
     try {
-      var NEW_DESC = '비에이역 주변 소박한 현지 식당. <strong>비에이 소바</strong>(<span style="color:var(--navy);font-weight:700">고마소바 츠루키</span>\xa0<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%94%E3%81%BE%E3%81%9D%E3%81%B0%E9%B6%B4%E5%96%9C+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리븷</a>) · <strong>비에이 카레</strong>(<span style="color:var(--navy);font-weight:700">준페이</span>\xa0<a class="review-btn" href="https://www.google.com/maps/search/%E3%81%98%E3%82%85%E3%82%93%E3%81%BA%E3%81%84+%E7%BE%8E%E7%91%9B" target="_blank" style="padding:2px 7px;font-size:11px">⭐리븷</a>) 추천. 따뜻하게 몸 녹이기 🍛 (약 50분)';
       var ev = JSON.parse(localStorage.getItem('ev_sap2026') || '{}');
       var changed = false;
       if(ev.overrides) {
         Object.keys(ev.overrides).forEach(function(eid) {
           var o = ev.overrides[eid];
-          if(o && o.desc && (o.desc.indexOf('새우덮밥') >= 0 ||
-             (o.desc.indexOf('비에이') >= 0 && o.desc.indexOf('준페이') >= 0 && o.desc.indexOf('고마소바') < 0))) {
-            ev.overrides[eid].desc = NEW_DESC;
+          /* place가 비에이 현지 식당인 항목의 override 삭제 → 기본값 복원 */
+          if(o && (
+            (o.place && o.place.indexOf('비에이') >= 0 && o.place.indexOf('식당') >= 0) ||
+            (o.desc && (o.desc.indexOf('새우덮밥') >= 0 || o.desc.indexOf('비에이역 주변') >= 0))
+          )) {
+            delete ev.overrides[eid];
             changed = true;
+            console.log('✅ 비에이 점심 override 삭제:', eid);
           }
         });
       }
@@ -2942,7 +2945,6 @@ document.addEventListener('DOMContentLoaded', function(){
         if(typeof _pushing !== 'undefined') _pushing = false;
         if(typeof _push === 'function') _push();
         ['d1','d2','d3','d4'].forEach(function(d){ if(typeof evLoadCustom==='function') evLoadCustom(d); });
-        console.log('✅ 비에이 점심 업데이트 완료');
       }
     } catch(e){ console.error(e); }
   }, 2500);
