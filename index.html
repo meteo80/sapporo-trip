@@ -1253,7 +1253,7 @@
   <section class="panel" id="budget">
     <div class="day-header">
       <div class="day-badge">💴 예상 예산표</div>
-      <div class="day-title">호성이네 4인 · 엔화 기준 (¥100 = 950원)</div>
+      <div class="day-title">호성이네 4인 · 항공·숙박 포함 전체 예산</div>
     </div>
     <div id="budHero"></div>
     <div class="tbl-wrap"><table class="bud-tbl" id="budTbl"></table></div>
@@ -1262,8 +1262,8 @@
       <button onclick="budReset()" style="padding:11px 16px;border-radius:12px;border:none;background:rgba(239,68,68,.08);color:#ef4444;font-size:13px;font-weight:600;cursor:pointer">초기화</button>
     </div>
     <div class="bud-note">
-      ※ 금액 셀을 클릭하면 수정할 수 있습니다.<br>
-      환율 ¥100 = 950원 적용. 실제 비용은 현지 물가에 따라 달라질 수 있습니다.
+      ※ 금액 셀을 클릭하면 수정할 수 있습니다. 항목명도 클릭하면 수정 가능합니다.<br>
+      환율 ¥100 = 950원 적용. 항공·숙박은 직접 금액을 입력해주세요.
     </div>
   </section>
 
@@ -1718,20 +1718,22 @@ function doStab(sid,sub,btn){
 /* ══ KAKEIBO 가계부 ══ */
 const BUD_STORE = 'bud_sap2026';
 const BUD_DEFAULT = [
-  {label:'\u2708 \uacf5\ud56d\u2192\uc0bf\ud3ec\ub85c JR', amts:[1150,1150,1150,1150]},
-  {label:'\ud83d\ude82 \uc0bf\ud3ec\ub85c\u2194\uc624\ud0c0\ub8e8 JR \uc655\ubcf5', amts:[1280,1280,1280,1280]},
-  {label:'\u2708 \uc0bf\ud3ec\ub85c\u2192\uacf5\ud56d JR', amts:[1150,1150,1150,1150]},
-  {label:'\ud83d\ude87 \uc9c0\ud558\ucca0\u00b7\ubc84\uc2a4 (4\uc77c)', amts:[2000,2000,2000,2000]},
-  {label:'\ud83d\udd50 \uc0bf\ud3ec\ub85c \uc2dc\uacc4\ud0d1', amts:[200,200,200,200]},
-  {label:'\ud83c\udfb5 \uc624\ub974\uace8 \ub9cc\ub4e4\uae30 \uccb4\ud5d8', amts:[2100,2100,2100,2100]},
-  {label:'\ud83d\udea4 \uc624\ud0c0\ub8e8 \uc6b4\ud558 \ud06c\ub8e8\uc988', amts:[1800,1800,1800,1800]},
-  {label:'\ud83d\ude8c \ube44\uc5d0\uc774 \ubc84\uc2a4\ud22c\uc5b4', amts:[10000,10000,10000,10000]},
-  {label:'\ud83c\udfea \ud3b8\uc758\uc810 \uc2dd\ube44 (4\uc77c)', amts:[4000,4000,3200,3200]},
-  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day1 \uc800\ub141', amts:[2500,2500,2000,2000]},
-  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day2 \uc810\uc2ec+\uc800\ub141', amts:[4000,4000,3500,3500]},
-  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day3 \uc810\uc2ec+\uc800\ub141', amts:[3500,3500,3000,3000]},
-  {label:'\ud83c\udf7d \uc678\uc2dd \u2014 Day4 \uc810\uc2ec', amts:[1500,1500,1200,1200]},
-  {label:'\ud83d\uded2 \uc1fc\ud551\u00b7\uae30\ub150\ud488 (\ucd94\uc815)', amts:[15000,15000,10000,10000]},
+  {label:'✈️ 항공권 (월드항공 부산↔신치토세)', amts:[0,0,0,0]},
+  {label:'🏨 숙소 (이비스 스타일즈 삿포로 3박)', amts:[0,0,0,0]},
+  {label:'✈ 공항→삿포로 JR', amts:[1150,1150,1150,1150]},
+  {label:'🚂 삿포로↔오타루 JR 왕복', amts:[1280,1280,1280,1280]},
+  {label:'✈ 삿포로→공항 JR', amts:[1150,1150,1150,1150]},
+  {label:'🚇 지하철·버스 (4일)', amts:[2000,2000,2000,2000]},
+  {label:'🕐 삿포로 시계탑', amts:[200,200,200,200]},
+  {label:'🎵 오르골 만들기 체험', amts:[2100,2100,2100,2100]},
+  {label:'🚤 오타루 운하 크루즈', amts:[1800,1800,1800,1800]},
+  {label:'🚌 비에이 버스투어', amts:[10000,10000,10000,10000]},
+  {label:'🏪 편의점 식비 (4일)', amts:[4000,4000,3200,3200]},
+  {label:'🍽 외식 — Day1 저녁', amts:[2500,2500,2000,2000]},
+  {label:'🍽 외식 — Day2 점심+저녁', amts:[4000,4000,3500,3500]},
+  {label:'🍽 외식 — Day3 점심+저녁', amts:[3500,3500,3000,3000]},
+  {label:'🍽 외식 — Day4 점심', amts:[1500,1500,1200,1200]},
+  {label:'🛍 쇼핑·기념품 (추정)', amts:[15000,15000,10000,10000]},
 ];
 const BUD_MEMBERS = ['\uc784\ub3d9\uc900','\uae40\uc740\uc601','\uc784\ud638\uc131','\uc784\ucc3d\ubc94'];
 
@@ -1747,7 +1749,7 @@ function budRender(){
 
   var hero = document.getElementById('budHero');
   if(hero) hero.innerHTML = '<div class="bud-hero">'
-    +'<div class="bud-lbl">\uc608\uc0c1 \ucd1d \ube44\uc6a9 (\ud56d\uacf5\u00b7\uc219\ubc15 \uc81c\uc678)</div>'
+    +'<div class="bud-lbl">예상 총 비용 (항공·숙박 포함)</div>'
     +'<div class="bud-total">\u00a5 '+grandTotal.toLocaleString()+'</div>'
     +'<div class="bud-krw">\uc57d \u20a9'+Math.round(grandTotal*9.5).toLocaleString()+' (\u00a5100 = 950\uc6d0 \uae30\uc900)</div>'
     +'<div class="bud-grid">'
