@@ -93,10 +93,10 @@
     .day-picker{position:relative;flex-shrink:0}
     .day-pick-btn{
       background:#fff;color:var(--muted);
-      border:1.5px solid var(--border);border-radius:20px;
-      padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;
+      border:1.5px solid var(--border);border-radius:16px;
+      padding:5px 12px;font-size:12px;font-weight:600;font-family:inherit;
       cursor:pointer;white-space:nowrap;outline:none;
-      transition:all .18s;
+      transition:all .18s;line-height:1.4;text-align:center;
     }
     .day-pick-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
     .day-pick-btn:hover:not(.active){background:var(--ice);color:var(--text)}
@@ -549,10 +549,10 @@
 <!-- TAB NAV -->
 <nav class="tab-nav">
   <!-- 커스텀 Day 피커 -->
-  <button class="tab-btn day-pick-btn active" id="dayBtn1" onclick="pickDay('d1')">📅 Day 1</button>
-  <button class="tab-btn day-pick-btn" id="dayBtn2" onclick="pickDay('d2')">Day 2</button>
-  <button class="tab-btn day-pick-btn" id="dayBtn3" onclick="pickDay('d3')">Day 3</button>
-  <button class="tab-btn day-pick-btn" id="dayBtn4" onclick="pickDay('d4')">Day 4</button>
+  <button class="tab-btn day-pick-btn active" id="dayBtn1" onclick="pickDay('d1')">📅 Day 1<br><span style="font-size:10px;opacity:.8">11/28 토</span></button>
+  <button class="tab-btn day-pick-btn" id="dayBtn2" onclick="pickDay('d2')">Day 2<br><span style="font-size:10px;opacity:.8">11/29 일</span></button>
+  <button class="tab-btn day-pick-btn" id="dayBtn3" onclick="pickDay('d3')">Day 3<br><span style="font-size:10px;opacity:.8">11/30 월</span></button>
+  <button class="tab-btn day-pick-btn" id="dayBtn4" onclick="pickDay('d4')">Day 4<br><span style="font-size:10px;opacity:.8">12/1 화</span></button>
   <button class="tab-btn" id="budBtn"   onclick="goTabOnly('budget')">💴 예산</button>
   <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
   <span class="nav-sep"></span>
