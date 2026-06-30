@@ -531,13 +531,26 @@
   <div class="hero-eyebrow">✈ 2026년 홋카이도 삿포로 오타루</div>
   <h1 class="hero-title">호성이네 가족여행 🏔️</h1>
   <p class="hero-sub">2026년 11월 28일 (토) — 12월 1일 (화) · 3박 4일</p>
-  <div class="hero-wx" id="heroWx">
-    <div class="hero-wx-icon" id="wxIcon">❄️</div>
-    <div class="hero-wx-temp" id="wxTemp">--°</div>
-    <div class="hero-wx-info">
-      <div class="hero-wx-loc">📍 삿포로 현재 날씨</div>
-      <div class="hero-wx-desc" id="wxDesc">불러오는 중...</div>
-      <div class="hero-wx-detail" id="wxDetail"></div>
+  <div class="hero-wx-wrap" id="heroWx" style="display:flex;gap:10px;margin-bottom:18px;width:min(100%,500px)">
+    <!-- 삿포로 날씨 -->
+    <div class="hero-wx" style="flex:1;margin-bottom:0;min-width:0">
+      <div class="hero-wx-icon" id="wxIcon">❄️</div>
+      <div class="hero-wx-temp" id="wxTemp">--°</div>
+      <div class="hero-wx-info">
+        <div class="hero-wx-loc">📍 삿포로 현재 날씨</div>
+        <div class="hero-wx-desc" id="wxDesc">불러오는 중...</div>
+        <div class="hero-wx-detail" id="wxDetail"></div>
+      </div>
+    </div>
+    <!-- 부산 날씨 -->
+    <div class="hero-wx" style="flex:1;margin-bottom:0;min-width:0">
+      <div class="hero-wx-icon" id="wxIconBusan">🌤️</div>
+      <div class="hero-wx-temp" id="wxTempBusan">--°</div>
+      <div class="hero-wx-info">
+        <div class="hero-wx-loc">📍 부산 현재 날씨</div>
+        <div class="hero-wx-desc" id="wxDescBusan">불러오는 중...</div>
+        <div class="hero-wx-detail" id="wxDetailBusan"></div>
+      </div>
     </div>
   </div>
   <div class="hero-pills">
@@ -2127,6 +2140,30 @@ function reserveToggle(){
       })
       .catch(() => {
         document.getElementById('wxDesc').textContent = '날씨 정보 불러오기 실패';
+      });
+
+    /* 부산 날씨 */
+    fetch('https://api.weatherapi.com/v1/current.json?key='+KEY+'&q=Busan&lang=ko&aqi=no')
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => {
+        const c = d.current;
+        const code = c.condition.code;
+        const isDay = c.is_day === 1;
+        const icon = ICONS[code] || (isDay ? '🌡️' : '🌙');
+        const temp = Math.round(c.temp_c);
+        const feels = Math.round(c.feelslike_c);
+        const hum = c.humidity;
+        const wind = Math.round(c.wind_kph);
+        const wd = WDIR[c.wind_dir] || c.wind_dir;
+
+        document.getElementById('wxIconBusan').textContent = icon;
+        document.getElementById('wxTempBusan').textContent = temp + '°C';
+        document.getElementById('wxDescBusan').textContent = c.condition.text;
+        document.getElementById('wxDetailBusan').textContent =
+          `체감 ${feels}° · 습도 ${hum}% · ${wind}㎞/h ${wd}`;
+      })
+      .catch(() => {
+        document.getElementById('wxDescBusan').textContent = '날씨 정보 불러오기 실패';
       });
   })();
 </script>
