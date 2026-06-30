@@ -549,17 +549,10 @@
 <!-- TAB NAV -->
 <nav class="tab-nav">
   <!-- 커스텀 Day 피커 -->
-  <div class="day-picker" id="dayPicker">
-    <button class="day-pick-btn active" id="dayPickBtn" onclick="dayPickTap()">
-      📅 Day 1 · 11/28 (토) ▾
-    </button>
-    <div class="day-pick-menu" id="dayPickMenu">
-      <button data-day="d1" onclick="pickDay('d1')">Day 1 · 11/28 (토)</button>
-      <button data-day="d2" onclick="pickDay('d2')">Day 2 · 11/29 (일)</button>
-      <button data-day="d3" onclick="pickDay('d3')">Day 3 · 11/30 (월)</button>
-      <button data-day="d4" onclick="pickDay('d4')">Day 4 · 12/1 (화)</button>
-    </div>
-  </div>
+  <button class="tab-btn day-pick-btn active" id="dayBtn1" onclick="pickDay('d1')">📅 Day 1</button>
+  <button class="tab-btn day-pick-btn" id="dayBtn2" onclick="pickDay('d2')">Day 2</button>
+  <button class="tab-btn day-pick-btn" id="dayBtn3" onclick="pickDay('d3')">Day 3</button>
+  <button class="tab-btn day-pick-btn" id="dayBtn4" onclick="pickDay('d4')">Day 4</button>
   <button class="tab-btn" id="budBtn"   onclick="goTabOnly('budget')">💴 예산</button>
   <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
   <span class="nav-sep"></span>
@@ -1727,12 +1720,12 @@
 
   /* 네비 활성 상태 통합 관리 */
   function setNavActive(which){
-    document.getElementById('dayPickBtn').classList.remove('active');
+    /* dayPickBtn 제거됨 */
     ['kbNavBtn','budBtn','shopBtn','tipBtn'].forEach(id=>{
       const b=document.getElementById(id);if(b)b.classList.remove('active');
     });
     if(which==='day'){
-      document.getElementById('dayPickBtn').classList.add('active');
+      /* dayPickBtn 제거됨 - day 버튼은 pickDay에서 처리 */
     } else {
       const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':which==='shopping'?'shopBtn':'tipBtn';
       const b=document.getElementById(btnId);if(b)b.classList.add('active');
@@ -1740,9 +1733,7 @@
   }
 
   /* Day 피커 버튼 텍스트 업데이트 */
-  function updateDayPickBtn(dayId){
-    document.getElementById('dayPickBtn').textContent='📅 '+DAY_LABELS[dayId]+' ▾';
-  }
+  function updateDayPickBtn(dayId){ /* 드롭다운 제거 */ }
 
   /* Day 피커 탭: 비-Day 패널이면 바로 전환, Day 패널이면 드롭다운 */
   function dayPickTap(){
@@ -1781,7 +1772,12 @@
   }
 
   function pickDay(dayId){
-    closePickMenu();
+    /* 드롭다운 제거 - 버튼 활성화 처리 */
+    ['dayBtn1','dayBtn2','dayBtn3','dayBtn4'].forEach(function(id){
+      var b=document.getElementById(id); if(b) b.classList.remove('active');
+    });
+    var map={'d1':'dayBtn1','d2':'dayBtn2','d3':'dayBtn3','d4':'dayBtn4'};
+    var btn=document.getElementById(map[dayId]); if(btn) btn.classList.add('active');
     goDay(dayId);
   }
 
