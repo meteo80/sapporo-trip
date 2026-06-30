@@ -377,7 +377,7 @@
     .kb-krw{font-size:12px;color:var(--blue-light);margin-bottom:14px}
     .kb-prog-wrap{background:rgba(255,255,255,.18);border-radius:8px;height:9px;overflow:hidden;margin-bottom:8px}
     .kb-prog{height:100%;border-radius:8px;background:linear-gradient(90deg,#4A7FA5,#C97D2A);transition:width .4s}
-    .kb-pct{font-size:13px;color:var(--blue-light);line-height:1.8;margin-top:4px}
+    .kb-pct{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.8;margin-top:4px}
     .kb-pct strong{color:#fff;font-size:14px}
     .kb-pct .over{color:#f87171}
 
@@ -2143,9 +2143,9 @@ function kbWY(n, id){
   var jpy = '¥' + Math.round(n).toLocaleString();
   if(id !== undefined){
     return '<span onclick="kbEditKRW('+id+')" style="cursor:pointer;text-decoration:underline dotted">'+krw+'</span>'
-      + ' <small style="color:var(--muted);font-weight:400">(<span onclick="kbEditJPY('+id+')" style="cursor:pointer;text-decoration:underline dotted">'+jpy+'</span>)</small>';
+      + ' <small style="color:rgba(255,255,255,0.75);font-weight:500">(<span onclick="kbEditJPY('+id+')" style="cursor:pointer;text-decoration:underline dotted">'+jpy+'</span>)</small>';
   }
-  return krw + ' <small style="color:var(--muted);font-weight:400">('+jpy+')</small>';
+  return krw + ' <small style="color:rgba(255,255,255,0.75);font-weight:500">('+jpy+')</small>';
 }
 function kbWYtext(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString() + ' (¥' + Math.round(n).toLocaleString() + ')'; }
 
