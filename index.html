@@ -3364,7 +3364,7 @@ function _apply(data){
     /* 가계부 */
     if(Array.isArray(data.kb)){
       localStorage.setItem('kb_sap2026', JSON.stringify(data.kb));
-      if(typeof window._kbData!=='undefined') window._kbData = data.kb;
+      if(typeof _kbData!=='undefined') _kbData = data.kb; /* let 변수라 window 속성이 아님 → 직접 갱신 */
       if(typeof window.kbRender==='function') window.kbRender();
     }
     /* 체크 */
