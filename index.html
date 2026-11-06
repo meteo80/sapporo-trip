@@ -1411,7 +1411,7 @@
     </div>
     <div class="bud-note">
       ※ 금액 셀을 클릭하면 수정할 수 있습니다. 항목명도 클릭하면 수정 가능합니다.<br>
-      환율 ¥100 = 950원 적용. 항공·숙박은 직접 금액을 입력해주세요.
+      환율 ¥100 = 860원 적용. 항공·숙박은 직접 금액을 입력해주세요.
     </div>
   </section>
 
@@ -2449,7 +2449,7 @@ function budRender(){
   if(hero) hero.innerHTML = '<div class="bud-hero">'
     +'<div class="bud-lbl">예상 총 비용 (항공·숙박 포함)</div>'
     +'<div class="bud-total">\u00a5 '+grandTotal.toLocaleString()+'</div>'
-    +'<div class="bud-krw">\uc57d \u20a9'+Math.round(grandTotal*9.5).toLocaleString()+' (\u00a5100 = 950\uc6d0 \uae30\uc900)</div>'
+    +'<div class="bud-krw">\uc57d \u20a9'+Math.round(grandTotal*8.6).toLocaleString()+' (\u00a5100 = 860\uc6d0 \uae30\uc900)</div>'
     +'<div class="bud-grid">'
     +BUD_MEMBERS.map(function(n,i){ return '<div class="bud-person"><div class="bud-pname">'+n+'</div><div class="bud-pamt">\u00a5 '+totals[i].toLocaleString()+'</div></div>'; }).join('')
     +'</div></div>';
@@ -2466,13 +2466,13 @@ function budRender(){
       h += '<td onclick="budEditCell('+ri+','+ci+')" style="cursor:pointer;text-decoration:underline dotted;color:var(--navy)">'+a.toLocaleString()+'</td>';
     });
     h += '<td class="col-tot">'+rowSum.toLocaleString()+'</td>';
-    h += '<td class="col-krw">\u20a9'+Math.round(rowSum*9.5).toLocaleString()+'</td>';
+    h += '<td class="col-krw">\u20a9'+Math.round(rowSum*8.6).toLocaleString()+'</td>';
     h += '<td><button onclick="budDelRow('+ri+')" style="border:none;background:none;color:#ef4444;cursor:pointer;font-size:15px;padding:0 4px">\u2715</button></td></tr>';
   });
   h += '<tr class="tot"><td>\ud569 \uacc4</td>'
     +totals.map(function(t){ return '<td>'+t.toLocaleString()+'</td>'; }).join('')
     +'<td class="col-tot">\u00a5 '+grandTotal.toLocaleString()+'</td>'
-    +'<td class="col-krw">\u20a9 '+Math.round(grandTotal*9.5).toLocaleString()+'</td><td></td></tr></tbody>';
+    +'<td class="col-krw">\u20a9 '+Math.round(grandTotal*8.6).toLocaleString()+'</td><td></td></tr></tbody>';
   tbl.innerHTML = h;
   /* 가계부 예산 기준도 즉시 업데이트 */
   if(typeof kbRender === 'function') kbRender();
@@ -2529,7 +2529,7 @@ let _kbCat = 'transport';
 let _kbData = JSON.parse(localStorage.getItem('kb_sap2026') || '[]');
 
 function kbSave(){ localStorage.setItem('kb_sap2026', JSON.stringify(_kbData)); }
-const KB_RATE = 9.5; /* 환율: 1엔 = 9.5원 (¥100 = ₩950) */
+const KB_RATE = 8.6; /* 환율: 1엔 = 8.6원 (¥100 = ₩860) */
 function kbY(n){ return '¥' + Math.round(n).toLocaleString(); }
 function kbW(n){ return '₩' + Math.round(n * KB_RATE).toLocaleString(); }
 /* 원화 우선 + 엔화 병기 */
