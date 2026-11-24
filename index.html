@@ -1046,13 +1046,27 @@
         </div>
       </div>
 
+      <div class="event" data-eid="d3-o13">
+        <button class="ev-del" onclick="evDel('d3-o13')" title="삭제">✕</button>
+        <button class="ev-check" onclick="evToggleDone('d3-o13')" title="방문완료">✓</button>
+        <button class="ev-edit" onclick="evEditOpen('builtin','d3-o13')" title="수정">✎</button>
+        <div class="bar bar-amber"></div>
+        <div class="ev-body">
+          <div class="ev-time">🕚 11:15</div>
+          <div class="ev-top"><span class="ev-icon">🐹</span><span class="ev-place">치이카와 모구모구혼포 오타루점</span></div>
+          <div class="ev-desc"><strong>동선:</strong> 스팀 시계 → 메르헨 교차로 쪽으로 <strong>걸어서 1~2분</strong> (사카이마치 6-1, 오르골당 바로 앞 골목). 홋카이도 한정 굿즈 약 90종 + <strong>치이카와 베이비 카스텔라</strong>(10:00~17:00). 영업 9:30~17:30, 예약 불가 · 계산대와 카스텔라 줄이 길 수 있어요. 줄이 너무 길면 <strong>14:00 사카이마치 쇼핑(3인) 때 다시 들르기</strong>. 다 보고 나서 점심 먹으러 오타루역 쪽 삼각시장까지 걸어서 약 20분(1.6km) — 다리 아프면 <strong>미나미오타루역 → 오타루역 JR 1정거장</strong>(걸어서 역까지 8분).</div>
+          <a class="review-btn" href="https://www.google.com/maps/place/Chiikawa+Mogumogu+Honpo+Otaru+Branch/@43.1927447,141.0068427,17z" target="_blank">⭐ 구글맵 보기</a>
+          <div class="badge-row"><span class="cost-badge">굿즈·카스텔라 자유</span></div>
+        </div>
+      </div>
+
       <div class="event" data-eid="d3-o5">
         <button class="ev-del" onclick="evDel('d3-o5')" title="삭제">✕</button>
         <button class="ev-check" onclick="evToggleDone('d3-o5')" title="방문완료">✓</button>
         <button class="ev-edit" onclick="evEditOpen('builtin','d3-o5')" title="수정">✎</button>
         <div class="bar bar-green"></div>
         <div class="ev-body">
-          <div class="ev-time">🕛 12:00</div>
+          <div class="ev-time">🕛 12:15</div>
           <div class="ev-top"><span class="ev-icon">🐟</span><span class="ev-place">점심 — 카이센동 (해산물 덮밥) · 4인 마지막 식사</span></div>
           <div class="ev-desc">오타루 명물 신선 해산물(<span style="color:var(--navy);font-weight:700">사와사키 수산</span> <a class="review-btn" href="https://www.google.com/maps/search/Sawasaki%20Suisan%20Otaru%20kaisen-don%20seafood" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) · (<span style="color:var(--navy);font-weight:700">오타루 삼각시장</span> <a class="review-btn" href="https://www.google.com/maps/search/Sankaku%20Ichiba%20Otaru%20seafood" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>). <strong>삼각시장은 오타루역 바로 옆</strong>이라 호성이 출발 전 식사로 딱!</div>
           <div class="badge-row"><span class="cost-badge">약 2,000엔/인</span></div>
@@ -2357,7 +2371,8 @@ const SPOTS={
   hotel:      {n:'🏨 이비스 스타일즈',    lat:43.0535,lng:141.3556,e:'🏨',t:'3박 숙소 · 1층 Lawson'},
   otaru_st:   {n:'🚂 오타루역',           lat:43.1908,lng:140.9947,e:'🚂',t:'JR 쾌속 35분 · ¥800'},
   otaru_canal:{n:'🚤 오타루 운하',        lat:43.1956,lng:140.9974,e:'🚤',t:'크루즈 ¥1,800'},
-  orgel:      {n:'🎵 오르골당',           lat:43.1930,lng:140.9956,e:'🎵',t:'오르골 만들기 ¥2,100 · 예약필수'},
+  orgel:      {n:'🎵 오르골당',           lat:43.1924,lng:141.0064,e:'🎵',t:'오르골 만들기 ¥2,100 · 예약필수'},
+  chiikawa:   {n:'🐹 치이카와 모구모구혼포',lat:43.1927,lng:141.0068,e:'🐹',t:'오타루점 · 9:30~17:30 · 한정 굿즈·베이비 카스텔라'},
   sushi:      {n:'🍣 스시야거리',         lat:43.1916,lng:140.9952,e:'🍣',t:'오타루 카이센동'},
   biei:       {n:'🌾 비에이',             lat:43.5858,lng:142.4647,e:'🌾',t:'설경 버스투어 ¥10,000'},
   blue_pond:  {n:'💙 청의 호수',          lat:43.5877,lng:142.5489,e:'💙',t:'비에이 대표 명소'},
@@ -2371,7 +2386,7 @@ const SPOTS={
 const DAY_ROUTES={
   d1:{c:'#C97D2A',spots:['chitose','sapporo_st','clocktower','odori','tanuki','susukino','hotel']},
   d2:{c:'#4A7FA5',spots:['hotel','tour_meet','takushinkan','biei','junpei','blue_pond','shirahige','shikisai','susukino','hotel']},
-  d3:{c:'#3A7A57',spots:['hotel','sapporo_st','otaru_st','otaru_canal','orgel','sushi','otaru_st','chitose','otaru_st','sapporo_st','susukino','hotel']},
+  d3:{c:'#3A7A57',spots:['hotel','sapporo_st','otaru_st','otaru_canal','orgel','chiikawa','sushi','otaru_st','chitose','otaru_st','sapporo_st','susukino','hotel']},
   d4:{c:'#6B4FA0',spots:['hotel','tanuki','susukino','sapporo_st','chitose']},
 };
 function eIcon(e){
@@ -2719,7 +2734,7 @@ function evSaveDB(db){
 }
 
 /* eid → 지도 spot 매핑 */
-const EID_SPOT={"d1-0":null,"d1-1":"chitose","d1-2":"sapporo_st","d1-3":"hotel","d1-4":"susukino","d2-0":"hotel","d2-1":"sapporo_st","d2-2":"otaru_canal","d2-3":"orgel","d2-4":"otaru_st","d2-5":"sushi","d2-6":"otaru_canal","d2-7":"otaru_canal","d2-8":"susukino","d3-0":"hotel","d3-1":"sapporo_st","d3-2":null,"d3-3":"biei","d3-4":"biei","d3-5":"blue_pond","d3-6":"biei","d3-7":null,"d3-8":"biei","d3-9":null,"d3-10":"sapporo_st","d3-11":"susukino","d2-b0":"hotel","d2-b1":"tour_meet","d2-b2":null,"d2-b3":"takushinkan","d2-b4":"biei","d2-b5":"junpei","d2-b6":"blue_pond","d2-b7":"shirahige","d2-b8":"shikisai","d2-b9":"susukino","d2-b10":"susukino","d3-o0":"hotel","d3-o1":"sapporo_st","d3-o2":"otaru_canal","d3-o3":"orgel","d3-o4":null,"d3-o5":"sushi","d3-o6":"otaru_st","d3-o7":null,"d3-o8":"chitose","d3-o9":null,"d3-o10":null,"d3-o11":"chitose","d3-o12":"susukino","d4-0":"hotel","d4-1":"tanuki","d4-2":"sapporo_st","d4-3":"clocktower","d4-4":null,"d4-5":"chitose","d4-6":"chitose","d4-7":"chitose"};
+const EID_SPOT={"d1-0":null,"d1-1":"chitose","d1-2":"sapporo_st","d1-3":"hotel","d1-4":"susukino","d2-0":"hotel","d2-1":"sapporo_st","d2-2":"otaru_canal","d2-3":"orgel","d2-4":"otaru_st","d2-5":"sushi","d2-6":"otaru_canal","d2-7":"otaru_canal","d2-8":"susukino","d3-0":"hotel","d3-1":"sapporo_st","d3-2":null,"d3-3":"biei","d3-4":"biei","d3-5":"blue_pond","d3-6":"biei","d3-7":null,"d3-8":"biei","d3-9":null,"d3-10":"sapporo_st","d3-11":"susukino","d2-b0":"hotel","d2-b1":"tour_meet","d2-b2":null,"d2-b3":"takushinkan","d2-b4":"biei","d2-b5":"junpei","d2-b6":"blue_pond","d2-b7":"shirahige","d2-b8":"shikisai","d2-b9":"susukino","d2-b10":"susukino","d3-o0":"hotel","d3-o1":"sapporo_st","d3-o2":"otaru_canal","d3-o3":"orgel","d3-o4":null,"d3-o5":"sushi","d3-o6":"otaru_st","d3-o7":null,"d3-o8":"chitose","d3-o9":null,"d3-o10":null,"d3-o11":"chitose","d3-o12":"susukino","d3-o13":"chiikawa","d4-0":"hotel","d4-1":"tanuki","d4-2":"sapporo_st","d4-3":"clocktower","d4-4":null,"d4-5":"chitose","d4-6":"chitose","d4-7":"chitose"};
 
 /* ── 일정 삭제 (기본) ── */
 function evDel(eid){
@@ -2753,7 +2768,7 @@ function evSave(did){
       ['오도리','odori'],['타누키','tanuki'],
       ['스스키노','susukino'],['이비스','hotel'],['호텔','hotel'],
       ['오타루역','otaru_st'],['오타루운하','otaru_canal'],['운하','otaru_canal'],
-      ['오르골','orgel'],['스시','sushi'],['초밥','sushi'],
+      ['오르골','orgel'],['치이카와','chiikawa'],['스시','sushi'],['초밥','sushi'],
       ['비에이','biei'],['청의호수','blue_pond'],['파란호수','blue_pond'],
       ['모이와','moiwa'],['야경','moiwa']
     ];
