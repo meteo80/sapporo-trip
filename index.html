@@ -882,7 +882,8 @@
         <div class="ev-body">
           <div class="ev-time">🌙 20:15</div>
           <div class="ev-top"><span class="ev-icon">🍜</span><span class="ev-place">저녁 — 스스키노 라멘</span></div>
-          <div class="ev-desc">긴 투어 후 따뜻한 라멘(<span style="color:var(--navy);font-weight:700">라멘 신겐</span> <a class="review-btn" href="https://www.google.com/maps/search/Ramen%20Shingen%20Sapporo%20miso%20ramen" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>)으로 마무리 🍶 늦게 도착해서 지치면 스스키노 <strong>규동 체인</strong>(마츠야·스키야·요시노야, 24시간) 500~800엔으로 간단히!</div>
+          <div class="ev-desc">🍜 <strong>1순위 — 콘버터 라멘</strong>(<span style="color:#e53e3e;font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="teshikagaToggle()" title="식당정보 보기">테시카가 라멘</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E5%BC%9F%E5%AD%90%E5%B1%88%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%20%E6%9C%AD%E5%B9%8C%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%E6%A8%AA%E4%B8%81%E5%BA%97" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) — 삿포로 No.1 콘버터 라멘, 현지 추천 👍 스스키노 하차 지점에서 가까운 원조 라멘 요코초 안<br>· 다른 선택: 따뜻한 라멘(<span style="color:var(--navy);font-weight:700">라멘 신겐</span> <a class="review-btn" href="https://www.google.com/maps/search/Ramen%20Shingen%20Sapporo%20miso%20ramen" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>)으로 마무리 🍶 늦게 도착해서 지치면 스스키노 <strong>규동 체인</strong>(마츠야·스키야·요시노야, 24시간) 500~800엔으로 간단히!</div>
+          <div id="teshikagaBox" style="display:none;margin-top:10px;background:#FFF8EE;border:1.5px solid #E8A33D;border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.75;color:var(--text)"><div style="font-weight:700;color:#B45309;margin-bottom:8px">🍜 테시카가 라멘 삿포로 라멘 요코초점 (弟子屈ラーメン) <span style="color:#e53e3e">(현지 추천 👍)</span></div>📍 <strong>위치:</strong> 스스키노 "원조 삿포로 라멘 요코초" 안 · 투어 버스 스스키노 하차 후 걸어서 이동<br>🌽 <strong>꼭 먹을 것:</strong> <strong>콘버터 라멘</strong> · 그 외 큰 차슈 올린 미소라멘, "魚介しぼり醤油(어패 간장)"도 인기<br>💳 <strong>결제:</strong> 식권 자판기 · 현금·신용카드·교통카드·QR결제 가능<br><br>⏳ <strong>웨이팅 팁:</strong> 줄이 있어도 <strong>입장 시간을 미리 알려줘서</strong> 근처 구경하다 오면 돼요<br>📲 <strong>우선 안내(선택):</strong> TableCheck 온라인으로 방문 시간 지정 가능 (1인 ¥550 수수료, 14일 전부터, 좌석 예약은 아니라 혼잡하면 대기 있음, 취소·변경 불가 주의)<br><br>💡 <strong>꿀팁:</strong> 1인 1그릇 주문 필수. 20시대 도착이라 투어가 늦어지면 바로 줄부터 서고, 기다리는 동안 요코초 구경하세요.</div>
           <div class="badge-row"><span class="cost-badge">약 600~1,200엔/인</span></div>
         </div>
       </div>
@@ -2191,6 +2192,10 @@ function garakuToggle(){
 }
 function fujisanToggle(){
   var box=document.getElementById('fujisanBox');
+  if(box) box.style.display=box.style.display==='none'?'':'none';
+}
+function teshikagaToggle(){
+  var box=document.getElementById('teshikagaBox');
   if(box) box.style.display=box.style.display==='none'?'':'none';
 }
 function otaruCanalToggle(){
