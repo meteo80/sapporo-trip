@@ -653,7 +653,8 @@
         <div class="ev-body">
           <div class="ev-time">🕖 19:00</div>
           <div class="ev-top"><span class="ev-icon">🍛</span><span class="ev-place">저녁 — 스프 카레</span></div>
-          <div class="ev-desc">홋카이도 명물 <strong>스프 카레</strong>로 첫날 저녁 🍛<br>· <strong>블로그 추천</strong> (<span style="color:var(--navy);font-weight:700">Soup Curry COCORO 삿포로 본점</span> <a class="review-btn" href="https://www.google.com/maps/search/Soup%20Curry%20COCORO%20Sapporo%20Main%20Store" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) — 기타구 북15조서4초메 · 지하철 난보쿠선 <strong>기타18조역 도보 3분</strong> (스스키노역에서 약 10분)<br>· 호텔 근처 도보권 (<span style="color:var(--navy);font-weight:700">가라쿠</span> <a class="review-btn" href="https://www.google.com/maps/search/GARAKU%20soup%20curry%20Sapporo" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) · (<span style="color:var(--navy);font-weight:700">스아게</span> <a class="review-btn" href="https://www.google.com/maps/search/Suage%20soup%20curry%20Sapporo" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>)<br>인기 가게라 대기 있을 수 있어요. 식사 후 스스키노 골목 탐방</div>
+          <div class="ev-desc">홋카이도 명물 <strong>스프 카레</strong>로 첫날 저녁 🍛<br>· <strong>블로그 추천</strong> (<span style="color:var(--navy);font-weight:700">Soup Curry COCORO 삿포로 본점</span> <a class="review-btn" href="https://www.google.com/maps/search/Soup%20Curry%20COCORO%20Sapporo%20Main%20Store" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) — 기타구 북15조서4초메 · 지하철 난보쿠선 <strong>기타18조역 도보 3분</strong> (스스키노역에서 약 10분)<br>· 호텔 근처 도보권 (<span style="color:var(--navy);font-weight:700">가라쿠</span> <a class="review-btn" href="https://www.google.com/maps/search/GARAKU%20soup%20curry%20Sapporo" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) · (<span style="color:var(--navy);font-weight:700">스아게</span> <a class="review-btn" href="https://www.google.com/maps/search/Suage%20soup%20curry%20Sapporo" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>)<br>· 현지 인기 (<span style="color:#e53e3e;font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="ramaiToggle()" title="식당정보 보기">라마이 중앙점</span>&nbsp;<a class="review-btn" href="https://www.google.com/maps/search/%E3%83%A9%E3%83%9E%E3%82%A4+%E6%9C%AD%E5%B9%8C%E4%B8%AD%E5%A4%AE%E5%BA%97" target="_blank" style="padding:2px 7px;font-size:11px">⭐리뷰</a>) — 카드 불가, 현금 준비<br>인기 가게라 대기 있을 수 있어요. 식사 후 스스키노 골목 탐방</div>
+          <div id="ramaiBox" style="display:none;margin-top:10px;background:#FFF8EE;border:1.5px solid #E8A33D;border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.75;color:var(--text)"><div style="font-weight:700;color:#B45309;margin-bottom:8px">🍛 라마이 삿포로 중앙점 (ラマイ 札幌中央店)</div>📍 <strong>위치:</strong> 주오구 미나미4조 니시10초메 (콘포몰 삿포로) · 노면전차 주오쿠야쿠쇼마에역 도보 5분 · 스스키노 서쪽<br>🕐 <strong>영업시간:</strong> 11:30~23:00 (라스트오더 22:00), 연중무휴<br>💴 <strong>가격:</strong> 1인 ~¥2,000 · <strong style="color:#e53e3e">신용카드 불가</strong> (현금·PayPay)<br><br>🍛 <strong>추천 메뉴</strong><br>· 치킨 · 포크가 정석, 야사이(채소)도 인기<br>· 인기 토핑은 <strong>브로콜리</strong>, 두부 메뉴 "타후고렌"도 현지인 추천<br><br>💡 <strong>꿀팁:</strong> 매운맛 단계를 고를 수 있어 아이들은 순한 단계로! 대기 있어도 회전이 빨라 20분 안팎이라는 후기예요. 영업시간은 방문 전 구글맵에서 한 번 확인하세요.</div>
           <div class="badge-row"><span class="cost-badge">약 1,300~1,600엔/인</span></div>
         </div>
       </div>
@@ -2162,6 +2163,10 @@
   /* ── 가계부·예산·꿀팁 탭 전환 ── */
 function teppachiToggle(){
   var box=document.getElementById('teppachiBox');
+  if(box) box.style.display=box.style.display==='none'?'':'none';
+}
+function ramaiToggle(){
+  var box=document.getElementById('ramaiBox');
   if(box) box.style.display=box.style.display==='none'?'':'none';
 }
 function otaruCanalToggle(){
