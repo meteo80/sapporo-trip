@@ -323,6 +323,26 @@
 
     /* ── SHOPPING ── */
     .shop-card{background:var(--white);border-radius:16px;border:1.5px solid var(--border);margin-bottom:14px;overflow:hidden}
+    .buy-me{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0 12px;font-size:13px;font-weight:700;color:var(--navy)}
+    .buy-who{border:1.5px solid var(--border);background:var(--white);color:var(--text);border-radius:20px;padding:4px 12px;font-size:13px;cursor:pointer}
+    .buy-who.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .buy-prog{position:relative;height:24px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+    .buy-prog-bar{position:absolute;inset:0 auto 0 0;width:0;background:#3A7A57;transition:width .3s}
+    .buy-prog span{position:relative;display:block;text-align:center;line-height:24px;font-size:12px;font-weight:700;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.5)}
+    .buy-cat{background:var(--white);border:1.5px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+    .buy-cat-hd{padding:10px 14px;font-weight:800;color:var(--navy);font-size:14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}
+    .buy-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer}
+    .buy-row:last-child{border-bottom:none}
+    .buy-row input{width:22px;height:22px;flex-shrink:0;accent-color:#3A7A57;cursor:pointer}
+    .buy-nm{flex:1;font-size:14px;color:var(--text)}
+    .buy-nm small{display:block;font-size:11px;color:#8a97a8}
+    .buy-row.done .buy-nm{text-decoration:line-through;color:#8a97a8}
+    .buy-by{font-size:11px;font-weight:700;color:#3A7A57;white-space:nowrap}
+    .buy-del{border:none;background:none;color:#c0392b;font-size:15px;cursor:pointer;padding:2px 4px}
+    .buy-add{display:flex;gap:6px;flex-wrap:wrap}
+    .buy-add select,.buy-add input{border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;font-size:13px;background:var(--white);color:var(--text)}
+    .buy-add input{flex:1;min-width:160px}
+    .buy-add button{background:var(--navy);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
     .shop-header{display:flex;align-items:center;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--border)}
     .shop-ico{font-size:26px;flex-shrink:0}
     .shop-name{font-size:15px;font-weight:800;color:var(--navy)}
@@ -572,6 +592,7 @@
   <button class="tab-btn kb-btn" id="kbNavBtn" onclick="goTabOnly('kakeibo')">💰 가계부</button>
   <span class="nav-sep"></span>
   <button class="tab-btn" id="shopBtn"  onclick="goTabOnly('shopping')">🛍 쇼핑</button>
+  <button class="tab-btn" id="buyBtn"   onclick="goTabOnly('buylist')">🧾 구매리스트</button>
   <button class="tab-btn" id="tipBtn"   onclick="goTabOnly('tips')">💡 꿀팁</button>
 </nav>
 
@@ -1846,6 +1867,32 @@
   </section>
 
   <!-- ══════ TIPS ══════ -->
+  <section class="panel" id="buylist">
+    <div class="day-header">
+      <div class="day-badge">🧾 구매 리스트</div>
+      <div class="day-title">사면 체크! 가족 모두에게 실시간 공유돼요</div>
+    </div>
+    <div class="buy-me">나는 👉
+      <button class="buy-who" data-who="동준" onclick="buySetMe('동준')">동준</button>
+      <button class="buy-who" data-who="은영" onclick="buySetMe('은영')">은영</button>
+      <button class="buy-who" data-who="호성" onclick="buySetMe('호성')">호성</button>
+      <button class="buy-who" data-who="창범" onclick="buySetMe('창범')">창범</button>
+    </div>
+    <div class="buy-prog"><div class="buy-prog-bar" id="buyProgBar"></div><span id="buyProgTxt">0 / 0</span></div>
+    <div id="buyList"></div>
+    <div class="buy-add">
+      <select id="buyAddCat">
+        <option value="gift">🍫 과자·선물</option>
+        <option value="drug">💊 드럭스토어</option>
+        <option value="goods">🎴 아이들 굿즈</option>
+        <option value="etc">📦 기타</option>
+      </select>
+      <input id="buyAddName" type="text" placeholder="살 물건 추가 (예: 하스카프 잼)" onkeydown="if(event.key==='Enter')buyAdd()">
+      <button onclick="buyAdd()">추가</button>
+    </div>
+    <div class="note note-blue" style="margin-top:14px">💡 체크하면 <strong>누가·언제 샀는지</strong>가 같이 저장되고, 이 사이트를 연 가족 모두의 화면에 바로 반영돼요. 같은 물건을 두 번 사는 걸 막을 수 있어요. 직접 추가한 물건은 ✕로 지울 수 있어요.</div>
+  </section>
+
   <section class="panel" id="tips">
     <div class="day-header">
       <div class="day-badge">💡 여행 꿀팁</div>
@@ -2110,13 +2157,13 @@
   /* 네비 활성 상태 통합 관리 */
   function setNavActive(which){
     /* dayPickBtn 제거됨 */
-    ['kbNavBtn','budBtn','shopBtn','tipBtn'].forEach(id=>{
+    ['kbNavBtn','budBtn','shopBtn','buyBtn','tipBtn'].forEach(id=>{
       const b=document.getElementById(id);if(b)b.classList.remove('active');
     });
     if(which==='day'){
       /* dayPickBtn 제거됨 - day 버튼은 pickDay에서 처리 */
     } else {
-      const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':which==='shopping'?'shopBtn':'tipBtn';
+      const btnId=which==='kakeibo'?'kbNavBtn':which==='budget'?'budBtn':which==='shopping'?'shopBtn':which==='buylist'?'buyBtn':'tipBtn';
       const b=document.getElementById(btnId);if(b)b.classList.add('active');
     }
   }
@@ -2293,6 +2340,7 @@ function reserveToggle(){
     document.getElementById(id).classList.add('active');
     setNavActive(id);
     if(id==='kakeibo') kbRender();
+    if(id==='buylist' && typeof buyRender==='function') buyRender();
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -3352,6 +3400,87 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
+<script>
+/* ══ 구매 리스트 (Firebase buy 필드로 공유) ══ */
+var BUY_CATS={gift:'🍫 과자·선물',drug:'💊 드럭스토어',goods:'🎴 아이들 굿즈',etc:'📦 기타'};
+var BUY_DEFAULT=[
+  {id:'g1',cat:'gift',name:'로이스 생초콜릿',note:'공항·백화점 · 보냉백 필요'},
+  {id:'g2',cat:'gift',name:'시로이 코이비토',note:'이시야 · 어디서나'},
+  {id:'g3',cat:'gift',name:'롯카테이 마루세이 버터샌드',note:''},
+  {id:'g4',cat:'gift',name:'르타오 더블 프로마쥬',note:'오타루 본점 · 냉동'},
+  {id:'g5',cat:'gift',name:'자가포쿠루 (감자 과자)',note:'공항에서 잘 품절'},
+  {id:'g6',cat:'gift',name:'하스카프 젤리',note:''},
+  {id:'d1',cat:'drug',name:'샤론파스 (파스)',note:''},
+  {id:'d2',cat:'drug',name:'카베진 (위장약)',note:''},
+  {id:'d3',cat:'drug',name:'로토 인공눈물',note:''},
+  {id:'d4',cat:'drug',name:'휴족시간',note:''},
+  {id:'k1',cat:'goods',name:'포켓몬카드 (삿포로 한정)',note:'포켓몬센터 · 빅카메라'},
+  {id:'k2',cat:'goods',name:'치이카와 오타루 한정 굿즈',note:'모구모구혼포 · 3일차'},
+  {id:'k3',cat:'goods',name:'치이카와랜드 굿즈',note:'파르코 B2'},
+  {id:'k4',cat:'goods',name:'귀멸·주술 굿즈',note:'애니메이트'}
+];
+var BUY_STORE='buy_sap2026', BUY_ME='buy_me_sap2026';
+function buyGet(){ try{ var b=JSON.parse(localStorage.getItem(BUY_STORE)||'{}'); b.checked=b.checked||{}; b.custom=b.custom||{}; return b; }catch(e){ return {checked:{},custom:{}}; } }
+function buySetLocal(b){ try{ localStorage.setItem(BUY_STORE, JSON.stringify(b)); }catch(e){} }
+function buyMe(){ try{ return localStorage.getItem(BUY_ME)||''; }catch(e){ return ''; } }
+function buySetMe(n){ try{ localStorage.setItem(BUY_ME,n); }catch(e){} buyRender(); }
+function buyEsc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+function buyItems(b){
+  var items=BUY_DEFAULT.map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,custom:false};});
+  Object.keys(b.custom).sort(function(a,c){return (b.custom[a].t||0)-(b.custom[c].t||0);}).forEach(function(id){
+    var c=b.custom[id]; if(c&&c.name) items.push({id:id,cat:BUY_CATS[c.cat]?c.cat:'etc',name:c.name,note:c.by?(c.by+' 추가'):'',custom:true});
+  });
+  return items;
+}
+function buyRender(){
+  var box=document.getElementById('buyList'); if(!box) return;
+  var me=buyMe();
+  document.querySelectorAll('.buy-who').forEach(function(btn){ btn.classList.toggle('on', btn.dataset.who===me); });
+  var b=buyGet(), items=buyItems(b), html='', done=0;
+  Object.keys(BUY_CATS).forEach(function(cat){
+    var list=items.filter(function(x){return x.cat===cat;}); if(!list.length) return;
+    var cd=list.filter(function(x){return b.checked[x.id];}).length;
+    html+='<div class="buy-cat"><div class="buy-cat-hd"><span>'+BUY_CATS[cat]+'</span><span>'+cd+' / '+list.length+'</span></div>';
+    list.forEach(function(x){
+      var ck=b.checked[x.id]; if(ck) done++;
+      var when=(ck&&ck.t)?new Date(ck.t).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      var by=ck?('✓ '+(ck.by||'')+' '+when):'';
+      html+='<label class="buy-row'+(ck?' done':'')+'"><input type="checkbox"'+(ck?' checked':'')+' onchange="buyToggle(\''+x.id+'\',this.checked)">'+
+        '<span class="buy-nm">'+buyEsc(x.name)+(x.note?'<small>'+buyEsc(x.note)+'</small>':'')+'</span>'+
+        (by?'<span class="buy-by">'+buyEsc(by)+'</span>':'')+
+        (x.custom?'<button class="buy-del" title="삭제" onclick="event.preventDefault();buyDel(\''+x.id+'\')">✕</button>':'')+'</label>';
+    });
+    html+='</div>';
+  });
+  box.innerHTML=html;
+  var tot=items.length;
+  document.getElementById('buyProgBar').style.width=(tot?done/tot*100:0)+'%';
+  document.getElementById('buyProgTxt').textContent='구매 완료 '+done+' / '+tot;
+}
+function buyNeedMe(){ if(!buyMe()){ alert('먼저 위에서 "나는" 이름을 골라주세요 🙂'); return false; } return true; }
+function buyToggle(id,on){
+  if(!buyNeedMe()){ buyRender(); return; }
+  var b=buyGet(), val=on?{by:buyMe(),t:Date.now()}:null;
+  if(on) b.checked[id]=val; else delete b.checked[id];
+  buySetLocal(b); buyRender();
+  if(window.fbBuyUpdate) window.fbBuyUpdate('checked.'+id, val);
+}
+function buyAdd(){
+  if(!buyNeedMe()) return;
+  var inp=document.getElementById('buyAddName'), name=inp.value.trim(); if(!name) return;
+  var id='c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  var val={name:name.slice(0,60),cat:document.getElementById('buyAddCat').value,by:buyMe(),t:Date.now()};
+  var b=buyGet(); b.custom[id]=val; buySetLocal(b); inp.value=''; buyRender();
+  if(window.fbBuyUpdate) window.fbBuyUpdate('custom.'+id, val);
+}
+function buyDel(id){
+  var b=buyGet(), c=b.custom[id]; if(!c) return;
+  if(!confirm('"'+c.name+'" 을(를) 리스트에서 지울까요?')) return;
+  delete b.custom[id]; delete b.checked[id]; buySetLocal(b); buyRender();
+  if(window.fbBuyUpdate){ window.fbBuyUpdate('custom.'+id, null); window.fbBuyUpdate('checked.'+id, null); }
+}
+document.addEventListener('DOMContentLoaded', buyRender);
+</script>
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -3389,7 +3518,7 @@ function _push(){
       done: safeJSON('done_sap2026',[]),
       at:   Date.now()
     };
-    _ref.set(payload)
+    _ref.set(payload, {mergeFields:['ev','kb','done','at']}) /* buy 필드는 건드리지 않음 */
       .then(function(){ _show('✅ 저장됨', true); })
       .catch(function(e){ _show('❌ 오류', true); console.error(e); });
   }, 900);
@@ -3426,9 +3555,24 @@ function _apply(data){
       localStorage.setItem('done_sap2026', JSON.stringify(data.done));
       if(typeof window.evLoadDone==='function') window.evLoadDone();
     }
+    /* 구매 리스트 */
+    if(data.buy && typeof data.buy==='object'){
+      localStorage.setItem('buy_sap2026', JSON.stringify(data.buy));
+      if(typeof window.buyRender==='function') window.buyRender();
+    }
   }catch(e){ console.error('_apply',e); }
   _pushing = false;
 }
+
+/* 구매 리스트: 항목 하나만 원자적으로 갱신 (다른 사람 체크를 덮어쓰지 않음) */
+window.fbBuyUpdate = function(path, val){
+  var u = {};
+  u['buy.'+path] = (val===null) ? firebase.firestore.FieldValue.delete() : val;
+  _show('☁️ 저장 중...');
+  _ref.update(u)
+    .then(function(){ _show('✅ 공유됨', true); })
+    .catch(function(e){ _show('❌ 오류', true); console.error('buy',e); });
+};
 
 /* 실시간 리스너 */
 _ref.onSnapshot(function(snap){
