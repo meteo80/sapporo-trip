@@ -3441,7 +3441,7 @@ function buyEsc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':
 function buyItems(b){
   var items=BUY_DEFAULT.filter(function(x){return !b.removed[x.id];}).map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,url:x.url||'',img:x.img||'',custom:false};});
   Object.keys(b.custom).sort(function(a,c){return (b.custom[a].t||0)-(b.custom[c].t||0);}).forEach(function(id){
-    var c=b.custom[id]; if(c&&c.name) items.push({id:id,cat:BUY_CATS[c.cat]?c.cat:'etc',name:c.name,note:c.by?(c.by+' 추가'):'',custom:true});
+    var c=b.custom[id]; if(c&&c.name) items.push({id:id,cat:BUY_CATS[c.cat]?c.cat:'etc',name:c.name,note:(c.note?c.note+' · ':'')+(c.by?(c.by+' 추가'):''),url:(typeof c.url==='string'&&/^https:\/\//.test(c.url))?c.url:'',img:(typeof c.img==='string'&&/^buy\/[\w.-]+$/.test(c.img))?c.img:'',custom:true});
   });
   return items;
 }
