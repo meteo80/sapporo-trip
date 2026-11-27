@@ -3420,13 +3420,13 @@ var BUY_DEFAULT=[
   {id:'k4',cat:'goods',name:'귀멸·주술 굿즈',note:'애니메이트'}
 ];
 var BUY_STORE='buy_sap2026', BUY_ME='buy_me_sap2026';
-function buyGet(){ try{ var b=JSON.parse(localStorage.getItem(BUY_STORE)||'{}'); b.checked=b.checked||{}; b.custom=b.custom||{}; return b; }catch(e){ return {checked:{},custom:{}}; } }
+function buyGet(){ try{ var b=JSON.parse(localStorage.getItem(BUY_STORE)||'{}'); b.checked=b.checked||{}; b.custom=b.custom||{}; b.removed=b.removed||{}; return b; }catch(e){ return {checked:{},custom:{},removed:{}}; } }
 function buySetLocal(b){ try{ localStorage.setItem(BUY_STORE, JSON.stringify(b)); }catch(e){} }
 function buyMe(){ try{ return localStorage.getItem(BUY_ME)||''; }catch(e){ return ''; } }
 function buySetMe(n){ try{ localStorage.setItem(BUY_ME,n); }catch(e){} buyRender(); }
 function buyEsc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
 function buyItems(b){
-  var items=BUY_DEFAULT.map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,custom:false};});
+  var items=BUY_DEFAULT.filter(function(x){return !b.removed[x.id];}).map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,custom:false};});
   Object.keys(b.custom).sort(function(a,c){return (b.custom[a].t||0)-(b.custom[c].t||0);}).forEach(function(id){
     var c=b.custom[id]; if(c&&c.name) items.push({id:id,cat:BUY_CATS[c.cat]?c.cat:'etc',name:c.name,note:c.by?(c.by+' 추가'):'',custom:true});
   });
@@ -3448,10 +3448,12 @@ function buyRender(){
       html+='<label class="buy-row'+(ck?' done':'')+'"><input type="checkbox"'+(ck?' checked':'')+' onchange="buyToggle(\''+x.id+'\',this.checked)">'+
         '<span class="buy-nm">'+buyEsc(x.name)+(x.note?'<small>'+buyEsc(x.note)+'</small>':'')+'</span>'+
         (by?'<span class="buy-by">'+buyEsc(by)+'</span>':'')+
-        (x.custom?'<button class="buy-del" title="삭제" onclick="event.preventDefault();buyDel(\''+x.id+'\')">✕</button>':'')+'</label>';
+        '<button class="buy-del" title="삭제" onclick="event.preventDefault();event.stopPropagation();buyDel(\''+x.id+'\')">✕</button></label>';
     });
     html+='</div>';
   });
+  var rmN=Object.keys(b.removed).filter(function(k){return b.removed[k];}).length;
+  if(rmN) html+='<div style="text-align:right;margin:-4px 0 12px"><button class="buy-who" onclick="buyRestore()">↩ 지운 기본 항목 '+rmN+'개 되살리기</button></div>';
   box.innerHTML=html;
   var tot=items.length;
   document.getElementById('buyProgBar').style.width=(tot?done/tot*100:0)+'%';
@@ -3474,10 +3476,22 @@ function buyAdd(){
   if(window.fbBuyUpdate) window.fbBuyUpdate('custom.'+id, val);
 }
 function buyDel(id){
-  var b=buyGet(), c=b.custom[id]; if(!c) return;
-  if(!confirm('"'+c.name+'" 을(를) 리스트에서 지울까요?')) return;
-  delete b.custom[id]; delete b.checked[id]; buySetLocal(b); buyRender();
-  if(window.fbBuyUpdate){ window.fbBuyUpdate('custom.'+id, null); window.fbBuyUpdate('checked.'+id, null); }
+  var b=buyGet(), c=b.custom[id], d=BUY_DEFAULT.filter(function(x){return x.id===id;})[0];
+  var name=c?c.name:(d?d.name:''); if(!name) return;
+  if(!confirm('"'+name+'" 을(를) 리스트에서 지울까요?\n(가족 모두의 리스트에서 지워져요)')) return;
+  delete b.checked[id];
+  if(c) delete b.custom[id]; else b.removed[id]=true;
+  buySetLocal(b); buyRender();
+  if(window.fbBuyUpdate){
+    window.fbBuyUpdate('checked.'+id, null);
+    if(c) window.fbBuyUpdate('custom.'+id, null); else window.fbBuyUpdate('removed.'+id, true);
+  }
+}
+function buyRestore(){
+  var b=buyGet(), ids=Object.keys(b.removed); if(!ids.length) return;
+  if(!confirm('지운 기본 항목 '+ids.length+'개를 다시 살릴까요?')) return;
+  b.removed={}; buySetLocal(b); buyRender();
+  if(window.fbBuyUpdate) ids.forEach(function(id){ window.fbBuyUpdate('removed.'+id, null); });
 }
 document.addEventListener('DOMContentLoaded', buyRender);
 </script>
