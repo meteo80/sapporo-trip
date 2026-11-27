@@ -338,6 +338,7 @@
     .buy-nm small{display:block;font-size:11px;color:#8a97a8}
     .buy-row.done .buy-nm{text-decoration:line-through;color:#8a97a8}
     .buy-by{font-size:11px;font-weight:700;color:#3A7A57;white-space:nowrap}
+    .buy-link{display:inline-block;margin-left:4px;font-weight:700;color:#2f6fa3;text-decoration:none;border:1px solid #2f6fa3;border-radius:10px;padding:0 7px;font-size:11px}
     .buy-del{border:none;background:none;color:#c0392b;font-size:15px;cursor:pointer;padding:2px 4px}
     .buy-add{display:flex;gap:6px;flex-wrap:wrap}
     .buy-add select,.buy-add input{border:1.5px solid var(--border);border-radius:10px;padding:8px 10px;font-size:13px;background:var(--white);color:var(--text)}
@@ -3417,7 +3418,17 @@ var BUY_DEFAULT=[
   {id:'k1',cat:'goods',name:'포켓몬카드 (삿포로 한정)',note:'포켓몬센터 · 빅카메라'},
   {id:'k2',cat:'goods',name:'치이카와 오타루 한정 굿즈',note:'모구모구혼포 · 3일차'},
   {id:'k3',cat:'goods',name:'치이카와랜드 굿즈',note:'파르코 B2'},
-  {id:'k4',cat:'goods',name:'귀멸·주술 굿즈',note:'애니메이트'}
+  {id:'k4',cat:'goods',name:'귀멸·주술 굿즈',note:'애니메이트'},
+  /* ↓ 사진(구매물품 폴더)으로 고른 물건 */
+  {id:'p1',cat:'gift',name:'르타오 쁘띠 쇼콜라 스트로베리 (빨간 캔)',note:'오타루 르타오 본점 · 신치토세공항 국내선 2층 르타오',url:'https://www.google.com/maps/search/LeTAO+Main+Store+Otaru'},
+  {id:'p2',cat:'gift',name:'르타오 쁘띠 쇼콜라 아몬드 코코아 (갈색 캔)',note:'르타오 본점·공항점 · 스트로베리와 2캔 세트도 있음',url:'https://www.google.com/maps/search/LeTAO+New+Chitose+Airport'},
+  {id:'p3',cat:'goods',name:'치이카와 홋카이도 콘수프 (복주머니 · 오타루점 한정)',note:'모구모구혼포 오타루점 · ¥990 · 1인 구매 개수 제한',url:'https://www.google.com/maps/place/Chiikawa+Mogumogu+Honpo+Otaru+Branch/@43.1927447,141.0068427,17z'},
+  {id:'p4',cat:'goods',name:'치이카와 카스텔라 만쥬 (크림 · 오타루점 한정)',note:'모구모구혼포 오타루점',url:'https://www.google.com/maps/place/Chiikawa+Mogumogu+Honpo+Otaru+Branch/@43.1927447,141.0068427,17z'},
+  {id:'p5',cat:'goods',name:'치이카와 미니 마스코트 (개별포장 랜덤)',note:'사진 속 상품 · 모구모구혼포·파르코 치이카와랜드에서 사진 보여주고 찾기',url:'https://www.google.com/maps/search/Chiikawa+Land+Sapporo+PARCO'},
+  {id:'p6',cat:'drug',name:'키스미 히로인 스피디 마스카라 리무버 (연파랑)',note:'드럭스토어(마쓰모토키요시·츠루하) · 돈키호테',url:'https://www.google.com/maps/search/Matsumoto+Kiyoshi+Tanukikoji+Sapporo'},
+  {id:'p7',cat:'etc',name:'모코탄멘 나카모토 컵라면 (매운 미소)',note:'세븐일레븐 전용 상품 · 호텔 근처 세븐일레븐',url:'https://www.google.com/maps/search/Seven-Eleven+near+Nakajima-koen+Station+Sapporo'},
+  {id:'p8',cat:'etc',name:'부보 바르셀로나 마카담 (마카다미아 초콜릿)',note:'⚠️ 홋카이도 매장 없음(일본은 도쿄만) → 한국 쿠팡에서 구매',url:'https://www.google.com/search?q=%EB%B6%80%EB%B3%B4+%EB%B0%94%EB%A5%B4%EC%85%80%EB%A1%9C%EB%82%98+%EB%A7%88%EC%B9%B4%EB%8B%B4+%EC%BF%A0%ED%8C%A1'},
+  {id:'p9',cat:'etc',name:'부보 바르셀로나 피스타촉 (피스타치오 초콜릿)',note:'⚠️ 홋카이도 매장 없음(일본은 도쿄만) → 한국 쿠팡에서 구매',url:'https://www.google.com/search?q=%EB%B6%80%EB%B3%B4+%EB%B0%94%EB%A5%B4%EC%85%80%EB%A1%9C%EB%82%98+%ED%94%BC%EC%8A%A4%ED%83%80%EC%B4%89+%EC%BF%A0%ED%8C%A1'}
 ];
 var BUY_STORE='buy_sap2026', BUY_ME='buy_me_sap2026';
 function buyGet(){ try{ var b=JSON.parse(localStorage.getItem(BUY_STORE)||'{}'); b.checked=b.checked||{}; b.custom=b.custom||{}; b.removed=b.removed||{}; return b; }catch(e){ return {checked:{},custom:{},removed:{}}; } }
@@ -3426,7 +3437,7 @@ function buyMe(){ try{ return localStorage.getItem(BUY_ME)||''; }catch(e){ retur
 function buySetMe(n){ try{ localStorage.setItem(BUY_ME,n); }catch(e){} buyRender(); }
 function buyEsc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
 function buyItems(b){
-  var items=BUY_DEFAULT.filter(function(x){return !b.removed[x.id];}).map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,custom:false};});
+  var items=BUY_DEFAULT.filter(function(x){return !b.removed[x.id];}).map(function(x){return {id:x.id,cat:x.cat,name:x.name,note:x.note,url:x.url||'',custom:false};});
   Object.keys(b.custom).sort(function(a,c){return (b.custom[a].t||0)-(b.custom[c].t||0);}).forEach(function(id){
     var c=b.custom[id]; if(c&&c.name) items.push({id:id,cat:BUY_CATS[c.cat]?c.cat:'etc',name:c.name,note:c.by?(c.by+' 추가'):'',custom:true});
   });
@@ -3446,7 +3457,7 @@ function buyRender(){
       var when=(ck&&ck.t)?new Date(ck.t).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
       var by=ck?('✓ '+(ck.by||'')+' '+when):'';
       html+='<label class="buy-row'+(ck?' done':'')+'"><input type="checkbox"'+(ck?' checked':'')+' onchange="buyToggle(\''+x.id+'\',this.checked)">'+
-        '<span class="buy-nm">'+buyEsc(x.name)+(x.note?'<small>'+buyEsc(x.note)+'</small>':'')+'</span>'+
+        '<span class="buy-nm">'+buyEsc(x.name)+((x.note||x.url)?'<small>'+buyEsc(x.note||'')+(x.url?' <a class="buy-link" target="_blank" href="'+buyEsc(x.url)+'" onclick="event.stopPropagation()">📍 파는 곳</a>':'')+'</small>':'')+'</span>'+
         (by?'<span class="buy-by">'+buyEsc(by)+'</span>':'')+
         '<button class="buy-del" title="삭제" onclick="event.preventDefault();event.stopPropagation();buyDel(\''+x.id+'\')">✕</button></label>';
     });
